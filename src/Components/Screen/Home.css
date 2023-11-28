@@ -1,0 +1,16 @@
+.header-position {
+    position: fixed;
+    width: 100%;
+    z-index: 100px;
+}
+
+.body-position {
+    padding-top: 100px;
+    
+}
+
+.body-padding {
+    padding-left: 100px;
+    padding-right: 100px;
+    min-height: 500px;
+}

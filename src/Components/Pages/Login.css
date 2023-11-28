@@ -1,0 +1,55 @@
+.login_up_dummy_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: relative;
+    gap: 1rem;
+    /* vh means display height */
+    min-height: calc(100vh - 165px);
+    /* min-height: 700px; */
+    /* background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/rk.png"); */
+}
+
+.login_up_content {
+    padding: 30px 20px;
+    width: 400px;
+    margin: auto;
+    z-index: -100;
+}
+
+.login_up_content h2 {
+    color: var(--primary-orange);
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.login_up_content label {
+    font-size: 12px;
+}
+
+.avatar_style {
+    background-color: var(--primary-orange) !important;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.text_field_login {
+    margin-top: 10px !important;
+    /* margin-left: calc(100% - 65px); */
+    color: white !important;
+    font-weight: bold !important;
+
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-icon-div {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+}
