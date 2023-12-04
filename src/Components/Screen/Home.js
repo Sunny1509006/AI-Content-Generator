@@ -13,6 +13,8 @@ import { Footer } from "../Common/Footer";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import { Contactus } from "../Pages/Contactus";
+import { ServiceCard } from "../Common/ServiceCard";
+import FAQ from "../Pages/Faqs";
 
 export const Home = () => {
   return (
@@ -27,6 +29,8 @@ export const Home = () => {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/contactus" element={<Contactus />} />
+            <Route exact path="/service" element={<ServiceCard />} />
+            <Route exact path="/faqs" element={<FAQ />} />
           </Routes>
         </div>
         <Footer />

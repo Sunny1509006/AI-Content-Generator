@@ -9,33 +9,38 @@ const routes = [
     name: "Home",
   },
   {
-    path: "/acts",
-    name: "Service",
+    path: "/about",
+    name: "About",
   },
   {
-    path: "/acts",
+    path: "/pricing",
     name: "Pricing",
   },
   {
-    path: "/acts",
+    path: "/service",
+    name: "Service",
+  },
+  {
+    path: "/affiliate",
     name: "Affiliate",
   },
   {
-    path: "/acts",
-    name: "FAQs",
-  },
-  {
-    path: "/contactus",
-    name: "Contact",
+    path: "/signup",
+    name: "Register",
   },
   {
     path: "/login",
     name: "Login",
   },
   {
-    path: "/signup",
-    name: "Register",
+    path: "/contactus",
+    name: "Contact",
   },
+  // {
+  //   path: "/faqs",
+  //   name: "FAQs",
+  // },
+
 ];
 
 export const Header = () => {
@@ -57,7 +62,7 @@ export const Header = () => {
       </div>
       <div className="button-div">
         <Button variant="contained" className="custom-button">
-          Try Free
+          Trial
         </Button>
       </div>
     </div>
