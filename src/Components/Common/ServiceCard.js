@@ -27,7 +27,7 @@ export const ServiceCard = () => {
         <CardMedia
           component="img"
           height="140"
-          image="/images/no_image.jpg"
+          image="/images/web_design.png"
           alt="green iguana"
         />
         <CardContent>

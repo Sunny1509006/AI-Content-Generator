@@ -25,7 +25,7 @@ const  FaqsSingle = ({ question, answer }) => {
                 marginTop: '10px',
                 // border: '1px solid rgba(110, 110, 110, 0.580164)',
                 boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)',
-
+                
             }}>
                 {/* {question || <Skeleton />} */}
                 {question}

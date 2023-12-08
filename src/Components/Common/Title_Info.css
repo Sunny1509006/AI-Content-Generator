@@ -1,0 +1,13 @@
+.title-info-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-info-main p{
+    margin-top: 20px;
+    padding: 0px 100px;
+    color: var(--secondary-black) !important;
+    font-size: 18px;
+}
