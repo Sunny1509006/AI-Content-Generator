@@ -5,9 +5,36 @@
     align-items: center;
 }
 
-.title-info-main p{
-    margin-top: 20px;
-    padding: 0px 100px;
+.title-info-main h1 {
+    font-size: 40px;
+}
+
+.title-info-body {
+    display: flex;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.title-info-body img{
+    height: 300px ;
+}
+
+.title-info-body p{
+    /* margin-top: 20px;     */
+    padding: 0px 40px;
     color: var(--secondary-black) !important;
-    font-size: 18px;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+
+.title-info-p-button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.blue-color {
+    color: var(--primary-color);
+    font-weight: bold;
 }

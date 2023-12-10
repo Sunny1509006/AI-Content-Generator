@@ -41,7 +41,7 @@ const YouTubePlayer = () => {
   };
 
   return (
-    <div>
+    <div style={{padding: '40px'}}>
       {videoId && (
         <YouTube videoId={videoId} opts={opts} onReady={onReady} onError={onError} />
       )}

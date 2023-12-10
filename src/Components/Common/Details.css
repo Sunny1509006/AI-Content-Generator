@@ -1,0 +1,18 @@
+.details-main {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 80px;
+    gap: 40px;
+}
+
+.details-main h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.details-main p{
+    color: var(--secondary-black);
+    font-size: 18px;
+    line-height: 30px;
+
+}
