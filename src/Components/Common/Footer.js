@@ -54,8 +54,8 @@ export const Footer = () => {
             About Faisaliteb.AI
           </p>
           <div className="footer-list">
-            <p>Refund Policy</p>
-            <p>Terms</p>
+            <Link to="/refund_policy" style={{textDecoration: 'none'}}><p>Refund Policy</p></Link>
+            <Link to="/terms_and_conditions" style={{textDecoration: 'none'}}><p>Terms & Conditions</p></Link>
             <Link to="/faqs" style={{textDecoration: 'none'}}><p>Faqs</p></Link>
           </div>
         </div>

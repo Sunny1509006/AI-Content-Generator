@@ -1,3 +1,4 @@
+import ScrollToTop from "./Components/Common/ScrollToTop";
 import { Home } from "./Components/Screen/Home";
 import {
   BrowserRouter as Router,
@@ -6,7 +7,9 @@ import {
 function App() {
   return (
     <div>
+      
       <Router>
+      <ScrollToTop />
         <Home />
       </Router>
     </div>

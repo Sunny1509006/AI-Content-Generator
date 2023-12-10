@@ -28,7 +28,7 @@ const YouTubePlayer = () => {
     height: '600',
     width: '100%',
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
     },
   };
 

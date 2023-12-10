@@ -16,6 +16,9 @@ import { Contactus } from "../Pages/Contactus";
 import { ServiceCard } from "../Common/ServiceCard";
 import FAQ from "../Pages/Faqs";
 import { Service } from "../Pages/Service";
+import { Refund_Policy } from "../Pages/Refund_Policy";
+import { Terms_Conditions } from "../Pages/Terms_Conditions";
+import { About } from "../Pages/About";
 
 export const Home = () => {
   return (
@@ -30,9 +33,11 @@ export const Home = () => {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/contactus" element={<Contactus />} />
-            {/* <Route exact path="/service" element={<ServiceCard />} /> */}
             <Route exact path="/faqs" element={<FAQ />} />
+            <Route exact path="/about" element={<About />} />
             <Route exact path="/service" element={<Service />} />
+            <Route exact path="/refund_policy" element={<Refund_Policy />} />
+            <Route exact path="/terms_and_conditions" element={<Terms_Conditions />} />
           </Routes>
         </div>
         <Footer />
