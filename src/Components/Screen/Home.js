@@ -19,6 +19,7 @@ import { Service } from "../Pages/Service";
 import { Refund_Policy } from "../Pages/Refund_Policy";
 import { Terms_Conditions } from "../Pages/Terms_Conditions";
 import { About } from "../Pages/About";
+import { Pricing } from "../Pages/Pricing";
 
 export const Home = () => {
   return (
@@ -34,6 +35,7 @@ export const Home = () => {
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/contactus" element={<Contactus />} />
             <Route exact path="/faqs" element={<FAQ />} />
+            <Route exact path="/pricing" element={<Pricing />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/service" element={<Service />} />
             <Route exact path="/refund_policy" element={<Refund_Policy />} />
