@@ -1,5 +1,6 @@
 // import React from "react";
 import "./Title_Info.css";
+import { motion } from "framer-motion";
 
 // export const Title_Info = () => {
 //   return (
@@ -10,7 +11,7 @@ import "./Title_Info.css";
 //   );
 // };
 
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -28,6 +29,25 @@ const bull = (
 );
 
 export const Title_Info = () => {
+  const texts = [
+    {
+      line1: "Compose a 1000-Word Article",
+      line2: "With a Single Click!",
+    },
+    {
+      line1: "Control Article Length By",
+      line2: "Short, Medium & Long Format",
+    },
+  ];
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [texts.length]);
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -45,9 +65,22 @@ export const Title_Info = () => {
           <br />
           {'"a benevolent smile"'}
         </Typography> */}
-        <div className="title-info-main">
-          <h1>Discover the Power of Affordable AI with Faisaliteb AI</h1>
-          <div className="title-info-body">
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 75 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.5, delay: 0.25 }}
+          
+        >
+          <div className="title-info-main">
+            {/* <h1>Discover the Power of Affordable AI with Faisaliteb AI</h1> */}
+            {/* <h1 style={{ fontSize: "60px" }}>
+              WELCOME TO <span style={{ color: "#FF4A17" }}>FAISALITEB.AI</span>
+            </h1> */}
+            {/* <div className="title-info-body">
             <div className="title-info-p-button">
               <p>
                 Welcome to <span className="blue-color">faisaliteb.ai</span>,
@@ -64,13 +97,70 @@ export const Title_Info = () => {
                     marginTop: '20px',     
                 }}>
                 <Button variant="contained" className="custom-button" >
-                  Trial
+                  Start Free Trial
                 </Button>
               </div>
             </div>
             <img src="/images/power_of_ai.jpg" />
+          </div> */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: "24px",
+              }}
+            >
+              <motion.span
+                key={currentTextIndex}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "50px",
+                      // fontStyle: "italic",
+                      fontWeight: "bold",
+                      color: "#445658",
+                    }}
+                  >
+                    {texts[currentTextIndex].line1}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "30px",
+                      fontStyle: "italic",
+                      color: "#445658",
+                    }}
+                  >
+                    {texts[currentTextIndex].line2}
+                  </p>
+                </div>
+              </motion.span>
+            </div>
+            <div
+              className="button-div"
+              style={{
+                padding: "0 40px",
+                marginTop: "20px",
+                
+              }}
+            >
+              <Button variant="contained" className="custom-button" >
+                Start Free Trial
+              </Button>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </CardContent>
       {/* <CardActions>
         <Button size="small">Learn More</Button>
