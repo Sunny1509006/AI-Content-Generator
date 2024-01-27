@@ -18,6 +18,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 const bull = (
   <Box
@@ -155,9 +156,10 @@ export const Title_Info = () => {
                 
               }}
             >
-              <Button variant="contained" className="custom-button" >
+              <Link to="/info-article"><Button variant="contained" className="custom-button" >
                 Start Free Trial
               </Button>
+              </Link>
             </div>
           </div>
         </motion.div>
