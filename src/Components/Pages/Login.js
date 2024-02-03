@@ -5,6 +5,8 @@ import './Login.css'
 import TextField from '@mui/material/TextField';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+import { Captcha } from '../Common/Captcha';
+import axios from '../Axios';
 // import Cookies from 'universal-cookie'
 // import jwt from "jwt-decode"
 
@@ -13,47 +15,46 @@ const Login = (props) => {
 
     // const cookies = new Cookies();
 
-    const [mobile, setMobile] = useState("")
+    const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleMobile = (e) => {
-        setMobile(e.target.value)
+    const handleUserName = (e) => {
+        setUserName(e.target.value)
     }
 
     const handlePassword = (e) => {
         setPassword(e.target.value)
     }
 
-    // const handleApi = () => {
-    //     console.log(mobile, password)
-    //     axios.post("/api/login/", {
-    //         phone_number: "+88"+mobile,
-    //         password: password,
-    //     })
-    //         .then(result => {
-    //             localStorage.setItem('jwt', result.data.jwt);
-    //             // cookies.set("jwt", result.data.jwt);
+    const handleApi = () => {
+        
+        axios.post("/api/user/login", {
+            username: userName,
+            password: password,
+            hash: "NotInUse"
+        })
+            .then(result => {
+                localStorage.setItem('username', userName);
+                // cookies.set("jwt", result.data.jwt);
 
-    //             console.log(result.data.detail)
-    //             authContext.setToken(result.data.jwt);
-    //             if (localStorage.getItem('jwt')) {
-    //                 navigate('/')
-    //             }
-    //         })
-    //         .catch(error => {
-    //             if (error.response && error.response.status === 403) {
-    //                 // The request was made and the server responded with a status code
-    //                 // that falls out of the range of 2xx
-    //                 alert(error.response.data.detail);
-    //               } else if (error.request) {
-    //                 // The request was made but no response was received
-    //                 alert(error.request);
-    //               } else {
-    //                 // Something happened in setting up the request that triggered an Error
-    //                 alert('Error', error.detail);
-    //               }
-    //         })
-    // }
+                if (localStorage.getItem('username')) {
+                    navigate('/')
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 403) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    alert(error.response.data.detail);
+                  } else if (error.request) {
+                    // The request was made but no response was received
+                    alert(error.request);
+                  } else {
+                    // Something happened in setting up the request that triggered an Error
+                    alert('Error', error.detail);
+                  }
+            })
+    }
 
     return (
         <Grid className='login_up_dummy_div'>
@@ -69,9 +70,9 @@ const Login = (props) => {
                 </Grid>
                 <form>
                     <div className='login-form'>
-                    <TextField required={true} fullWidth label="Username or Email" variant="outlined" className='text_field'
-                        value={mobile}
-                        onChange={handleMobile}
+                    <TextField required={true} fullWidth label="Username" variant="outlined" className='text_field'
+                        value={userName}
+                        onChange={handleUserName}
                         inputProps={{ style: { height: '15px' } }} />
                     <TextField required={true} fullWidth type='password' label="Password" variant="outlined" className='text_field'
                         value={password}
@@ -80,7 +81,8 @@ const Login = (props) => {
                     {/* <Button variant='contained' className='text_field_login' */}
                         {/* // onClick={handleApi} */}
                     {/* >লগইন</Button> */}
-                    <Button className='text_field_login custom-button'>Login</Button>
+                    <Captcha />
+                    <Button className='text_field_login custom-button' onClick={handleApi}>Login</Button>
                     </div>
                 </form>
 

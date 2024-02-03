@@ -5,6 +5,8 @@ import "./SignUp.css";
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
+import axios from "../Axios";
+import { Captcha } from "../Common/Captcha";
 
 // style={{ backgroundImage: `url(${process.env.PUBLIC_URL + "images/vumisignin.png"})`,
 // backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}
@@ -18,6 +20,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMatchError, setPasswordMatchError] = useState(false)
 
   const handleFullName = (event) => {
     setFullName(event.target.value);
@@ -43,34 +46,40 @@ const SignUp = () => {
     setConfirmPassword(event.target.value);
   };
 
-  // const handleApi = () => {
-  //     // console.log(fullName, mobile, email, password, confirmPassword)
-  //     axios.post("/api/register/", {
-  //         full_name: fullName,
-  //         phone_number: "+88"+mobile,
-  //         email: email,
-  //         password: password,
-  //         confirm_password: confirmPassword,
-  //     })
-  //         .then(result => {
-  //             console.log(result.data)
-  //             alert("success")
-  //             navigate("/login")
-  //         })
-  //         .catch(error=> {
-  //             if (error.response && error.response.status === 403) {
-  //                 // The request was made and the server responded with a status code
-  //                 // that falls out of the range of 2xx
-  //                 alert(error.response.data.detail);
-  //               } else if (error.request) {
-  //                 // The request was made but no response was received
-  //                 alert(error.request);
-  //               } else {
-  //                 // Something happened in setting up the request that triggered an Error
-  //                 alert('Error', error.detail);
-  //               }
-  //         })
-  // }
+  const handleApi = () => {
+      // console.log(fullName, mobile, email, password, confirmPassword)
+      if (password === confirmPassword) {
+      axios.post("/api/user/register", {
+          name: fullName,
+          username: userName,
+          mobile: "+88"+mobile,
+          email: email,
+          password: password,
+          hash: "NotInUse"
+      })
+          .then(result => {
+              console.log(result.data)
+              alert("success")
+              navigate("/login")
+          })
+          .catch(error=> {
+              if (error.response && error.response.status === 403) {
+                  // The request was made and the server responded with a status code
+                  // that falls out of the range of 2xx
+                  alert(error.response.data.detail);
+                } else if (error.request) {
+                  // The request was made but no response was received
+                  alert(error.request);
+                } else {
+                  // Something happened in setting up the request that triggered an Error
+                  alert('Error', error.detail);
+                }
+          })
+        } else {
+          // Display an error message if passwords do not match
+          setPasswordMatchError(true);
+        }
+  }
 
   return (
     <Grid className="sign_up_dummy_div">
@@ -154,7 +163,10 @@ const SignUp = () => {
                         onClick={handleApi}
                     >সাইন আপ</Button> */}
             {/* type = "submit" */}
-            <Button className="text_field_sign custom-button">Submit</Button>
+            {passwordMatchError && <p style={{color: 'red'}}>Passwords do not match. Please try again.</p>}
+            <Captcha />
+            <Button className="text_field_sign custom-button" onClick={handleApi}>Submit</Button>
+            
           </div>
         </form>
       </Paper>
