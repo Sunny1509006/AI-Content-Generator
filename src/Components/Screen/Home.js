@@ -21,6 +21,7 @@ import { Terms_Conditions } from "../Pages/Terms_Conditions";
 import { About } from "../Pages/About";
 import { Pricing } from "../Pages/Pricing";
 import { InfoArticle } from "../ContentGenerator/InfoArticle";
+import { UserDashBoard } from "../Profile/UserDashBoard";
 
 export const Home = () => {
   return (
@@ -42,6 +43,7 @@ export const Home = () => {
             <Route exact path="/service" element={<Service />} />
             <Route exact path="/refund_policy" element={<Refund_Policy />} />
             <Route exact path="/terms_and_conditions" element={<Terms_Conditions />} />
+            <Route exact path="/dashboard" element={<UserDashBoard />} />
           </Routes>
         </div>
         <Footer />

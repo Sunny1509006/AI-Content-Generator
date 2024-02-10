@@ -1,18 +1,18 @@
 import { Avatar, Button, Grid, Paper } from "@mui/material";
 import React, { useState } from "react";
 import "./SignUp.css";
-// import { AddCircleOutlineOutlined } from '@mui/icons-material'
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios";
 import { Captcha } from "../Common/Captcha";
-
-// style={{ backgroundImage: `url(${process.env.PUBLIC_URL + "images/vumisignin.png"})`,
-// backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}
+import useAuth from "../../hooks/authHooks";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const {hashValue} = useAuth()
+
+  const [captchaMatchResult, setCaptchaMatchResult] = useState(false)
 
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
@@ -20,7 +20,9 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [inputCaptchaValue, setInputCaptchaValue] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(false)
+  const [captchaMatchError, setCaptchaMatchError] = useState(false)
 
   const handleFullName = (event) => {
     setFullName(event.target.value);
@@ -40,19 +42,53 @@ const SignUp = () => {
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
+    if (password === confirmPassword) {
+      setPasswordMatchError(false)
+    }
   };
 
   const handleConfirmPassword = (event) => {
     setConfirmPassword(event.target.value);
+    if (password === confirmPassword) {
+      setPasswordMatchError(false)
+    }
   };
+
+  const handleCaptchaValue = (event) => {
+    setInputCaptchaValue(event.target.value);
+  };
+
+  const captchaMatch = () => {
+    console.log(hashValue)
+    console.log(inputCaptchaValue)
+    axios.post("/api/captcha/match", {
+      hash: hashValue,
+      text: inputCaptchaValue
+    })
+    .then(response => {
+          console.log(response.data)
+          setCaptchaMatchResult(response.data.result)
+          if (captchaMatchResult === true)
+          {
+            setCaptchaMatchError(false)
+          }
+          
+    })
+  }
+
 
   const handleApi = () => {
       // console.log(fullName, mobile, email, password, confirmPassword)
+    captchaMatch()
+    console.log(password)
+    console.log(confirmPassword)
       if (password === confirmPassword) {
+        console.log(captchaMatchResult)
+        if (captchaMatchResult === true) {
       axios.post("/api/user/register", {
           name: fullName,
           username: userName,
-          mobile: "+88"+mobile,
+          mobile: mobile,
           email: email,
           password: password,
           hash: "NotInUse"
@@ -75,6 +111,10 @@ const SignUp = () => {
                   alert('Error', error.detail);
                 }
           })
+        }
+        else {
+            setCaptchaMatchError(true)
+        }
         } else {
           // Display an error message if passwords do not match
           setPasswordMatchError(true);
@@ -159,12 +199,19 @@ const SignUp = () => {
                 inputProps={{ style: { height: "15px" } }}
               />
             </div>
-            {/* <Button variant='contained' className='text_field_sign'
-                        onClick={handleApi}
-                    >সাইন আপ</Button> */}
-            {/* type = "submit" */}
             {passwordMatchError && <p style={{color: 'red'}}>Passwords do not match. Please try again.</p>}
             <Captcha />
+            {captchaMatchError && <p style={{color: 'red'}}>Captcha did not match. Please try again.</p>}
+            <TextField
+                required={true}
+                fullWidth
+                label="Enter Captcha Here"
+                variant="outlined"
+                className="text_field"
+                value={inputCaptchaValue}
+                onChange={handleCaptchaValue}
+                inputProps={{ style: { height: "15px" } }}
+                />
             <Button className="text_field_sign custom-button" onClick={handleApi}>Submit</Button>
             
           </div>

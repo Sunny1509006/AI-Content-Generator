@@ -20,10 +20,10 @@ const routes = [
     path: "/service",
     name: "Service",
   },
-  {
-    path: "/affiliate",
-    name: "Affiliate",
-  },
+  // {
+  //   path: "/affiliate",
+  //   name: "Affiliate",
+  // },
   {
     path: "/signup",
     name: "Register",
