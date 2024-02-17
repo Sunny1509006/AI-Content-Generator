@@ -5,15 +5,18 @@ import { useNavigate } from 'react-router-dom';
 export const AuthContext = React.createContext({
   hashValue: null,
   captchaUrl: null,
+  loginData: null,
   setHashValue: () => { },
   fetchCaptcha: () => { },
   setCaptchaUrl: () => { },
+  setLoginData: () => { },
 });
 
 
 const AuthProvider = (props) => {
     const [hashValue, setHashValue] = useState('');
     const [captchaUrl, setCaptchaUrl] = useState('');
+    const [loginData, setLoginData] = useState({});
 
     const fetchCaptcha = async () => {
       try {
@@ -35,7 +38,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider value={{
-        hashValue,captchaUrl, setHashValue, fetchCaptcha, setCaptchaUrl
+        hashValue,captchaUrl, loginData,  setHashValue, fetchCaptcha, setCaptchaUrl, setLoginData
     }}>
       {props.children}
     </AuthContext.Provider>

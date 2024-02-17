@@ -14,7 +14,7 @@ import useAuth from "../../hooks/authHooks";
 const Login = (props) => {
   const navigate = useNavigate();
 
-  const {hashValue} = useAuth()
+  const {hashValue, setLoginData, loginData} = useAuth()
   const [captchaMatchResult, setCaptchaMatchResult] = useState(false)
 
   const [userName, setUserName] = useState("");
@@ -63,7 +63,9 @@ const Login = (props) => {
         hash: "NotInUse",
       })
       .then((result) => {
+        setLoginData(result.data)
         localStorage.setItem("userlogin", result.data.result);
+        console.log(loginData)
         // cookies.set("jwt", result.data.jwt);
         if (localStorage.getItem("userlogin")){
           navigate("/dashboard");
