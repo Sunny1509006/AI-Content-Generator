@@ -48,6 +48,9 @@ const routes = [
 export const Header = () => {
   const { loginData } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [result, setResult] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   localStorage.setItem("isOpen", isOpen);
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -63,17 +66,28 @@ export const Header = () => {
   const handleApi = () => {
     // axios.post("/api/logout/", {jwt: token})
     setShowMenu(!showMenu);
+    localStorage.setItem('result', false)
+    setResult(false)
     // removeToken();
     
   }
+
+  useEffect( () => {
+    
+      setResult(localStorage.getItem("result"))
+      setName(localStorage.getItem("name"))
+      setEmail(localStorage.getItem("email"))
+
+  }, [])
+
 
   return (
     <div className="header-main">
       <img src="/images/faisaliteb-logo.png" className="header_logo" />
       <div className="header-link">
         {routes.map((route) =>
-          loginData.result === true &&
-          (route.name === "Login" || route.name === "Register") ? null : (
+          (result === 'true' &&
+          (route.name === "Login" || route.name === "Register")) ? null : (
             <NavLink
               to={route.path}
               key={route.name}
@@ -84,7 +98,7 @@ export const Header = () => {
           )
         )}
       </div>
-      {loginData.result === true ? (
+      {result === 'true' ? (
       <div style={{ 
         display: 'flex',
         
@@ -114,7 +128,7 @@ export const Header = () => {
                 margin: "0px 0px 0px",
               }}
             >
-              {loginData?.name}
+              {name}
             </p>
           </div>
           <div>
@@ -139,16 +153,23 @@ export const Header = () => {
                   boxShadow: "1px 1px 1px 1px black",
                 }}
               >
-                {/* <button onClick={() => console.log('Go to profile page')}>
-            profile
-          </button> */}
                 <Link
                   to="/profile"
                   onClick={() => {
                     setShowMenu(!showMenu);
                   }}
+                  style={{textDecoration: 'none', color: 'black'}}
                 >
-                  <div>Profile</div>
+                  <div >Profile</div>
+                </Link>
+                <Link
+                  to="/dashboard"
+                  onClick={() => {
+                    setShowMenu(!showMenu);
+                  }}
+                  style={{textDecoration: 'none', color: 'black'}}
+                >
+                  <div>Dashboard</div>
                 </Link>
                 <div>
                   <Button
@@ -171,7 +192,7 @@ export const Header = () => {
       ) : (
         <div className="button-div">
           <Button variant="contained" className="custom-button">
-            Trial
+            Free Trial
           </Button>
         </div>
       )}

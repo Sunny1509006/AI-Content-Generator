@@ -34,4 +34,11 @@ code {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.border-div {
+  /* height: 2px; */
+  border: 1px solid #fdc5b5;
+  margin: 30px 0px;
+
+}
+
   

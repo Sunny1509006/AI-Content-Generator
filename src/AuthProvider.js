@@ -18,6 +18,7 @@ const AuthProvider = (props) => {
     const [captchaUrl, setCaptchaUrl] = useState('');
     const [loginData, setLoginData] = useState({});
 
+
     const fetchCaptcha = async () => {
       try {
         const response = await axios.get('/api/captcha/new', {

@@ -64,11 +64,15 @@ const Login = (props) => {
       })
       .then((result) => {
         setLoginData(result.data)
-        localStorage.setItem("userlogin", result.data.result);
+        localStorage.setItem("result", result.data.result);
+        localStorage.setItem("email", result.data.email);
+        localStorage.setItem("name", result.data.name);
         console.log(loginData)
         // cookies.set("jwt", result.data.jwt);
-        if (localStorage.getItem("userlogin")){
-          navigate("/dashboard");
+        if (localStorage.getItem("result")){ 
+          navigate("/dashboard" );
+          window.location.reload();
+          
         }
       })
       .catch((error) => {
