@@ -22,6 +22,7 @@ import { About } from "../Pages/About";
 import { Pricing } from "../Pages/Pricing";
 import { InfoArticle } from "../ContentGenerator/InfoArticle";
 import { UserDashBoard } from "../Profile/UserDashBoard";
+import { PostHistory } from "../Profile/PostHistory";
 
 export const Home = () => {
   return (
@@ -40,6 +41,7 @@ export const Home = () => {
             <Route exact path="/pricing" element={<Pricing />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/info-article" element={<InfoArticle />} />
+            <Route exact path="/post-history" element={<PostHistory />} />
             <Route exact path="/service" element={<Service />} />
             <Route exact path="/refund_policy" element={<Refund_Policy />} />
             <Route exact path="/terms_and_conditions" element={<Terms_Conditions />} />
