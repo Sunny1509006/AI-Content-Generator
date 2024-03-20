@@ -12,15 +12,14 @@ import useAuth from "../../hooks/authHooks";
 // import jwt from "jwt-decode"
 
 const Login = (props) => {
-  const navigate = useNavigate();
-
-  const {hashValue, setLoginData, loginData} = useAuth()
-  const [captchaMatchResult, setCaptchaMatchResult] = useState(false)
-
+  const { setLoginData, loginData } = useAuth();
+  const [captchaMatchResult, setCaptchaMatchResult] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [captchaHash, setCaptchaHash] = useState(null);
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
-  const [captchaMatchError, setCaptchaMatchError] = useState(false)
+  const [captchaMatchError, setCaptchaMatchError] = useState(false);
+  const navigate = useNavigate();
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -34,62 +33,61 @@ const Login = (props) => {
     setInputCaptchaValue(event.target.value);
   };
 
+  const handleFetchCaptcha = ({ captchaHash: hash }) => {
+    setCaptchaHash(hash);
+  };
+
   const captchaMatch = () => {
-    console.log(hashValue)
-    console.log(inputCaptchaValue)
-    axios.post("/api/captcha/match", {
-      hash: hashValue,
-      text: inputCaptchaValue
-    })
-    .then(response => {
-          console.log(response.data)
-          setCaptchaMatchResult(response.data.result)
-          if (captchaMatchResult === true)
-          {
-            setCaptchaMatchError(false)
-          }
-          
-    })
-  }
-
-
-  const handleApi = () => {
-    captchaMatch()
-    if (captchaMatchResult === true) {
     axios
-      .post("/api/user/login", {
-        username: userName,
-        password: password,
-        hash: "NotInUse",
+      .post("/api/captcha/match", {
+        hash: captchaHash,
+        text: inputCaptchaValue,
       })
-      .then((result) => {
-        setLoginData(result.data)
-        localStorage.setItem("result", result.data.result);
-        localStorage.setItem("email", result.data.email);
-        localStorage.setItem("name", result.data.name);
-        console.log(loginData)
-        // cookies.set("jwt", result.data.jwt);
-        if (localStorage.getItem("result")){ 
-          navigate("/dashboard" );
-          window.location.reload();
-          
-        }
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 403) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          alert(error.response.data.detail);
-        } else if (error.request) {
-          // The request was made but no response was received
-          alert(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          alert("Error", error.detail);
+      .then((response) => {
+        console.log(response.data);
+        setCaptchaMatchResult(response.data.result);
+        if (captchaMatchResult === true) {
+          setCaptchaMatchError(false);
         }
       });
+  };
+
+  const handleApi = () => {
+    captchaMatch();
+    if (captchaMatchResult === true) {
+      axios
+        .post("/api/user/login", {
+          username: userName,
+          password: password,
+          hash: "NotInUse",
+        })
+        .then((result) => {
+          setLoginData(result.data);
+          localStorage.setItem("result", result.data.result);
+          localStorage.setItem("email", result.data.email);
+          localStorage.setItem("name", result.data.name);
+          console.log(loginData);
+          // cookies.set("jwt", result.data.jwt);
+          if (localStorage.getItem("result")) {
+            navigate("/dashboard");
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            alert(error.response.data.detail);
+          } else if (error.request) {
+            // The request was made but no response was received
+            alert(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            alert("Error", error.detail);
+          }
+        });
     } else {
-        setCaptchaMatchError(true)
+      setCaptchaMatchError(true);
     }
   };
 
@@ -131,7 +129,7 @@ const Login = (props) => {
             {/* <Button variant='contained' className='text_field_login' */}
             {/* // onClick={handleApi} */}
             {/* >লগইন</Button> */}
-            <Captcha />
+            <Captcha onFetchCaptcha={handleFetchCaptcha} />
             {captchaMatchError && (
               <p style={{ color: "red" }}>
                 Captcha did not match. Please try again.

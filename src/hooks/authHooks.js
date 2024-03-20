@@ -1,16 +1,11 @@
-import { useContext } from 'react';
-import { AuthContext } from '../AuthProvider';
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider";
 
 const useAuth = () => {
-  const { hashValue, captchaUrl, loginData, setCaptchaUrl, fetchCaptcha, setHashValue, setLoginData } = useContext(AuthContext);
+  const { loginData, setLoginData } = useContext(AuthContext);
 
   return {
-    hashValue,
-    captchaUrl,
     loginData,
-    setCaptchaUrl,
-    setHashValue,
-    fetchCaptcha, 
     setLoginData,
   };
 };
