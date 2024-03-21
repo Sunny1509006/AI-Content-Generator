@@ -1,26 +1,24 @@
 import { Avatar, Button, Grid, Paper } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
-// import { AddCircleOutlineOutlined } from '@mui/icons-material'
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
 import { Captcha } from "../Common/Captcha";
 import axios from "../Axios";
+import Cookies from "universal-cookie";
+import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
 import useAuth from "../../hooks/authHooks";
-// import Cookies from 'universal-cookie'
-// import jwt from "jwt-decode"
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
-  const navigate = useNavigate();
-
-  const {hashValue, setLoginData, loginData} = useAuth()
-  const [captchaMatchResult, setCaptchaMatchResult] = useState(false)
-
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [captchaHash, setCaptchaHash] = useState(null);
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
-  const [captchaMatchError, setCaptchaMatchError] = useState(false)
+  const [captchaMatchError, setCaptchaMatchError] = useState(false);
+  const { loggedInUser, fetchAuthUser } = useAuth();
+  const navigate = useNavigate();
+  const cookies = new Cookies(null, { path: "/" });
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -34,45 +32,27 @@ const Login = (props) => {
     setInputCaptchaValue(event.target.value);
   };
 
-  const captchaMatch = () => {
-    console.log(hashValue)
-    console.log(inputCaptchaValue)
-    axios.post("/api/captcha/match", {
-      hash: hashValue,
-      text: inputCaptchaValue
-    })
-    .then(response => {
-          console.log(response.data)
-          setCaptchaMatchResult(response.data.result)
-          if (captchaMatchResult === true)
-          {
-            setCaptchaMatchError(false)
-          }
-          
-    })
-  }
-
+  const handleFetchCaptcha = ({ captchaHash: hash }) => {
+    setCaptchaHash(hash);
+  };
 
   const handleApi = () => {
-    captchaMatch()
-    if (captchaMatchResult === true) {
     axios
-      .post("/api/user/login", {
+      .post("/api/users/login", {
         username: userName,
-        password: password,
-        hash: "NotInUse",
+        password,
+        hash: captchaHash,
+        text: inputCaptchaValue,
       })
-      .then((result) => {
-        setLoginData(result.data)
-        localStorage.setItem("result", result.data.result);
-        localStorage.setItem("email", result.data.email);
-        localStorage.setItem("name", result.data.name);
-        console.log(loginData)
-        // cookies.set("jwt", result.data.jwt);
-        if (localStorage.getItem("result")){ 
-          navigate("/dashboard" );
-          window.location.reload();
-          
+      .then((response) => {
+        const bearerToken = response?.data?.token;
+
+        if (!!bearerToken) {
+          cookies.set(BEARER_TOKEN_COOKIE_NAME, bearerToken);
+
+          fetchAuthUser();
+        } else {
+          throw Error("Can't login with provided credentials!");
         }
       })
       .catch((error) => {
@@ -88,10 +68,30 @@ const Login = (props) => {
           alert("Error", error.detail);
         }
       });
-    } else {
-        setCaptchaMatchError(true)
-    }
   };
+
+  const captchaMatch = () => {
+    axios
+      .post("/api/captcha/match", {
+        hash: captchaHash,
+        text: inputCaptchaValue,
+      })
+      .then((response) => {
+        const isMatched = response.data.result;
+
+        setCaptchaMatchError(!isMatched);
+        handleApi();
+      })
+      .catch((error) => {
+        setCaptchaMatchError(true);
+      });
+  };
+
+  useEffect(() => {
+    if (!!loggedInUser && loggedInUser?.id) {
+      navigate("/dashboard");
+    }
+  }, [loggedInUser, navigate]);
 
   return (
     <Grid className="login_up_dummy_div">
@@ -131,7 +131,7 @@ const Login = (props) => {
             {/* <Button variant='contained' className='text_field_login' */}
             {/* // onClick={handleApi} */}
             {/* >লগইন</Button> */}
-            <Captcha />
+            <Captcha onFetchCaptcha={handleFetchCaptcha} />
             {captchaMatchError && (
               <p style={{ color: "red" }}>
                 Captcha did not match. Please try again.
@@ -149,7 +149,7 @@ const Login = (props) => {
             />
             <Button
               className="text_field_login custom-button"
-              onClick={handleApi}
+              onClick={captchaMatch}
             >
               Login
             </Button>

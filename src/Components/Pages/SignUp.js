@@ -1,5 +1,5 @@
 import { Avatar, Button, Grid, Paper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SignUp.css";
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
@@ -10,10 +10,6 @@ import useAuth from "../../hooks/authHooks";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const {hashValue} = useAuth()
-
-  const [captchaMatchResult, setCaptchaMatchResult] = useState(false)
-
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -21,8 +17,10 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(false)
-  const [captchaMatchError, setCaptchaMatchError] = useState(false)
+  const [captchaHash, setCaptchaHash] = useState(null);
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [captchaMatchError, setCaptchaMatchError] = useState(false);
+  const { loggedInUser } = useAuth();
 
   const handleFullName = (event) => {
     setFullName(event.target.value);
@@ -42,91 +40,88 @@ const SignUp = () => {
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
-    if (password === confirmPassword) {
-      setPasswordMatchError(false)
-    }
   };
 
   const handleConfirmPassword = (event) => {
     setConfirmPassword(event.target.value);
-    if (password === confirmPassword) {
-      setPasswordMatchError(false)
-    }
   };
 
   const handleCaptchaValue = (event) => {
     setInputCaptchaValue(event.target.value);
   };
 
-  const captchaMatch = () => {
-    console.log(hashValue)
-    console.log(inputCaptchaValue)
-    axios.post("/api/captcha/match", {
-      hash: hashValue,
-      text: inputCaptchaValue
-    })
-    .then(response => {
-          console.log(response.data)
-          setCaptchaMatchResult(response.data.result)
-          if (captchaMatchResult === true)
-          {
-            setCaptchaMatchError(false)
-          }
-          
-    })
-  }
-
+  const handleFetchCaptcha = ({ captchaHash: hash }) => {
+    setCaptchaHash(hash);
+  };
 
   const handleApi = () => {
-      // console.log(fullName, mobile, email, password, confirmPassword)
-    captchaMatch()
-    console.log(password)
-    console.log(confirmPassword)
-      if (password === confirmPassword) {
-        console.log(captchaMatchResult)
-        if (captchaMatchResult === true) {
-      axios.post("/api/user/register", {
+    if (!passwordMatchError) {
+      axios
+        .post("/api/users/register", {
           name: fullName,
           username: userName,
-          mobile: mobile,
-          email: email,
-          password: password,
-          hash: "NotInUse"
+          mobile,
+          email,
+          password,
+          text: inputCaptchaValue,
+          hash: captchaHash,
+        })
+        .then((result) => {
+          navigate("/login");
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            alert(error.response.data.detail);
+          } else if (error.request) {
+            // The request was made but no response was received
+            alert(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            alert("Error", error.detail);
+          }
+        });
+    }
+  };
+
+  const captchaMatch = () => {
+    axios
+      .post("/api/captcha/match", {
+        hash: captchaHash,
+        text: inputCaptchaValue,
       })
-          .then(result => {
-              console.log(result.data)
-              alert("success")
-              navigate("/login")
-          })
-          .catch(error=> {
-              if (error.response && error.response.status === 403) {
-                  // The request was made and the server responded with a status code
-                  // that falls out of the range of 2xx
-                  alert(error.response.data.detail);
-                } else if (error.request) {
-                  // The request was made but no response was received
-                  alert(error.request);
-                } else {
-                  // Something happened in setting up the request that triggered an Error
-                  alert('Error', error.detail);
-                }
-          })
-        }
-        else {
-            setCaptchaMatchError(true)
-        }
-        } else {
-          // Display an error message if passwords do not match
-          setPasswordMatchError(true);
-        }
-  }
+      .then((response) => {
+        const isMatched = response.data.result;
+
+        setCaptchaMatchError(!isMatched);
+        handleApi();
+      })
+      .catch((error) => {
+        setCaptchaMatchError(true);
+      });
+  };
+
+  useEffect(() => {
+    if (password === confirmPassword) {
+      setPasswordMatchError(false);
+    } else {
+      setPasswordMatchError(true);
+    }
+  }, [password, confirmPassword]);
+
+  useEffect(() => {
+    if (!!loggedInUser && loggedInUser?.id) {
+      navigate("/dashboard");
+    }
+  }, [loggedInUser, navigate]);
 
   return (
     <Grid className="sign_up_dummy_div">
       <Helmet>
         <title>SignUp</title>
       </Helmet>
-      <Paper elevation={20} className="sign_up_content" >
+      <Paper elevation={20} className="sign_up_content">
         <Grid align="center" className="login-icon-div">
           <Avatar className="avatar_style">
             {/* <AddCircleOutlineOutlined /> */}
@@ -199,21 +194,34 @@ const SignUp = () => {
                 inputProps={{ style: { height: "15px" } }}
               />
             </div>
-            {passwordMatchError && <p style={{color: 'red'}}>Passwords do not match. Please try again.</p>}
-            <Captcha />
-            {captchaMatchError && <p style={{color: 'red'}}>Captcha did not match. Please try again.</p>}
+            {passwordMatchError && (
+              <p style={{ color: "red" }}>
+                Passwords do not match. Please try again.
+              </p>
+            )}
+            <Captcha onFetchCaptcha={handleFetchCaptcha} />
+            {captchaMatchError && (
+              <p style={{ color: "red" }}>
+                Captcha did not match. Please try again.
+              </p>
+            )}
             <TextField
-                required={true}
-                fullWidth
-                label="Enter Captcha Here"
-                variant="outlined"
-                className="text_field"
-                value={inputCaptchaValue}
-                onChange={handleCaptchaValue}
-                inputProps={{ style: { height: "15px" } }}
-                />
-            <Button className="text_field_sign custom-button" onClick={handleApi}>Submit</Button>
-            
+              required={true}
+              fullWidth
+              label="Enter Captcha Here"
+              variant="outlined"
+              className="text_field"
+              value={inputCaptchaValue}
+              onChange={handleCaptchaValue}
+              inputProps={{ style: { height: "15px" } }}
+            />
+            <Button
+              className="text_field_sign custom-button"
+              onClick={captchaMatch}
+              disabled={captchaMatchError || passwordMatchError}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </Paper>

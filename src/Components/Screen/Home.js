@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import {
   BrowserRouter as Router,
@@ -23,10 +23,40 @@ import { Pricing } from "../Pages/Pricing";
 import { InfoArticle } from "../ContentGenerator/InfoArticle";
 import { UserDashBoard } from "../Profile/UserDashBoard";
 import { PostHistory } from "../Profile/PostHistory";
+import useAuth from "../../hooks/authHooks";
+import { CircularProgress, Stack, Typography } from "@mui/material";
 
 export const Home = () => {
-  return (
-    <div>
+  const { fetchAuthUser, isAuthenticating } = useAuth();
+
+  useEffect(() => {
+    fetchAuthUser();
+  }, []);
+
+  return isAuthenticating ? (
+    <Stack
+      sx={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "white",
+        zIndex: 100000,
+      }}
+    >
+      <CircularProgress sx={{ color: "var(--primary-orange)" }} size={80} />
+      <Typography sx={{ marginTop: "40px", fontSize: "24px" }}>
+        Please, wait for a while!
+      </Typography>
+      <Typography sx={{ marginTop: "16px", fontSize: "18px" }}>
+        Loading data...
+      </Typography>
+    </Stack>
+  ) : (
+    <>
       <div className="header-position">
         <Header />
       </div>
@@ -44,12 +74,16 @@ export const Home = () => {
             <Route exact path="/post-history" element={<PostHistory />} />
             <Route exact path="/service" element={<Service />} />
             <Route exact path="/refund_policy" element={<Refund_Policy />} />
-            <Route exact path="/terms_and_conditions" element={<Terms_Conditions />} />
+            <Route
+              exact
+              path="/terms_and_conditions"
+              element={<Terms_Conditions />}
+            />
             <Route exact path="/dashboard" element={<UserDashBoard />} />
           </Routes>
         </div>
         <Footer />
       </div>
-    </div>
+    </>
   );
 };
