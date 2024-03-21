@@ -1,12 +1,14 @@
 import { Avatar, Button, Grid, Paper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
 import { Captcha } from "../Common/Captcha";
 import axios from "../Axios";
-import { useCookies } from "react-cookie";
+import Cookies from "universal-cookie";
 import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
+import useAuth from "../../hooks/authHooks";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -14,7 +16,9 @@ const Login = (props) => {
   const [captchaHash, setCaptchaHash] = useState(null);
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
-  const [_, setCookie] = useCookies();
+  const { loggedInUser, fetchAuthUser } = useAuth();
+  const navigate = useNavigate();
+  const cookies = new Cookies(null, { path: "/" });
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -44,9 +48,9 @@ const Login = (props) => {
         const bearerToken = response?.data?.token;
 
         if (!!bearerToken) {
-          setCookie(BEARER_TOKEN_COOKIE_NAME, bearerToken, {
-            httpOnly: true,
-          });
+          cookies.set(BEARER_TOKEN_COOKIE_NAME, bearerToken);
+
+          fetchAuthUser();
         } else {
           throw Error("Can't login with provided credentials!");
         }
@@ -82,6 +86,12 @@ const Login = (props) => {
         setCaptchaMatchError(true);
       });
   };
+
+  useEffect(() => {
+    if (!!loggedInUser && loggedInUser?.id) {
+      navigate("/dashboard");
+    }
+  }, [loggedInUser, navigate]);
 
   return (
     <Grid className="login_up_dummy_div">

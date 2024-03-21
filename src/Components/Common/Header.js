@@ -3,8 +3,10 @@ import "./Header.css";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import useAuth from "../../hooks/authHooks";
-import { BsThreeDotsVertical } from 'react-icons/bs'
-import { Link } from 'react-router-dom';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
 
 const routes = [
   {
@@ -28,14 +30,6 @@ const routes = [
   //   name: "Affiliate",
   // },
   {
-    path: "/signup",
-    name: "Register",
-  },
-  {
-    path: "/login",
-    name: "Login",
-  },
-  {
     path: "/contactus",
     name: "Contact",
   },
@@ -46,48 +40,32 @@ const routes = [
 ];
 
 export const Header = () => {
-  const { loginData } = useAuth();
+  const { loggedInUser, setLoggedInUser } = useAuth();
+  const isLoggedIn = loggedInUser && loggedInUser?.id;
   const [isOpen, setIsOpen] = useState(false);
-  const [result, setResult] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  localStorage.setItem("isOpen", isOpen);
-  const toggle = () => {
-    setIsOpen(!isOpen);
-    localStorage.setItem("isOpen", !isOpen);
-  };
-
   const [showMenu, setShowMenu] = useState(false);
+
+  localStorage.setItem("isOpen", isOpen);
 
   const handleMenuClick = () => {
     setShowMenu(!showMenu);
   };
 
-  const handleApi = () => {
-    // axios.post("/api/logout/", {jwt: token})
+  const logout = () => {
+    const cookies = new Cookies(null, { path: "/" });
+
+    cookies.remove(BEARER_TOKEN_COOKIE_NAME);
     setShowMenu(!showMenu);
-    localStorage.setItem('result', false)
-    setResult(false)
-    // removeToken();
-    
-  }
-
-  useEffect( () => {
-    
-      setResult(localStorage.getItem("result"))
-      setName(localStorage.getItem("name"))
-      setEmail(localStorage.getItem("email"))
-
-  }, [])
-
+    setLoggedInUser(null);
+  };
 
   return (
     <div className="header-main">
       <img src="/images/faisaliteb-logo.png" className="header_logo" />
       <div className="header-link">
         {routes.map((route) =>
-          (result === 'true' &&
-          (route.name === "Login" || route.name === "Register")) ? null : (
+          isLoggedIn &&
+          (route.name === "Login" || route.name === "Register") ? null : (
             <NavLink
               to={route.path}
               key={route.name}
@@ -98,20 +76,20 @@ export const Header = () => {
           )
         )}
       </div>
-      {result === 'true' ? (
-      <div style={{ 
-        display: 'flex',
-        
-
-      }}>
+      {isLoggedIn ? (
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              marginRight: '30px',
-              gap: '10px'
+              marginRight: "30px",
+              gap: "10px",
             }}
             onClick={handleMenuClick}
           >
@@ -128,7 +106,7 @@ export const Header = () => {
                 margin: "0px 0px 0px",
               }}
             >
-              {name}
+              {loggedInUser?.name}
             </p>
           </div>
           <div>
@@ -158,16 +136,16 @@ export const Header = () => {
                   onClick={() => {
                     setShowMenu(!showMenu);
                   }}
-                  style={{textDecoration: 'none', color: 'black'}}
+                  style={{ textDecoration: "none", color: "black" }}
                 >
-                  <div >Profile</div>
+                  <div>Profile</div>
                 </Link>
                 <Link
                   to="/dashboard"
                   onClick={() => {
                     setShowMenu(!showMenu);
                   }}
-                  style={{textDecoration: 'none', color: 'black'}}
+                  style={{ textDecoration: "none", color: "black" }}
                 >
                   <div>Dashboard</div>
                 </Link>
@@ -179,7 +157,7 @@ export const Header = () => {
                       margin: "0px 10px",
                       marginBottom: "5px",
                     }}
-                    onClick={handleApi}
+                    onClick={logout}
                     type="submit"
                   >
                     Logout

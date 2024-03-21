@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 
 export const AuthContext = React.createContext({
-  hashValue: null,
-  captchaUrl: null,
-  loginData: null,
-  setHashValue: () => {},
-  fetchCaptcha: () => {},
-  setCaptchaUrl: () => {},
-  setLoginData: () => {},
+  loggedInUser: null,
+  setLoggedInUser: () => {},
 });
 
 const AuthProvider = (props) => {
-  const [loginData, setLoginData] = useState({});
+  const [loggedInUser, setLoggedInUser] = useState({});
 
   return (
     <AuthContext.Provider
       value={{
-        loginData,
-        setLoginData,
+        loggedInUser,
+        setLoggedInUser,
       }}
     >
       {props.children}

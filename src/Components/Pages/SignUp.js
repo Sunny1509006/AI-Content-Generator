@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios";
 import { Captcha } from "../Common/Captcha";
+import useAuth from "../../hooks/authHooks";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const SignUp = () => {
   const [captchaHash, setCaptchaHash] = useState(null);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
+  const { loggedInUser } = useAuth();
 
   const handleFullName = (event) => {
     setFullName(event.target.value);
@@ -107,6 +109,12 @@ const SignUp = () => {
       setPasswordMatchError(true);
     }
   }, [password, confirmPassword]);
+
+  useEffect(() => {
+    if (!!loggedInUser && loggedInUser?.id) {
+      navigate("/dashboard");
+    }
+  }, [loggedInUser, navigate]);
 
   return (
     <Grid className="sign_up_dummy_div">
