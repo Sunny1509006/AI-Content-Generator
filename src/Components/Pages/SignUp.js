@@ -1,5 +1,5 @@
 import { Avatar, Button, Grid, Paper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SignUp.css";
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
@@ -39,16 +39,10 @@ const SignUp = () => {
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
-    if (password === confirmPassword) {
-      setPasswordMatchError(false);
-    }
   };
 
   const handleConfirmPassword = (event) => {
     setConfirmPassword(event.target.value);
-    if (password === confirmPassword) {
-      setPasswordMatchError(false);
-    }
   };
 
   const handleCaptchaValue = (event) => {
@@ -59,66 +53,63 @@ const SignUp = () => {
     setCaptchaHash(hash);
   };
 
+  const handleApi = () => {
+    if (!passwordMatchError) {
+      axios
+        .post("/api/users/register", {
+          name: fullName,
+          username: userName,
+          mobile,
+          email,
+          password,
+          text: inputCaptchaValue,
+          hash: captchaHash,
+        })
+        .then((result) => {
+          navigate("/login");
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            alert(error.response.data.detail);
+          } else if (error.request) {
+            // The request was made but no response was received
+            alert(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            alert("Error", error.detail);
+          }
+        });
+    }
+  };
+
   const captchaMatch = () => {
-    console.log(captchaHash);
-    console.log(inputCaptchaValue);
     axios
       .post("/api/captcha/match", {
         hash: captchaHash,
         text: inputCaptchaValue,
       })
       .then((response) => {
-        console.log(response.data);
-        setCaptchaMatchResult(response.data.result);
-        if (captchaMatchResult === true) {
-          setCaptchaMatchError(false);
-        }
+        const isMatched = response.data.result;
+
+        setCaptchaMatchResult(isMatched);
+        setCaptchaMatchError(false);
+
+        handleApi();
+      })
+      .catch((error) => {
+        setCaptchaMatchError(true);
       });
   };
 
-  const handleApi = () => {
-    // console.log(fullName, mobile, email, password, confirmPassword)
-    captchaMatch();
-    console.log(password);
-    console.log(confirmPassword);
+  useEffect(() => {
     if (password === confirmPassword) {
-      console.log(captchaMatchResult);
-      if (captchaMatchResult === true) {
-        axios
-          .post("/api/user/register", {
-            name: fullName,
-            username: userName,
-            mobile: mobile,
-            email: email,
-            password: password,
-            hash: "NotInUse",
-          })
-          .then((result) => {
-            console.log(result.data);
-            alert("success");
-            navigate("/login");
-          })
-          .catch((error) => {
-            if (error.response && error.response.status === 403) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              alert(error.response.data.detail);
-            } else if (error.request) {
-              // The request was made but no response was received
-              alert(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              alert("Error", error.detail);
-            }
-          });
-      } else {
-        setCaptchaMatchError(true);
-      }
+      setPasswordMatchError(false);
     } else {
-      // Display an error message if passwords do not match
       setPasswordMatchError(true);
     }
-  };
+  }, [password, confirmPassword]);
 
   return (
     <Grid className="sign_up_dummy_div">
@@ -221,7 +212,8 @@ const SignUp = () => {
             />
             <Button
               className="text_field_sign custom-button"
-              onClick={handleApi}
+              onClick={captchaMatch}
+              disabled={captchaMatchError || passwordMatchError}
             >
               Submit
             </Button>
