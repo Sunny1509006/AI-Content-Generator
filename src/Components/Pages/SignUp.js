@@ -17,7 +17,6 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
   const [captchaHash, setCaptchaHash] = useState(null);
-  const [captchaMatchResult, setCaptchaMatchResult] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
 
@@ -93,9 +92,7 @@ const SignUp = () => {
       .then((response) => {
         const isMatched = response.data.result;
 
-        setCaptchaMatchResult(isMatched);
-        setCaptchaMatchError(false);
-
+        setCaptchaMatchError(!isMatched);
         handleApi();
       })
       .catch((error) => {

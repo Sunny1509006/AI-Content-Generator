@@ -1,25 +1,20 @@
 import { Avatar, Button, Grid, Paper } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Login.css";
-// import { AddCircleOutlineOutlined } from '@mui/icons-material'
 import TextField from "@mui/material/TextField";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
 import { Captcha } from "../Common/Captcha";
 import axios from "../Axios";
-import useAuth from "../../hooks/authHooks";
-// import Cookies from 'universal-cookie'
-// import jwt from "jwt-decode"
+import { useCookies } from "react-cookie";
+import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
 
 const Login = (props) => {
-  const { setLoginData, loginData } = useAuth();
-  const [captchaMatchResult, setCaptchaMatchResult] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [captchaHash, setCaptchaHash] = useState(null);
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
-  const navigate = useNavigate();
+  const [_, setCookie] = useCookies();
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -37,6 +32,40 @@ const Login = (props) => {
     setCaptchaHash(hash);
   };
 
+  const handleApi = () => {
+    axios
+      .post("/api/users/login", {
+        username: userName,
+        password,
+        hash: captchaHash,
+        text: inputCaptchaValue,
+      })
+      .then((response) => {
+        const bearerToken = response?.data?.token;
+
+        if (!!bearerToken) {
+          setCookie(BEARER_TOKEN_COOKIE_NAME, bearerToken, {
+            httpOnly: true,
+          });
+        } else {
+          throw Error("Can't login with provided credentials!");
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 403) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          alert(error.response.data.detail);
+        } else if (error.request) {
+          // The request was made but no response was received
+          alert(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          alert("Error", error.detail);
+        }
+      });
+  };
+
   const captchaMatch = () => {
     axios
       .post("/api/captcha/match", {
@@ -44,51 +73,14 @@ const Login = (props) => {
         text: inputCaptchaValue,
       })
       .then((response) => {
-        console.log(response.data);
-        setCaptchaMatchResult(response.data.result);
-        if (captchaMatchResult === true) {
-          setCaptchaMatchError(false);
-        }
-      });
-  };
+        const isMatched = response.data.result;
 
-  const handleApi = () => {
-    captchaMatch();
-    if (captchaMatchResult === true) {
-      axios
-        .post("/api/user/login", {
-          username: userName,
-          password: password,
-          hash: "NotInUse",
-        })
-        .then((result) => {
-          setLoginData(result.data);
-          localStorage.setItem("result", result.data.result);
-          localStorage.setItem("email", result.data.email);
-          localStorage.setItem("name", result.data.name);
-          console.log(loginData);
-          // cookies.set("jwt", result.data.jwt);
-          if (localStorage.getItem("result")) {
-            navigate("/dashboard");
-            window.location.reload();
-          }
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 403) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            alert(error.response.data.detail);
-          } else if (error.request) {
-            // The request was made but no response was received
-            alert(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            alert("Error", error.detail);
-          }
-        });
-    } else {
-      setCaptchaMatchError(true);
-    }
+        setCaptchaMatchError(!isMatched);
+        handleApi();
+      })
+      .catch((error) => {
+        setCaptchaMatchError(true);
+      });
   };
 
   return (
@@ -147,7 +139,7 @@ const Login = (props) => {
             />
             <Button
               className="text_field_login custom-button"
-              onClick={handleApi}
+              onClick={captchaMatch}
             >
               Login
             </Button>
