@@ -25,6 +25,7 @@ import { UserDashBoard } from "../Profile/UserDashBoard";
 import { PostHistory } from "../Profile/PostHistory";
 import useAuth from "../../hooks/authHooks";
 import { CircularProgress, Stack, Typography } from "@mui/material";
+import ConfirmEmail from "../Pages/Auth/ConfirmEmail";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -66,6 +67,11 @@ export const Home = () => {
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
+            <Route
+              exact
+              path="/confirm-mail/:hash"
+              element={<ConfirmEmail />}
+            />
             <Route exact path="/contactus" element={<Contactus />} />
             <Route exact path="/faqs" element={<FAQ />} />
             <Route exact path="/pricing" element={<Pricing />} />

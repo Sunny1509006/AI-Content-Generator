@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import useAuth from "../../hooks/authHooks";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
@@ -30,6 +29,14 @@ const routes = [
   //   name: "Affiliate",
   // },
   {
+    path: "/signup",
+    name: "Register",
+  },
+  {
+    path: "/login",
+    name: "Login",
+  },
+  {
     path: "/contactus",
     name: "Contact",
   },
@@ -41,11 +48,8 @@ const routes = [
 
 export const Header = () => {
   const { loggedInUser, setLoggedInUser } = useAuth();
-  const isLoggedIn = loggedInUser && loggedInUser?.id;
-  const [isOpen, setIsOpen] = useState(false);
+  const isLoggedIn = loggedInUser && !!loggedInUser?.id;
   const [showMenu, setShowMenu] = useState(false);
-
-  localStorage.setItem("isOpen", isOpen);
 
   const handleMenuClick = () => {
     setShowMenu(!showMenu);
