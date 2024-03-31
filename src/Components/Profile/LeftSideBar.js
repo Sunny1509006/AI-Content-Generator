@@ -31,11 +31,9 @@ export const LeftSideBar = () => {
   return (
     <Stack
       sx={{
-        width: "25%",
+        minWidth: "250px",
         borderRight: "1px solid #FF4A17",
         padding: "8px 20px 8px 0",
-        minWidth: "200px",
-        maxWidth: "300px",
         fontSize: "16px",
         fontWeight: "500",
         a: {

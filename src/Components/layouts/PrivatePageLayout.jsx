@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useAuth from "../../hooks/authHooks";
 import { useNavigate } from "react-router-dom";
 import { LeftSideBar } from "../Profile/LeftSideBar";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 const PrivatePageLayout = (props) => {
   const { children } = props;
@@ -26,7 +26,7 @@ const PrivatePageLayout = (props) => {
         }}
       >
         <LeftSideBar />
-        <div style={{ width: "80%", marginRight: "-40px" }}>{children}</div>
+        <Box sx={{ flexGrow: 1 }}>{children}</Box>
       </Stack>
     )
   );

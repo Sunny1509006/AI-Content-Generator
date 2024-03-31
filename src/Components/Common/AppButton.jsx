@@ -9,10 +9,7 @@ const AppButton = (props) => {
       {...otherProps}
       sx={{
         textTransform: "capitalize",
-        bgcolor: "var(--primary-orange)",
-        ":hover": {
-          bgcolor: "var(--primary-orange)",
-        },
+        ...sx,
       }}
       endIcon={
         loading ? (

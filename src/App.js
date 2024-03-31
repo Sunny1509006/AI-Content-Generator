@@ -1,20 +1,27 @@
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import { Home } from "./Components/Screen/Home";
-import AuthProvider from './AuthProvider';
-import {
-  BrowserRouter as Router,
-} from "react-router-dom";
+import AuthProvider from "./AuthProvider";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#ff4a17",
+      },
+    },
+  });
+
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <AuthProvider>
-      <Router>
-      <ScrollToTop />
-        <Home />
-      </Router>
+        <Router>
+          <ScrollToTop />
+          <Home />
+        </Router>
       </AuthProvider>
-    </div>
+    </ThemeProvider>
   );
 }
 
