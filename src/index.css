@@ -8,28 +8,27 @@
 } */
 
 :root {
-  --primary-bg: #F7F7FE;
-  --primary-color: #0C6395;
-  --primary-black: #121D2C;
+  --primary-bg: #f7f7fe;
+  --primary-color: #0c6395;
+  --primary-black: #121d2c;
   --secondary-black: #445658;
-  --primary-orange: #FF4A17;
+  --primary-grey: #7b7b7b;
+  --primary-orange: #ff4a17;
   --button-color: rgb(18, 29, 44);
-
 }
 
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  'sans-serif', 'kalpurush';
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    "sans-serif", "kalpurush";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -38,7 +37,4 @@ code {
   /* height: 2px; */
   border: 1px solid #fdc5b5;
   margin: 30px 0px;
-
 }
-
-  

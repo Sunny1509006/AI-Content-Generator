@@ -26,6 +26,8 @@ import { PostHistory } from "../Profile/PostHistory";
 import useAuth from "../../hooks/authHooks";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import ConfirmEmail from "../Pages/Auth/ConfirmEmail";
+import InformationContent from "../ArticalForms/InformationContent";
+import GenerateArticle from "../Pages/articles/GenerateArticle";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -86,6 +88,9 @@ export const Home = () => {
               element={<Terms_Conditions />}
             />
             <Route exact path="/dashboard" element={<UserDashBoard />} />
+            <Route path="articles">
+              <Route path="generate" element={<GenerateArticle />} />
+            </Route>
           </Routes>
         </div>
         <Footer />
