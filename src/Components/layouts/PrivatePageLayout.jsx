@@ -26,7 +26,15 @@ const PrivatePageLayout = (props) => {
         }}
       >
         <LeftSideBar />
-        <Box sx={{ flexGrow: 1 }}>{children}</Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            position: "relative",
+            minHeight: "calc(100vh - 426px)",
+          }}
+        >
+          {children}
+        </Box>
       </Stack>
     )
   );

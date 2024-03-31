@@ -23,6 +23,7 @@ import FormatButton from "./components/FormatButton";
 import LinkDialog from "./components/LinkDialog";
 
 import "./ArticleEditor.css";
+import Image from "@tiptap/extension-image";
 
 const ArticleEditor = (props) => {
   const { content, onChange } = props;
@@ -40,6 +41,13 @@ const ArticleEditor = (props) => {
       Italic,
       Strike,
       Code,
+      Image.configure({
+        inline: true,
+        HTMLAttributes: {
+          style:
+            "width: 100%; height: 500px; object-fit: cover; object-position: center",
+        },
+      }),
     ],
     content,
     onUpdate: ({ editor }) => {

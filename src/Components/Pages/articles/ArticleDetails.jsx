@@ -41,7 +41,25 @@ const ArticleDetails = () => {
   return (
     <PrivatePageLayout>
       {isFetching ? (
-        <CircularProgress />
+        <Stack
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            alignItems: "center",
+            gap: "24px",
+          }}
+        >
+          <CircularProgress />
+          <Typography
+            sx={{
+              fontSize: "20px",
+            }}
+          >
+            Fetching article for you..
+          </Typography>
+        </Stack>
       ) : (
         <Box sx={{ maxWidth: "768px", margin: "auto" }}>
           <Typography
