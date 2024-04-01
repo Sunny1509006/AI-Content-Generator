@@ -56,8 +56,8 @@ const category = [
   {
     title: "Human Touch Content with AI",
     description:
-      "Submit your keyword and get a unique outline. After that generate content with human touch ",
-    link: "",
+      "Submit your keyword and get a unique outline. After that generate content with human touch",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.human_touch_content_with_ai}`,
     icon: "",
   },
   {
