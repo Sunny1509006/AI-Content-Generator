@@ -1,19 +1,12 @@
 import React, { useEffect } from "react";
 import "./Home.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Routes,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Header } from "../Common/Header";
 import { Homepage } from "../Pages/Homepage";
 import { Footer } from "../Common/Footer";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import { Contactus } from "../Pages/Contactus";
-import { ServiceCard } from "../Common/ServiceCard";
 import FAQ from "../Pages/Faqs";
 import { Service } from "../Pages/Service";
 import { Refund_Policy } from "../Pages/Refund_Policy";
@@ -26,6 +19,8 @@ import { PostHistory } from "../Profile/PostHistory";
 import useAuth from "../../hooks/authHooks";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import ConfirmEmail from "../Pages/Auth/ConfirmEmail";
+import GenerateArticle from "../Pages/articles/GenerateArticle";
+import ArticleDetails from "../Pages/articles/ArticleDetails";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -86,6 +81,10 @@ export const Home = () => {
               element={<Terms_Conditions />}
             />
             <Route exact path="/dashboard" element={<UserDashBoard />} />
+            <Route path="articles">
+              <Route path="generate" element={<GenerateArticle />} />
+              <Route path=":articleID" element={<ArticleDetails />} />
+            </Route>
           </Routes>
         </div>
         <Footer />

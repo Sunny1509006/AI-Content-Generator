@@ -2,43 +2,67 @@ import React from "react";
 import { MdDashboard, MdArticle, MdHistory } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { VscSymbolKeyword } from "react-icons/vsc";
+import { Stack } from "@mui/material";
+
+const PRIVATE_ROUTES = [
+  {
+    href: "/dashboard",
+    menuIcon: <MdDashboard />,
+    title: "DashBoard",
+  },
+  {
+    href: "/post-history",
+    menuIcon: <MdHistory />,
+    title: "Post History",
+  },
+  {
+    href: "/info-article",
+    menuIcon: <MdArticle />,
+    title: "Create Article",
+  },
+  {
+    href: "/keyword-generator",
+    menuIcon: <VscSymbolKeyword />,
+    title: "Keywords Generate (Free)",
+  },
+];
 
 export const LeftSideBar = () => {
   return (
-    <div
-      style={{
-        width: "25%",
+    <Stack
+      sx={{
+        minWidth: "250px",
         borderRight: "1px solid #FF4A17",
-        display: "flex",
-        flexDirection: "column",
-        gap: '20px',
-        marginLeft: '-80px'
+        padding: "8px 20px 8px 0",
+        fontSize: "16px",
+        fontWeight: "500",
+        a: {
+          color: "black",
+          transition: "color 0.2s ease",
+          ":hover": {
+            color: "var(--primary-orange)",
+          },
+        },
+        svg: {
+          fontSize: "24px",
+        },
       }}
+      spacing={3}
     >
-    <Link to="/dashboard" style={{textDecoration: 'none', color: '#FF4A17'}}>
-      <div style={{display: 'flex', gap: '10px', }}>
-        <MdDashboard size={30}/>
-        <h3>DashBoard</h3>
-      </div>
-      </Link>
-      <Link to="/post-history" style={{textDecoration: 'none', color: 'black'}}>
-      <div style={{display: 'flex', gap: '10px', }}>
-        <MdHistory size={30}/>
-        <h3>Post History</h3>
-      </div>
-      </Link>
-      <Link to="/info-article" style={{textDecoration: 'none', color: 'black'}}>
-      <div style={{display: 'flex', gap: '10px', }}>
-        <MdArticle size={30}/>
-        <h3>Create Article</h3>
-      </div>
-      </Link>
-      <Link to="/keyword-generator" style={{textDecoration: 'none', color: 'black'}}>
-      <div style={{display: 'flex', gap: '10px', }}>
-        <VscSymbolKeyword size={30}/>
-        <h3>Keywords Generate (Free)</h3>
-      </div>
-      </Link>
-    </div>
+      {PRIVATE_ROUTES.map((route) => (
+        <Link
+          to={route.href}
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+          }}
+        >
+          {route.menuIcon}
+          {route.title}
+        </Link>
+      ))}
+    </Stack>
   );
 };

@@ -4,8 +4,7 @@ import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import useAuth from "../../hooks/authHooks";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
-import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
+import useLogout from "../../hooks/useLogout";
 
 const routes = [
   {
@@ -47,25 +46,28 @@ const routes = [
 ];
 
 export const Header = () => {
-  const { loggedInUser, setLoggedInUser } = useAuth();
+  const { loggedInUser } = useAuth();
   const isLoggedIn = loggedInUser && !!loggedInUser?.id;
   const [showMenu, setShowMenu] = useState(false);
+  const { logoutUser } = useLogout();
 
   const handleMenuClick = () => {
     setShowMenu(!showMenu);
   };
 
-  const logout = () => {
-    const cookies = new Cookies(null, { path: "/" });
-
-    cookies.remove(BEARER_TOKEN_COOKIE_NAME);
-    setShowMenu(!showMenu);
-    setLoggedInUser(null);
+  const logoutHandler = () => {
+    logoutUser(() => {
+      setShowMenu(!showMenu);
+    });
   };
 
   return (
     <div className="header-main">
-      <img src="/images/faisaliteb-logo.png" className="header_logo" />
+      <img
+        src="/images/faisaliteb-logo.png"
+        alt="faisaliteb"
+        className="header_logo"
+      />
       <div className="header-link">
         {routes.map((route) =>
           isLoggedIn &&
@@ -99,6 +101,7 @@ export const Header = () => {
           >
             <img
               src={"/images/profile.png"}
+              alt={loggedInUser?.name}
               style={{
                 height: "40px",
                 width: "40px",
@@ -161,7 +164,7 @@ export const Header = () => {
                       margin: "0px 10px",
                       marginBottom: "5px",
                     }}
-                    onClick={logout}
+                    onClick={logoutHandler}
                     type="submit"
                   >
                     Logout

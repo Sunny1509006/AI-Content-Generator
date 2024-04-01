@@ -15,33 +15,35 @@ import { TbSquareRoundedCheckFilled } from "react-icons/tb";
 import { MdArticle } from "react-icons/md";
 import { VscSymbolKeyword } from "react-icons/vsc";
 import useAuth from "../../hooks/authHooks";
+import { ARTICLE_GENERATION_TYPES } from "../../utils/constants";
+import PrivatePageLayout from "../layouts/PrivatePageLayout";
 
 const category = [
   {
     title: "Information Content Single / Bulk",
     description:
       "Our AI will help you write 100% unique seo friendly Information article in one click",
-    link: "/info-article",
-    icon: <MdArticle color="#FF4A17" size={30} />,
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.information_content_single_and_bulk}`,
+    icon: "",
   },
   {
     title: "AI info Manual Sub Heading",
     description: "Provide your own subheadings to make 100% unique article",
-    link: "",
-    icon: <VscSymbolKeyword color="#FF4A17" size={30} />,
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.ai_info_manual_sub_heading}`,
+    icon: "",
   },
   {
     title: "Blog content Single / Bulk",
     description:
       "100% unique One click single or bulk blog content at your hand",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
     icon: "",
   },
   {
     title: "Product Content (600-1000 words)",
     description:
       "Any kind of product content starting from 600 to 1k words in one click (Ecommerce)",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.product_content_600_1000_words}`,
     icon: "",
   },
   {
@@ -54,133 +56,117 @@ const category = [
   {
     title: "Human Touch Content with AI",
     description:
-      "Submit your keyword and get a unique outline. After that generate content with human touch ",
-    link: "",
+      "Submit your keyword and get a unique outline. After that generate content with human touch",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.human_touch_content_with_ai}`,
     icon: "",
   },
   {
     title: "Guest Post Content",
     description:
       "Our AI will help you write 100% unique seo friendly Guest Post Content in one click",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.guest_post_content}`,
     icon: "",
   },
   {
     title: "Content Rewrite",
     description: "With our AI you can re-write given content",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.content_rewrite}`,
     icon: "",
   },
   {
     title: "Generate Backlinks Content",
     description:
       "Input your keyword and generate content for your backlinks easily",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_backlinks_content}`,
     icon: "",
   },
   {
     title: "Generate Conclusion",
     description:
       "Generate eye catching conclusion with one click with any topic",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_conclusion}`,
     icon: "",
   },
   {
     title: "Generate Introduction",
     description: "Generate any topic intro to grab your audience attention",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_introduction}`,
     icon: "",
   },
   {
     title: "Blog Article Outline Generator",
     description:
       "Submit your keyword and with one click you will get a content outline in minutes ",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_article_outline_generator}`,
     icon: "",
   },
   {
     title: "Blog Paragraph",
     description:
       "Write a portion of your blog's paragraph in seconds. Just add your topic and get the paragraph",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
     icon: "",
   },
 ];
 
 export const UserDashBoard = () => {
-  const { loggedInUser } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loggedInUser || !loggedInUser?.id) {
-      navigate("/login");
-    }
-  }, [loggedInUser, navigate]);
-
   return (
-    loggedInUser &&
-    loggedInUser?.id && (
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <LeftSideBar />
-        <div style={{ width: "80%", marginRight: "-40px" }}>
-          <Grid
-            className="login_up_dummy_div"
+    <PrivatePageLayout>
+      <Grid
+        className="login_up_dummy_div"
+        style={{
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "20px",
+        }}
+      >
+        <Helmet>
+          <title>Dashboard</title>
+        </Helmet>
+        {category.map((eachCategory, index) => (
+          <Paper
+            elevation={20}
+            key={index}
             style={{
+              padding: "30px 20px",
+              width: "32%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              minWidth: "250px",
               flexWrap: "wrap",
-              justifyContent: "center",
-              gap: "20px",
+              minHeight: "200px",
             }}
           >
-            <Helmet>
-              <title>Login</title>
-            </Helmet>
-            {category.map((eachCategory, index) => (
-              <Paper
-                elevation={20}
-                key={index}
-                style={{
-                  padding: "30px 20px",
-                  width: "32%",
-                  // margin: 'auto',
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  minWidth: "250px",
-                  flexWrap: "wrap",
-                  minHeight: "200px",
-                }}
-              >
-                <Link
-                  to={eachCategory.link}
-                  style={{ textDecoration: "none", color: "black" }}
+            <Link
+              to={eachCategory.link}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div>
+                {eachCategory.icon}
+                <Grid
+                  align="center"
+                  className="login-icon-div"
+                  style={{ marginTop: "10px" }}
                 >
-                  <div>
-                    {eachCategory.icon}
-                    <Grid
-                      align="center"
-                      className="login-icon-div"
-                      style={{ marginTop: "10px" }}
-                    >
-                      <h3>{eachCategory.title}</h3>
-                    </Grid>
-                    <div>
-                      {eachCategory.description ? (
-                        <div style={{ display: "flex", marginTop: "-8px" }}>
-                          <p style={{ fontSize: "15px", color: "#445658" }}>
-                            {eachCategory.description}
-                          </p>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
+                  <h3>{eachCategory.title}</h3>
+                </Grid>
+                <div>
+                  {eachCategory.description ? (
+                    <div style={{ display: "flex", marginTop: "-8px" }}>
+                      <p style={{ fontSize: "15px", color: "#445658" }}>
+                        {eachCategory.description}
+                      </p>
                     </div>
-                  </div>
-                </Link>
-              </Paper>
-            ))}
-          </Grid>
-        </div>
-      </div>
-    )
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+            </Link>
+          </Paper>
+        ))}
+      </Grid>
+    </PrivatePageLayout>
   );
 };
