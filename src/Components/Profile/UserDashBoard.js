@@ -104,7 +104,7 @@ const category = [
     title: "Blog Paragraph",
     description:
       "Write a portion of your blog's paragraph in seconds. Just add your topic and get the paragraph",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
     icon: "",
   },
 ];
