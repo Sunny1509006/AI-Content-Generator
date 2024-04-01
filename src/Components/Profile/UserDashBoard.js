@@ -84,7 +84,7 @@ const category = [
     title: "Generate Conclusion",
     description:
       "Generate eye catching conclusion with one click with any topic",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_conclusion}`,
     icon: "",
   },
   {
