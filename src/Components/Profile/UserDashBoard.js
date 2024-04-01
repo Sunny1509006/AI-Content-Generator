@@ -36,7 +36,7 @@ const category = [
     title: "Blog content Single / Bulk",
     description:
       "100% unique One click single or bulk blog content at your hand",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
     icon: "",
   },
   {
