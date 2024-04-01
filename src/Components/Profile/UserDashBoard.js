@@ -77,7 +77,7 @@ const category = [
     title: "Generate Backlinks Content",
     description:
       "Input your keyword and generate content for your backlinks easily",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_backlinks_content}`,
     icon: "",
   },
   {

@@ -8,6 +8,7 @@ import BlogContent from "../../ArticalForms/BlogContent";
 import ProductContent from "../../ArticalForms/ProductContent";
 import HumanTouchContent from "../../ArticalForms/HumanTouchContent";
 import GuestPostContent from "../../ArticalForms/GuestPostContent";
+import BacklinkContent from "../../ArticalForms/BacklinkContent";
 
 const GenerateArticle = () => {
   const query = useQuery();
@@ -27,6 +28,7 @@ const GenerateArticle = () => {
       <HumanTouchContent />
     ),
     [ARTICLE_GENERATION_TYPES.guest_post_content]: <GuestPostContent />,
+    [ARTICLE_GENERATION_TYPES.generate_backlinks_content]: <BacklinkContent />,
   };
 
   return (
