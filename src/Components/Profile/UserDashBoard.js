@@ -43,7 +43,7 @@ const category = [
     title: "Product Content (600-1000 words)",
     description:
       "Any kind of product content starting from 600 to 1k words in one click (Ecommerce)",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.product_content_600_1000_words}`,
     icon: "",
   },
   {

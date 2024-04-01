@@ -4,7 +4,7 @@ export const ARTICLE_TYPES = {
   info_article: "info article",
   manual_sub_heading_artilce: "manual subheading article",
   blog_article: "blog article",
-  product_content: "product content",
+  product_content: "product category",
   amazon_review: "amazon review",
   human_touch_content: "human touch content",
   content_rewrite: "content rewrite",
