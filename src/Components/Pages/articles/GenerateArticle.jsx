@@ -11,6 +11,7 @@ import GuestPostContent from "../../ArticalForms/GuestPostContent";
 import BacklinkContent from "../../ArticalForms/BacklinkContent";
 import ReWriteContent from "../../ArticalForms/ReWriteContent";
 import ConclusionContent from "../../ArticalForms/ConclusionContent";
+import IntorductionContent from "../../ArticalForms/IntorductionContent";
 
 const GenerateArticle = () => {
   const query = useQuery();
@@ -33,6 +34,7 @@ const GenerateArticle = () => {
     [ARTICLE_GENERATION_TYPES.generate_backlinks_content]: <BacklinkContent />,
     [ARTICLE_GENERATION_TYPES.content_rewrite]: <ReWriteContent />,
     [ARTICLE_GENERATION_TYPES.generate_conclusion]: <ConclusionContent />,
+    [ARTICLE_GENERATION_TYPES.generate_introduction]: <IntorductionContent />,
   };
 
   return (

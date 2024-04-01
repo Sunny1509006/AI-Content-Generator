@@ -90,7 +90,7 @@ const category = [
   {
     title: "Generate Introduction",
     description: "Generate any topic intro to grab your audience attention",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_introduction}`,
     icon: "",
   },
   {
