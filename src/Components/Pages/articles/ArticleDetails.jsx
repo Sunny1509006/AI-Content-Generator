@@ -8,6 +8,7 @@ import AppButton from "../../Common/AppButton";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
 import useSaveArticle from "../../../hooks/useSaveArticle";
+import { Helmet } from "react-helmet";
 
 const ArticleDetails = () => {
   const [updatedTitle, setUpdatedTitle] = useState("");
@@ -40,6 +41,9 @@ const ArticleDetails = () => {
 
   return (
     <PrivatePageLayout>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       {isFetching ? (
         <Stack
           sx={{
