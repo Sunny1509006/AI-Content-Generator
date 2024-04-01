@@ -9,6 +9,7 @@ import ProductContent from "../../ArticalForms/ProductContent";
 import HumanTouchContent from "../../ArticalForms/HumanTouchContent";
 import GuestPostContent from "../../ArticalForms/GuestPostContent";
 import BacklinkContent from "../../ArticalForms/BacklinkContent";
+import ReWriteContent from "../../ArticalForms/ReWriteContent";
 
 const GenerateArticle = () => {
   const query = useQuery();
@@ -29,6 +30,7 @@ const GenerateArticle = () => {
     ),
     [ARTICLE_GENERATION_TYPES.guest_post_content]: <GuestPostContent />,
     [ARTICLE_GENERATION_TYPES.generate_backlinks_content]: <BacklinkContent />,
+    [ARTICLE_GENERATION_TYPES.content_rewrite]: <ReWriteContent />,
   };
 
   return (

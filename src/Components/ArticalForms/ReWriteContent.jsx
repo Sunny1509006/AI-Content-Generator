@@ -1,5 +1,6 @@
 import React from "react";
 import ArticleGeneratorForm from "../ArticleGeneratorForm/ArticleGeneratorForm";
+import TextareaBlock from "../ArticleGeneratorForm/components/TextareaBlock";
 import TextInputBlock from "../ArticleGeneratorForm/components/TextInputBlock";
 import { Grid, Typography } from "@mui/material";
 import SelectBlock from "../ArticleGeneratorForm/components/SelectBlock";
@@ -12,13 +13,13 @@ import {
 } from "../../utils/constants";
 import { Helmet } from "react-helmet";
 
-const HumanTouchContent = () => {
+const ReWriteContent = () => {
   const { isGenerating, generateArticle } = useGenerateArticle();
 
   return (
     <>
       <Helmet>
-        <title>Human Touch Content with AI</title>
+        <title>Content Rewrite</title>
       </Helmet>
       <ArticleGeneratorForm
         renderChildren={({ values }) => (
@@ -28,32 +29,25 @@ const HumanTouchContent = () => {
                 component="h1"
                 sx={{ fontSize: "24px", fontWeight: "600" }}
               >
-                Human Touch Content with AI
+                Content Rewrite
               </Typography>
               <Typography
                 component="h2"
                 sx={{ color: "var(--primary-grey)", marginTop: "4px" }}
               >
-                Submit your keyword and get a unique outline. After that
-                generate content with human touch.
+                With our AI you can re-write given content.
               </Typography>
             </Grid>
             <Grid item={true} xs={12}>
-              <TextInputBlock
-                name="keywords"
-                label="Target Keyword"
-                placeholder="Write your keyword..."
-              />
-            </Grid>
-            <Grid item={true} xs={12}>
-              <TextInputBlock
-                name="title"
-                label="Input Title"
-                placeholder="Write your title..."
+              <TextareaBlock
+                name="full_content"
+                label="Full Content"
+                placeholder="Write your content..."
+                rows={8}
               />
             </Grid>
             <Grid container={true} item={true} xs={12} spacing={4}>
-              <Grid item={true} xs={12} sm={6} md={6}>
+              <Grid item={true} xs={12} sm={6} md={4}>
                 <SelectBlock
                   name="sub_heading_count"
                   label="Sub-heading Count"
@@ -61,12 +55,20 @@ const HumanTouchContent = () => {
                   options={SUB_HEADING_COUNT}
                 />
               </Grid>
-              <Grid item={true} xs={12} md={6}>
+              <Grid item={true} xs={12} md={4}>
                 <SelectBlock
                   name="faq_count"
                   label="Faq Count"
                   placeholder="Provide how many faqs you like to have..."
                   options={FAQ_COUNT}
+                />
+              </Grid>
+              <Grid item={true} xs={12} sm={6} md={4}>
+                <TextInputBlock
+                  name="image_count"
+                  label="Image Count"
+                  placeholder="Provide how many images you like to have..."
+                  type="number"
                 />
               </Grid>
             </Grid>
@@ -81,11 +83,11 @@ const HumanTouchContent = () => {
 
                   generateArticle({
                     payload: {
-                      keywords: values?.keywords || "",
-                      title: values?.title || "",
-                      type: ARTICLE_TYPES.human_touch_content,
+                      fullContent: values?.fullContent || "",
+                      type: ARTICLE_TYPES.content_rewrite,
                       numSubheading: values?.sub_heading_count || "",
                       numFaq: values?.faq_count || "",
+                      numImage: values?.image_count || "",
                     },
                   });
                 }}
@@ -100,4 +102,4 @@ const HumanTouchContent = () => {
   );
 };
 
-export default HumanTouchContent;
+export default ReWriteContent;

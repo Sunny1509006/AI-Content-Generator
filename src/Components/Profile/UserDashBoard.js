@@ -70,7 +70,7 @@ const category = [
   {
     title: "Content Rewrite",
     description: "With our AI you can re-write given content",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.content_rewrite}`,
     icon: "",
   },
   {
