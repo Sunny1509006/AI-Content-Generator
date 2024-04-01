@@ -97,7 +97,7 @@ const category = [
     title: "Blog Article Outline Generator",
     description:
       "Submit your keyword and with one click you will get a content outline in minutes ",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_article_outline_generator}`,
     icon: "",
   },
   {
