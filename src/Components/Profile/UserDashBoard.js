@@ -24,13 +24,13 @@ const category = [
     description:
       "Our AI will help you write 100% unique seo friendly Information article in one click",
     link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.information_content_single_and_bulk}`,
-    icon: <MdArticle color="#FF4A17" size={30} />,
+    icon: "",
   },
   {
     title: "AI info Manual Sub Heading",
     description: "Provide your own subheadings to make 100% unique article",
-    link: "",
-    icon: <VscSymbolKeyword color="#FF4A17" size={30} />,
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.ai_info_manual_sub_heading}`,
+    icon: "",
   },
   {
     title: "Blog content Single / Bulk",

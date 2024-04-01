@@ -2,7 +2,7 @@ export const BEARER_TOKEN_COOKIE_NAME = "br_tkn";
 
 export const ARTICLE_TYPES = {
   info_article: "info article",
-  manual_sub_heading_artilce: "manual sub-heading article",
+  manual_sub_heading_artilce: "manual subheading article",
   blog_article: "blog article",
   product_content: "product content",
   amazon_review: "amazon review",
