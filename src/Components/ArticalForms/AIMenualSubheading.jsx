@@ -89,8 +89,8 @@ const AIMenualSubheading = () => {
                       title: values?.title || "",
                       type: ARTICLE_TYPES.manual_sub_heading_artilce,
                       subHeadings: values?.subheadings || "",
-                      faq: values?.faq_count || "",
-                      imageCount: values?.image_count || "",
+                      numFaq: values?.faq_count || "",
+                      numImage: values?.image_count || "",
                     },
                   });
                 }}

@@ -47,6 +47,13 @@ const InformationContent = () => {
                 helpText="You can write multiple keywords using comma(,)."
               />
             </Grid>
+            <Grid item={true} xs={12}>
+              <TextInputBlock
+                name="website_category"
+                label="Website Category"
+                placeholder="Provide the category of the website..."
+              />
+            </Grid>
             <Grid container={true} item={true} xs={12} spacing={4}>
               <Grid item={true} xs={12} sm={6} md={4}>
                 <SelectBlock
@@ -85,10 +92,11 @@ const InformationContent = () => {
                   generateArticle({
                     payload: {
                       keywords: values?.keywords || "",
+                      websiteCategory: values?.website_category || "",
                       type: ARTICLE_TYPES.info_article,
-                      subHeading: values?.sub_heading_count || "",
-                      faq: values?.faq_count || "",
-                      imageCount: values?.image_count || "",
+                      numSubheading: values?.sub_heading_count || "",
+                      numFaq: values?.faq_count || "",
+                      numImage: values?.image_count || "",
                     },
                   });
                 }}
