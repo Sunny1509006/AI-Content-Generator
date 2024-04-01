@@ -64,7 +64,7 @@ const category = [
     title: "Guest Post Content",
     description:
       "Our AI will help you write 100% unique seo friendly Guest Post Content in one click",
-    link: "",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.guest_post_content}`,
     icon: "",
   },
   {

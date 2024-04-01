@@ -7,6 +7,7 @@ import AIMenualSubheading from "../../ArticalForms/AIMenualSubheading";
 import BlogContent from "../../ArticalForms/BlogContent";
 import ProductContent from "../../ArticalForms/ProductContent";
 import HumanTouchContent from "../../ArticalForms/HumanTouchContent";
+import GuestPostContent from "../../ArticalForms/GuestPostContent";
 
 const GenerateArticle = () => {
   const query = useQuery();
@@ -25,6 +26,7 @@ const GenerateArticle = () => {
     [ARTICLE_GENERATION_TYPES.human_touch_content_with_ai]: (
       <HumanTouchContent />
     ),
+    [ARTICLE_GENERATION_TYPES.guest_post_content]: <GuestPostContent />,
   };
 
   return (
