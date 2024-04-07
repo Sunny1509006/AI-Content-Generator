@@ -12,6 +12,7 @@ import {
   SUB_HEADING_COUNT,
 } from "../../utils/constants";
 import { Helmet } from "react-helmet";
+import SuggestionBlock from "../ArticleGeneratorForm/components/SuggestionBlock";
 
 const BlogContent = () => {
   const { isGenerating, generateArticle } = useGenerateArticle();
@@ -47,10 +48,11 @@ const BlogContent = () => {
               />
             </Grid>
             <Grid item={true} xs={12}>
-              <TextInputBlock
-                name="website_category"
-                label="Website Category"
-                placeholder="Provide the category of the website..."
+              <SuggestionBlock
+                name="title"
+                label="Title"
+                placeholder="Choose your title or write your own..."
+                keywords={values?.keywords}
               />
             </Grid>
             <Grid container={true} item={true} xs={12} spacing={4}>
@@ -91,7 +93,7 @@ const BlogContent = () => {
                   generateArticle({
                     payload: {
                       keywords: values?.keywords || "",
-                      websiteCategory: values?.website_category || "",
+                      title: values?.title?.trim() || "",
                       type: ARTICLE_TYPES.blog_article,
                       numSubheading: values?.sub_heading_count || "",
                       numFaq: values?.faq_count || "",
