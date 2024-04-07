@@ -21,9 +21,10 @@ import StrikethroughSRoundedIcon from "@mui/icons-material/StrikethroughSRounded
 import CodeRoundedIcon from "@mui/icons-material/CodeRounded";
 import FormatButton from "./components/FormatButton";
 import LinkDialog from "./components/LinkDialog";
-
-import "./ArticleEditor.css";
 import Image from "@tiptap/extension-image";
+import "./ArticleEditor.css";
+import Heading from "@tiptap/extension-heading";
+import HardBreak from "@tiptap/extension-hard-break";
 
 const ArticleEditor = (props) => {
   const { content, onChange } = props;
@@ -48,6 +49,10 @@ const ArticleEditor = (props) => {
             "width: 100%; height: 500px; object-fit: cover; object-position: center",
         },
       }),
+      Heading.configure({
+        levels: [1, 2, 3, 4, 5, 6],
+      }),
+      HardBreak,
     ],
     content,
     onUpdate: ({ editor }) => {
