@@ -7,6 +7,7 @@ import useGenerateArticle from "../../hooks/useGenerateArticle";
 import { ARTICLE_TYPES } from "../../utils/constants";
 import { Helmet } from "react-helmet";
 import TextInputBlock from "../ArticleGeneratorForm/components/TextInputBlock";
+import SuggestionBlock from "../ArticleGeneratorForm/components/SuggestionBlock";
 
 const BlogOutlineContent = () => {
   const { isGenerating, generateArticle } = useGenerateArticle();
@@ -51,6 +52,14 @@ const BlogOutlineContent = () => {
               />
             </Grid>
             <Grid item={true} xs={12}>
+              <SuggestionBlock
+                name="title"
+                label="Title"
+                placeholder="Choose your title or write your own..."
+                keywords={values?.keywords}
+              />
+            </Grid>
+            <Grid item={true} xs={12}>
               <TextInputBlock
                 name="tone"
                 label="Tone"
@@ -70,6 +79,7 @@ const BlogOutlineContent = () => {
                     payload: {
                       shortDescription: values?.short_description || "",
                       keywords: values?.keywords || "",
+                      title: values?.title?.trim() || "",
                       tone: values?.tone || "",
                       type: ARTICLE_TYPES.blog_article_outline,
                     },

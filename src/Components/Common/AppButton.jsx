@@ -2,7 +2,7 @@ import React from "react";
 import { Button, CircularProgress } from "@mui/material";
 
 const AppButton = (props) => {
-  const { loading, endIcon, sx, ...otherProps } = props;
+  const { loading, endIcon, sx, disabled, ...otherProps } = props;
 
   return (
     <Button
@@ -11,13 +11,8 @@ const AppButton = (props) => {
         textTransform: "capitalize",
         ...sx,
       }}
-      endIcon={
-        loading ? (
-          <CircularProgress sx={{ color: "white" }} size={16} />
-        ) : (
-          endIcon
-        )
-      }
+      endIcon={loading ? <CircularProgress size={16} /> : endIcon}
+      disabled={disabled || loading}
     />
   );
 };

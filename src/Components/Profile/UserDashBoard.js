@@ -1,20 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { LeftSideBar } from "./LeftSideBar";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Routes,
-} from "react-router-dom";
-import { InfoArticle } from "../ContentGenerator/InfoArticle";
-import { Avatar, Button, Grid, Paper } from "@mui/material";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Grid, Paper } from "@mui/material";
 import { Helmet } from "react-helmet";
-import axios from "../Axios";
-import { TbSquareRoundedCheckFilled } from "react-icons/tb";
-import { MdArticle } from "react-icons/md";
-import { VscSymbolKeyword } from "react-icons/vsc";
-import useAuth from "../../hooks/authHooks";
 import { ARTICLE_GENERATION_TYPES } from "../../utils/constants";
 import PrivatePageLayout from "../layouts/PrivatePageLayout";
 

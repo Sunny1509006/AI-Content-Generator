@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { ArticleGeneratorFormContext } from "../contexts/ArticleGeneratorFormContext";
 import HelperTextBlock from "./HelperTextBlock";
@@ -6,6 +6,10 @@ import HelperTextBlock from "./HelperTextBlock";
 const SelectBlock = (props) => {
   const { name, label, helpText, placeholder, options } = props;
   const { values, setValues } = useContext(ArticleGeneratorFormContext);
+
+  useEffect(() => {
+    setValues(name, options[0].value);
+  }, [options]);
 
   return (
     <FormControl fullWidth={true}>

@@ -8,6 +8,7 @@ import { ARTICLE_TYPES, FAQ_COUNT } from "../../utils/constants";
 import TextInputBlock from "../ArticleGeneratorForm/components/TextInputBlock";
 import AppButton from "../Common/AppButton";
 import useGenerateArticle from "../../hooks/useGenerateArticle";
+import SuggestionBlock from "../ArticleGeneratorForm/components/SuggestionBlock";
 
 const AIMenualSubheading = () => {
   const { isGenerating, generateArticle } = useGenerateArticle();
@@ -42,10 +43,11 @@ const AIMenualSubheading = () => {
               />
             </Grid>
             <Grid item={true} xs={12}>
-              <TextInputBlock
+              <SuggestionBlock
                 name="title"
                 label="Title"
-                placeholder="Write your title..."
+                placeholder="Choose your title or write your own..."
+                keywords={values?.keywords}
               />
             </Grid>
             <Grid item={true} xs={12}>
@@ -86,7 +88,7 @@ const AIMenualSubheading = () => {
                   generateArticle({
                     payload: {
                       keywords: values?.keywords || "",
-                      title: values?.title || "",
+                      title: values?.title?.trim() || "",
                       type: ARTICLE_TYPES.manual_sub_heading_artilce,
                       subHeadings: values?.subheadings || "",
                       numFaq: values?.faq_count || "",
