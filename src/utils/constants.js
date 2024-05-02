@@ -67,3 +67,7 @@ export const FAQ_COUNT = [
     label: "3",
   },
 ];
+
+export const PUBLISHER_SITE_TYPES = {
+  WORDPRESS: "wordpress",
+};

@@ -3,6 +3,7 @@ import { MdDashboard, MdArticle, MdHistory } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { VscSymbolKeyword } from "react-icons/vsc";
 import { Stack } from "@mui/material";
+import LanguageRoundedIcon from "@mui/icons-material/LanguageRounded";
 
 const PRIVATE_ROUTES = [
   {
@@ -16,14 +17,14 @@ const PRIVATE_ROUTES = [
     title: "Post History",
   },
   {
-    href: "/info-article",
-    menuIcon: <MdArticle />,
-    title: "Create Article",
-  },
-  {
     href: "/keyword-generator",
     menuIcon: <VscSymbolKeyword />,
     title: "Keywords Generate (Free)",
+  },
+  {
+    href: "/publisher-sites",
+    menuIcon: <LanguageRoundedIcon />,
+    title: "Publisher Sites",
   },
 ];
 
