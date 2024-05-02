@@ -9,6 +9,7 @@ import Cookies from "universal-cookie";
 import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
 import useAuth from "../../hooks/authHooks";
 import { useNavigate } from "react-router-dom";
+import AppButton from "../Common/AppButton";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -16,6 +17,8 @@ const Login = (props) => {
   const [captchaHash, setCaptchaHash] = useState(null);
   const [inputCaptchaValue, setInputCaptchaValue] = useState("");
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isMatchingCaptcha, setIsMatchingCaptcha] = useState(false);
   const { loggedInUser, fetchAuthUser } = useAuth();
   const navigate = useNavigate();
   const cookies = new Cookies(null, { path: "/" });
@@ -37,6 +40,8 @@ const Login = (props) => {
   };
 
   const handleApi = () => {
+    setIsLoggingIn(true);
+
     axios
       .post("/api/users/login", {
         username: userName,
@@ -67,10 +72,15 @@ const Login = (props) => {
           // Something happened in setting up the request that triggered an Error
           alert("Error", error.detail);
         }
+      })
+      .finally(() => {
+        setIsLoggingIn(false);
       });
   };
 
   const captchaMatch = () => {
+    setIsMatchingCaptcha(true);
+
     axios
       .post("/api/captcha/match", {
         hash: captchaHash,
@@ -84,6 +94,9 @@ const Login = (props) => {
       })
       .catch((error) => {
         setCaptchaMatchError(true);
+      })
+      .finally(() => {
+        setIsMatchingCaptcha(false);
       });
   };
 
@@ -147,12 +160,13 @@ const Login = (props) => {
               onChange={handleCaptchaValue}
               inputProps={{ style: { height: "15px" } }}
             />
-            <Button
-              className="text_field_login custom-button"
+            <AppButton
+              variant="contained"
               onClick={captchaMatch}
+              loading={isLoggingIn || isMatchingCaptcha}
             >
               Login
-            </Button>
+            </AppButton>
           </div>
         </form>
       </Paper>
