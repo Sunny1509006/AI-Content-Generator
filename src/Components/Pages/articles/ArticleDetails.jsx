@@ -9,10 +9,12 @@ import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
 import useSaveArticle from "../../../hooks/useSaveArticle";
 import { Helmet } from "react-helmet";
+import PublishArticleToSiteModal from "../../Common/PublishArticleToSiteModal";
 
 const ArticleDetails = () => {
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedContent, setUpdatedContent] = useState(null);
+  const [openArticlePublishModal, setOpenArticlePublishModal] = useState(false);
   const param = useParams();
   const articleID = param?.articleID;
   const { title, content, isFetching } = useFetchArticle(articleID);
@@ -92,10 +94,16 @@ const ArticleDetails = () => {
             <AppButton
               variant="outlined"
               startIcon={<PublishRoundedIcon />}
-              disabled
+              onClick={() => setOpenArticlePublishModal(true)}
             >
               Publish
             </AppButton>
+            <PublishArticleToSiteModal
+              open={openArticlePublishModal}
+              onClose={() => setOpenArticlePublishModal(false)}
+              articleTitle={title}
+              articleContent={updatedContent}
+            />
           </Stack>
           <Box>
             <ArticleEditor content={content} onChange={onContentChange} />
