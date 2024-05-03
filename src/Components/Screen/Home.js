@@ -13,7 +13,6 @@ import { Refund_Policy } from "../Pages/Refund_Policy";
 import { Terms_Conditions } from "../Pages/Terms_Conditions";
 import { About } from "../Pages/About";
 import { Pricing } from "../Pages/Pricing";
-import { InfoArticle } from "../ContentGenerator/InfoArticle";
 import { UserDashBoard } from "../Profile/UserDashBoard";
 import { PostHistory } from "../Profile/PostHistory";
 import useAuth from "../../hooks/authHooks";
@@ -21,6 +20,7 @@ import { CircularProgress, Stack, Typography } from "@mui/material";
 import ConfirmEmail from "../Pages/Auth/ConfirmEmail";
 import GenerateArticle from "../Pages/articles/GenerateArticle";
 import ArticleDetails from "../Pages/articles/ArticleDetails";
+import PublisherSites from "../Pages/PublisherSites";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -71,7 +71,6 @@ export const Home = () => {
             <Route exact path="/faqs" element={<FAQ />} />
             <Route exact path="/pricing" element={<Pricing />} />
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/info-article" element={<InfoArticle />} />
             <Route exact path="/post-history" element={<PostHistory />} />
             <Route exact path="/service" element={<Service />} />
             <Route exact path="/refund_policy" element={<Refund_Policy />} />
@@ -85,6 +84,7 @@ export const Home = () => {
               <Route path="generate" element={<GenerateArticle />} />
               <Route path=":articleID" element={<ArticleDetails />} />
             </Route>
+            <Route path="publisher-sites" element={<PublisherSites />} />
           </Routes>
         </div>
         <Footer />

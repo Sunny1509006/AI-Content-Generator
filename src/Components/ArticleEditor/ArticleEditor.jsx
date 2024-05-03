@@ -205,7 +205,7 @@ const ArticleEditor = (props) => {
           Remove
         </FormatButton>
       </BubbleMenu>
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} readOnly={true} />
       <LinkDialog
         open={isLinkModalOpen}
         onClose={closeModal}
