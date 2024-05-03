@@ -46,7 +46,7 @@ const PublisherSiteList = (props) => {
               }}
             >
               {loading && <CircularProgress />}
-              {rows.length <= 0 && (
+              {!loading && rows.length <= 0 && (
                 <Typography>No sites in the list.</Typography>
               )}
             </Stack>

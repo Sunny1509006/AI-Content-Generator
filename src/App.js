@@ -3,6 +3,7 @@ import { Home } from "./Components/Screen/Home";
 import AuthProvider from "./AuthProvider";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   const theme = createTheme({
@@ -15,12 +16,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <Router>
-          <ScrollToTop />
-          <Home />
-        </Router>
-      </AuthProvider>
+      <SnackbarProvider maxSnack={5}>
+        <AuthProvider>
+          <Router>
+            <ScrollToTop />
+            <Home />
+          </Router>
+        </AuthProvider>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import AppButton from "../Common/AppButton";
 import useEditSite from "../../hooks/useEditSite";
+import { PUBLISHER_SITES } from "../../utils/constants";
 
 const PublisherEditModal = (props) => {
   const { site, open, onClose, onSuccess } = props;
@@ -67,7 +68,9 @@ const PublisherEditModal = (props) => {
             label="Type"
             defaultValue={site.type}
           >
-            <MenuItem value="wordpress">Wordpress</MenuItem>
+            {PUBLISHER_SITES.map((site) => (
+              <MenuItem value={site.value}>{site.label}</MenuItem>
+            ))}
           </Select>
         </FormControl>
         <TextField

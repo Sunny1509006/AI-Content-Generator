@@ -15,12 +15,15 @@ import {
 import AppButton from "../Common/AppButton";
 import useFetchPublisherSites from "../../hooks/useFetchPublisherSites";
 import usePublishToSite from "../../hooks/usePublishToSite";
+import { PUBLISHER_SITES } from "../../utils/constants";
 
 const PublishArticleToSiteModal = (props) => {
   const { open, onClose, articleTitle, articleContent } = props;
   const [selectedSite, setSelectedSite] = useState({});
   const { fetchSites, sites, isFetching } = useFetchPublisherSites();
-  const { publisheArticleToSite, isPublishing } = usePublishToSite();
+  const { publisheArticleToSite, isPublishing } = usePublishToSite({
+    onEnd: onClose,
+  });
 
   useEffect(() => {
     if (sites.length > 0) {
@@ -45,12 +48,20 @@ const PublishArticleToSiteModal = (props) => {
           const formJson = Object.fromEntries(formData.entries());
           const siteID = formJson?.site;
           const site = sites.find((site) => site.id === parseInt(siteID))?.site;
+          const type = formJson?.type;
           const username = formJson.username;
           const password = formJson.password;
           const title = articleTitle;
           const content = articleContent;
 
-          publisheArticleToSite({ site, username, password, title, content });
+          publisheArticleToSite({
+            site,
+            type,
+            username,
+            password,
+            title,
+            content,
+          });
         },
       }}
     >
@@ -80,6 +91,22 @@ const PublishArticleToSiteModal = (props) => {
           >
             {sites.map((site) => (
               <MenuItem value={site?.id}>{site?.site}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth margin="normal" required>
+          <InputLabel id="publisher-sites-type-select-box-label">
+            Type
+          </InputLabel>
+          <Select
+            labelId="publisher-sites-type-select-box-label"
+            id="publisher-sites-type-select-box"
+            name="type"
+            label="Type"
+            value={selectedSite?.type}
+          >
+            {PUBLISHER_SITES.map((site) => (
+              <MenuItem value={site.value}>{site.label}</MenuItem>
             ))}
           </Select>
         </FormControl>

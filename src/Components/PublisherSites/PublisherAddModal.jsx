@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import AppButton from "../Common/AppButton";
 import useAddSite from "../../hooks/useAddSite";
+import { PUBLISHER_SITES } from "../../utils/constants";
 
 const PublisherAddModal = (props) => {
   const { open, onClose, onSuccess } = props;
@@ -64,7 +65,9 @@ const PublisherAddModal = (props) => {
             name="type"
             label="Type"
           >
-            <MenuItem value="wordpress">Wordpress</MenuItem>
+            {PUBLISHER_SITES.map((site) => (
+              <MenuItem value={site.value}>{site.label}</MenuItem>
+            ))}
           </Select>
         </FormControl>
         <TextField
