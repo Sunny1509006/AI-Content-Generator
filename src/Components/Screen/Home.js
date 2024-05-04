@@ -21,6 +21,7 @@ import ConfirmEmail from "../Pages/Auth/ConfirmEmail";
 import GenerateArticle from "../Pages/articles/GenerateArticle";
 import ArticleDetails from "../Pages/articles/ArticleDetails";
 import PublisherSites from "../Pages/PublisherSites";
+import KeywordGenerator from "../Pages/KeywordGenerator";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -84,6 +85,7 @@ export const Home = () => {
               <Route path="generate" element={<GenerateArticle />} />
               <Route path=":articleID" element={<ArticleDetails />} />
             </Route>
+            <Route path="keyword-generator" element={<KeywordGenerator />} />
             <Route path="publisher-sites" element={<PublisherSites />} />
           </Routes>
         </div>
