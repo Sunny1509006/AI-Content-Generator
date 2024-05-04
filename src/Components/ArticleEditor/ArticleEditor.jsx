@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
+import React, { useEffect } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
@@ -10,25 +10,17 @@ import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
 import Code from "@tiptap/extension-code";
 import History from "@tiptap/extension-history";
-import { Box } from "@mui/material";
-import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
-import RotateRightRoundedIcon from "@mui/icons-material/RotateRightRounded";
-import InsertLinkRoundedIcon from "@mui/icons-material/InsertLinkRounded";
-import FormatBoldRoundedIcon from "@mui/icons-material/FormatBoldRounded";
-import FormatUnderlinedRoundedIcon from "@mui/icons-material/FormatUnderlinedRounded";
-import FormatItalicRoundedIcon from "@mui/icons-material/FormatItalicRounded";
-import StrikethroughSRoundedIcon from "@mui/icons-material/StrikethroughSRounded";
-import CodeRoundedIcon from "@mui/icons-material/CodeRounded";
-import FormatButton from "./components/FormatButton";
-import LinkDialog from "./components/LinkDialog";
+import { Box, colors } from "@mui/material";
 import Image from "@tiptap/extension-image";
 import "./ArticleEditor.css";
 import Heading from "@tiptap/extension-heading";
 import HardBreak from "@tiptap/extension-hard-break";
+import ArticleEditorToolbar from "./components/ArticleEditorToolbar";
 
 const ArticleEditor = (props) => {
-  const { content, onChange } = props;
+  const { content, editable, onChange } = props;
   const editor = useEditor({
+    editable,
     extensions: [
       Document,
       History,
@@ -59,64 +51,20 @@ const ArticleEditor = (props) => {
       onChange(editor);
     },
   });
-  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
-  const [url, setUrl] = useState("");
-
-  const openModal = useCallback(() => {
-    setUrl(editor.getAttributes("link").href);
-    setIsLinkModalOpen(true);
-  }, [editor]);
-
-  const closeModal = useCallback(() => {
-    setIsLinkModalOpen(false);
-    setUrl("");
-  }, []);
-
-  const saveLink = useCallback(() => {
-    if (url) {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: url, target: "_blank" })
-        .run();
-    } else {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-    }
-    editor.commands.blur();
-    closeModal();
-  }, [editor, url, closeModal]);
-
-  const removeLink = useCallback(() => {
-    editor.chain().focus().extendMarkRange("link").unsetLink().run();
-    closeModal();
-  }, [editor, closeModal]);
-
-  const toggleBold = useCallback(() => {
-    editor.chain().focus().toggleBold().run();
-  }, [editor]);
-
-  const toggleUnderline = useCallback(() => {
-    editor.chain().focus().toggleUnderline().run();
-  }, [editor]);
-
-  const toggleItalic = useCallback(() => {
-    editor.chain().focus().toggleItalic().run();
-  }, [editor]);
-
-  const toggleStrike = useCallback(() => {
-    editor.chain().focus().toggleStrike().run();
-  }, [editor]);
-
-  const toggleCode = useCallback(() => {
-    editor.chain().focus().toggleCode().run();
-  }, [editor]);
 
   useEffect(() => {
     if (!!editor) {
       editor.commands.setContent(content);
     }
   }, [editor, content]);
+
+  useEffect(() => {
+    if (!editor) {
+      return undefined;
+    }
+
+    editor.setEditable(editable);
+  }, [editor, editable]);
 
   if (!editor) {
     return null;
@@ -127,8 +75,17 @@ const ArticleEditor = (props) => {
       sx={{
         lineHeight: "1.5",
         fontSize: "16px",
+        borderRadius: "4px",
+        border: editable
+          ? editor.isFocused
+            ? `2px solid ${colors.grey[900]}`
+            : `2px solid ${colors.grey[400]}`
+          : 0,
+        outline: 0,
+        ".ProseMirror": {
+          padding: editable ? "8px 16px" : 0,
+        },
         ".ProseMirror.ProseMirror-focused": {
-          //   padding: "8px 16px",
           outline: "none",
         },
         ".ProseMirror p": {
@@ -137,83 +94,8 @@ const ArticleEditor = (props) => {
         },
       }}
     >
-      <BubbleMenu
-        pluginKey="bubbleMenuText"
-        className="article-editor__popup"
-        tippyOptions={{ duration: 150, maxWidth: "auto", zIndex: 1200 }}
-        editor={editor}
-        shouldShow={({ from, to }) => {
-          // only show if range is selected.
-          return from !== to;
-        }}
-      >
-        <FormatButton
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().undo()}
-        >
-          <RotateLeftRoundedIcon />
-        </FormatButton>
-        <FormatButton
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().redo()}
-        >
-          <RotateRightRoundedIcon />
-        </FormatButton>
-        <FormatButton isActive={editor.isActive("link")} onClick={openModal}>
-          <InsertLinkRoundedIcon />
-        </FormatButton>
-        <FormatButton isActive={editor.isActive("bold")} onClick={toggleBold}>
-          <FormatBoldRoundedIcon />
-        </FormatButton>
-        <FormatButton
-          isActive={editor.isActive("underline")}
-          onClick={toggleUnderline}
-        >
-          <FormatUnderlinedRoundedIcon />
-        </FormatButton>
-        <FormatButton
-          isActive={editor.isActive("italic")}
-          onClick={toggleItalic}
-        >
-          <FormatItalicRoundedIcon />
-        </FormatButton>
-        <FormatButton
-          isActive={editor.isActive("strike")}
-          onClick={toggleStrike}
-        >
-          <StrikethroughSRoundedIcon />
-        </FormatButton>
-        <FormatButton isActive={editor.isActive("code")} onClick={toggleCode}>
-          <CodeRoundedIcon />
-        </FormatButton>
-      </BubbleMenu>
-
-      <BubbleMenu
-        pluginKey="bubbleMenuLink"
-        className="bubble-menu-dark"
-        tippyOptions={{ duration: 150 }}
-        editor={editor}
-        shouldShow={({ editor, view, state, oldState, from, to }) => {
-          // only show the bubble menu for links.
-          return from === to && editor.isActive("link");
-        }}
-      >
-        <FormatButton className="button" onClick={openModal}>
-          Edit
-        </FormatButton>
-        <FormatButton className="button-remove" onClick={removeLink}>
-          Remove
-        </FormatButton>
-      </BubbleMenu>
-      <EditorContent editor={editor} readOnly={true} />
-      <LinkDialog
-        open={isLinkModalOpen}
-        onClose={closeModal}
-        link={url}
-        onChange={(event) => setUrl(event.target?.value)}
-        onRemoveLink={removeLink}
-        onSaveLink={saveLink}
-      />
+      <ArticleEditorToolbar editor={editor} editable={editable} />
+      <EditorContent editor={editor} />
     </Box>
   );
 };
