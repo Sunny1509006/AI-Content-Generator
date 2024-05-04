@@ -6,11 +6,16 @@ const useSaveArticle = (articleID) => {
   const [isSaving, setIsSaving] = useState(false);
   const { logoutUser } = useLogout();
 
-  const saveArticle = ({ payload }) => {
+  const saveArticle = ({ payload, onSuccess }) => {
     setIsSaving(true);
 
     axios
       .put(`/api/articles/${articleID}`, payload)
+      .then((response) => {
+        if (response.status === 201 && !!onSuccess) {
+          onSuccess(response);
+        }
+      })
       .catch((error) => {
         if ([401, 423].includes(error.request.status)) {
           logoutUser();
