@@ -6,6 +6,7 @@ import AppButton from "../Common/AppButton";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import useFetchPublisherSites from "../../hooks/useFetchPublisherSites";
 import PublisherAddModal from "../PublisherSites/PublisherAddModal";
+import { Helmet } from "react-helmet";
 
 const PublisherSites = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
@@ -17,6 +18,9 @@ const PublisherSites = () => {
 
   return (
     <PrivatePageLayout>
+      <Helmet>
+        <title>Publisher Sites</title>
+      </Helmet>
       <Stack
         component="form"
         sx={{

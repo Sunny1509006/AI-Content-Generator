@@ -14,7 +14,7 @@ import { Terms_Conditions } from "../Pages/Terms_Conditions";
 import { About } from "../Pages/About";
 import { Pricing } from "../Pages/Pricing";
 import { UserDashBoard } from "../Profile/UserDashBoard";
-import { PostHistory } from "../Profile/PostHistory";
+import { PostHistory } from "../Pages/PostHistory";
 import useAuth from "../../hooks/authHooks";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import ConfirmEmail from "../Pages/Auth/ConfirmEmail";
@@ -72,7 +72,6 @@ export const Home = () => {
             <Route exact path="/faqs" element={<FAQ />} />
             <Route exact path="/pricing" element={<Pricing />} />
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/post-history" element={<PostHistory />} />
             <Route exact path="/service" element={<Service />} />
             <Route exact path="/refund_policy" element={<Refund_Policy />} />
             <Route
@@ -85,6 +84,7 @@ export const Home = () => {
               <Route path="generate" element={<GenerateArticle />} />
               <Route path=":articleID" element={<ArticleDetails />} />
             </Route>
+            <Route exact path="/post-history" element={<PostHistory />} />
             <Route path="keyword-generator" element={<KeywordGenerator />} />
             <Route path="publisher-sites" element={<PublisherSites />} />
           </Routes>
