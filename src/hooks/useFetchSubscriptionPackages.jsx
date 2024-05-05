@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../Components/Axios";
 import useLogout from "./useLogout";
 
-const useFetchPosts = () => {
-  const [posts, setPosts] = useState([]);
+const useFetchSubscriptionPackages = () => {
+  const [subscriptionPackages, setSubscriptionPackages] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const { logoutUser } = useLogout();
 
-  const fetchPosts = () => {
+  const fetchSubscriptionPackages = () => {
     setIsFetching(true);
 
     axios
-      .get(`/api/articles`)
+      .get(`/api/price/get`)
       .then((response) => {
         if (response.status === 200) {
-          setPosts(response.data?.result || []);
+          setSubscriptionPackages(response.data?.result || []);
         }
       })
       .catch((error) => {
@@ -27,7 +27,11 @@ const useFetchPosts = () => {
       });
   };
 
-  return { posts, fetchPosts, isFetching };
+  useEffect(() => {
+    fetchSubscriptionPackages();
+  }, []);
+
+  return { subscriptionPackages, fetchSubscriptionPackages, isFetching };
 };
 
-export default useFetchPosts;
+export default useFetchSubscriptionPackages;
