@@ -13,7 +13,7 @@ const IntorductionContent = () => {
   return (
     <>
       <Helmet>
-        <title>Generate Conclusion</title>
+        <title>Generate Introduction</title>
       </Helmet>
       <ArticleGeneratorForm
         renderChildren={({ values }) => (
@@ -23,13 +23,14 @@ const IntorductionContent = () => {
                 component="h1"
                 sx={{ fontSize: "24px", fontWeight: "600" }}
               >
-                Generate Conclusion
+                Generate Introduction
               </Typography>
               <Typography
                 component="h2"
                 sx={{ color: "var(--primary-grey)", marginTop: "4px" }}
               >
-                Generate eye catching conclusion with one click with any topic.
+                Generate eye catching introduction with one click with any
+                topic.
               </Typography>
             </Grid>
             <Grid item={true} xs={12}>

@@ -15,6 +15,10 @@ import Image from "@tiptap/extension-image";
 import "./ArticleEditor.css";
 import Heading from "@tiptap/extension-heading";
 import HardBreak from "@tiptap/extension-hard-break";
+import TextAlign from "@tiptap/extension-text-align";
+import BulletList from "@tiptap/extension-bullet-list";
+import ListItem from "@tiptap/extension-list-item";
+import OrderedList from "@tiptap/extension-ordered-list";
 import ArticleEditorToolbar from "./components/ArticleEditorToolbar";
 
 const ArticleEditor = (props) => {
@@ -36,6 +40,7 @@ const ArticleEditor = (props) => {
       Code,
       Image.configure({
         inline: true,
+        allowBase64: true,
         HTMLAttributes: {
           style:
             "width: 100%; height: 500px; object-fit: cover; object-position: center",
@@ -45,6 +50,20 @@ const ArticleEditor = (props) => {
         levels: [1, 2, 3, 4, 5, 6],
       }),
       HardBreak,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      BulletList.configure({
+        HTMLAttributes: {
+          style: "padding-inline-start: 40px;",
+        },
+      }),
+      ListItem,
+      OrderedList.configure({
+        HTMLAttributes: {
+          style: "padding-inline-start: 40px;",
+        },
+      }),
     ],
     content,
     onUpdate: ({ editor }) => {
