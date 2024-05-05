@@ -22,6 +22,7 @@ import GenerateArticle from "../Pages/articles/GenerateArticle";
 import ArticleDetails from "../Pages/articles/ArticleDetails";
 import PublisherSites from "../Pages/PublisherSites";
 import KeywordGenerator from "../Pages/KeywordGenerator";
+import SubmitManualPayment from "../Pages/SubmitManualPayment";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -87,6 +88,10 @@ export const Home = () => {
             <Route exact path="/post-history" element={<PostHistory />} />
             <Route path="keyword-generator" element={<KeywordGenerator />} />
             <Route path="publisher-sites" element={<PublisherSites />} />
+            <Route
+              path="submit-manual-payment"
+              element={<SubmitManualPayment />}
+            />
           </Routes>
         </div>
         <Footer />
