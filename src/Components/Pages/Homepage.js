@@ -10,7 +10,7 @@ export const Homepage = () => {
     <>
     <Title_Info />
     <Tool_Description />
-    <YouTubePlayer />
+    {/* <YouTubePlayer /> */}
     <Details />
     
     <Faq />
