@@ -16,11 +16,11 @@ const PRIVATE_ROUTES = [
     menuIcon: <MdHistory />,
     title: "Post History",
   },
-  {
-    href: "/keyword-generator",
-    menuIcon: <VscSymbolKeyword />,
-    title: "Keywords Generate (Free)",
-  },
+  // {
+  //   href: "/keyword-generator",
+  //   menuIcon: <VscSymbolKeyword />,
+  //   title: "Keywords Generate (Free)",
+  // },
   {
     href: "/publisher-sites",
     menuIcon: <LanguageRoundedIcon />,
