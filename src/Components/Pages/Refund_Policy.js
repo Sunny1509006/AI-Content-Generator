@@ -6,15 +6,18 @@ export const Refund_Policy = () => {
     <div className="refund-policy-main">
       <h1>Refund Policy</h1>
       <div className="refund-policy-body">
-        <p>
+      <p>
+      We offer a trial period where you can check the quality of our content writing in Faisaliteb AI. And so, we don’t offer any refund because it costs us some other resources and hence the saying. So, please use this trial period to make sure that your demands are met. After that you can upgrade to any of the plans you want. 
+        </p>
+        {/* <p>
           Thank you for choosing Faisaliteb.ai for your AI needs. We strive to
           provide exceptional services and ensure your satisfaction. This Refund
           Policy outlines the terms and conditions under which refunds are
           provided for our services. Please read this policy carefully before
           making a purchase. By using our services, you agree to be bound by
           this Refund Policy.
-        </p>
-        <ol>
+        </p> */}
+        {/* <ol>
           <li>
             <h3>Eligibility for Refunds</h3>
             <p>
@@ -110,7 +113,7 @@ export const Refund_Policy = () => {
               policies may apply.
             </p>
           </li>
-        </ol>
+        </ol> */}
       </div>
     </div>
   );
