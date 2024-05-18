@@ -83,11 +83,11 @@ export const MANUAL_PAYMENT_METHODS = {
   BKASH: {
     label: "bKash",
     value: 1,
-    number: "01111111991",
+    number: "01311320246",
   },
   NAGAD: {
     label: "Nagad",
     value: 2,
-    number: "01111193491",
+    number: "01311320246",
   },
 };
