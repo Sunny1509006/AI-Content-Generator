@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, Paper } from "@mui/material";
+import { Avatar, Button, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import TextField from "@mui/material/TextField";
@@ -118,7 +118,13 @@ const Login = (props) => {
           </Avatar>
           <h2>Login</h2>
         </Grid>
-        <form>
+        <form
+          onKeyDown={(event) => {
+            if (event.code === "Enter") {
+              captchaMatch();
+            }
+          }}
+        >
           <div className="login-form">
             <TextField
               required={true}
@@ -155,7 +161,6 @@ const Login = (props) => {
               fullWidth
               label="Enter Captcha Here"
               variant="outlined"
-              className="text_field"
               value={inputCaptchaValue}
               onChange={handleCaptchaValue}
               inputProps={{ style: { height: "15px" } }}
@@ -167,6 +172,14 @@ const Login = (props) => {
             >
               Login
             </AppButton>
+            <Stack>
+              <Typography sx={{ fontSize: "14px" }}>
+                Don't have an account? Please{" "}
+                <AppButton href="/signup" size="small" sx={{ minWidth: 0 }}>
+                  Register
+                </AppButton>
+              </Typography>
+            </Stack>
           </div>
         </form>
       </Paper>

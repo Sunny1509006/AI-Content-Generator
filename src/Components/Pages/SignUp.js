@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, Paper } from "@mui/material";
+import { Avatar, Button, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./SignUp.css";
 import TextField from "@mui/material/TextField";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../Axios";
 import { Captcha } from "../Common/Captcha";
 import useAuth from "../../hooks/authHooks";
+import AppButton from "../Common/AppButton";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -222,6 +223,14 @@ const SignUp = () => {
             >
               Submit
             </Button>
+            <Stack>
+              <Typography sx={{ fontSize: "14px" }}>
+                Already have an account? Please{" "}
+                <AppButton href="/login" size="small" sx={{ minWidth: 0 }}>
+                  Login
+                </AppButton>
+              </Typography>
+            </Stack>
           </div>
         </form>
       </Paper>

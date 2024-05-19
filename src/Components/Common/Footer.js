@@ -2,9 +2,14 @@ import React from "react";
 import "./Footer.css";
 import { BsFacebook, BsTwitter, BsLinkedin, BsYoutube } from "react-icons/bs";
 import { RiInstagramFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../hooks/authHooks";
+import { ROUTES } from "../../utils/constants";
 
 export const Footer = () => {
+  const { loggedInUser } = useAuth();
+  const isLoggedIn = loggedInUser && !!loggedInUser?.id;
+
   return (
     <div className="footer-main">
       <div className="footer-top">
@@ -49,14 +54,34 @@ export const Footer = () => {
             </a>
           </div>
         </div>
+        {isLoggedIn && (
+          <div>
+            <p style={{ fontWeight: "bold", fontSize: "20px" }}>
+              Usefull Links
+            </p>
+            <div className="footer-list">
+              {ROUTES.map((route) => (
+                <Link to={route.path} style={{ textDecoration: "none" }}>
+                  <p>{route.name}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
         <div>
           <p style={{ fontWeight: "bold", fontSize: "20px" }}>
             About Faisaliteb.AI
           </p>
           <div className="footer-list">
-            <Link to="/refund_policy" style={{textDecoration: 'none'}}><p>Refund Policy</p></Link>
-            <Link to="/terms_and_conditions" style={{textDecoration: 'none'}}><p>Terms & Conditions</p></Link>
-            <Link to="/faqs" style={{textDecoration: 'none'}}><p>Faqs</p></Link>
+            <Link to="/refund_policy" style={{ textDecoration: "none" }}>
+              <p>Refund Policy</p>
+            </Link>
+            <Link to="/terms_and_conditions" style={{ textDecoration: "none" }}>
+              <p>Terms & Conditions</p>
+            </Link>
+            <Link to="/faqs" style={{ textDecoration: "none" }}>
+              <p>Faqs</p>
+            </Link>
           </div>
         </div>
         {/* <div>
@@ -74,7 +99,14 @@ export const Footer = () => {
           </p>
           <div className="footer-list">
             <p>Join Our Community</p>;
-            <div style={{ marginTop: "-30px", display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div
+              style={{
+                marginTop: "-30px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+              }}
+            >
               <a
                 href="https://www.facebook.com/groups/seowebsitedoctor"
                 target="_blank"

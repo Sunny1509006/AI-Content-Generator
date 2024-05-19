@@ -1,5 +1,44 @@
 export const BEARER_TOKEN_COOKIE_NAME = "br_tkn";
 
+export const ROUTES = [
+  {
+    path: "/",
+    name: "Home",
+  },
+  {
+    path: "/about",
+    name: "About",
+  },
+  {
+    path: "/pricing",
+    name: "Pricing",
+  },
+  {
+    path: "/service",
+    name: "Service",
+  },
+  // {
+  //   path: "/affiliate",
+  //   name: "Affiliate",
+  // },
+  // {
+  //   path: "/signup",
+  //   name: "Register",
+  // },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  // },
+  {
+    path: "/contactus",
+    name: "Contact",
+  },
+  // {
+  //   path: "/faqs",
+  //   name: "FAQs",
+  // },
+];
+
 export const ARTICLE_TYPES = {
   info_article: "info article",
   manual_sub_heading_artilce: "manual subheading article",

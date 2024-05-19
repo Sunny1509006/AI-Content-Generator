@@ -5,45 +5,9 @@ import Button from "@mui/material/Button";
 import useAuth from "../../hooks/authHooks";
 import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
-
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-  },
-  {
-    path: "/about",
-    name: "About",
-  },
-  {
-    path: "/pricing",
-    name: "Pricing",
-  },
-  {
-    path: "/service",
-    name: "Service",
-  },
-  // {
-  //   path: "/affiliate",
-  //   name: "Affiliate",
-  // },
-  {
-    path: "/signup",
-    name: "Register",
-  },
-  {
-    path: "/login",
-    name: "Login",
-  },
-  {
-    path: "/contactus",
-    name: "Contact",
-  },
-  // {
-  //   path: "/faqs",
-  //   name: "FAQs",
-  // },
-];
+import { Stack } from "@mui/material";
+import AppButton from "./AppButton";
+import { ROUTES } from "../../utils/constants";
 
 export const Header = () => {
   const { loggedInUser } = useAuth();
@@ -62,16 +26,11 @@ export const Header = () => {
   };
 
   return (
-    <div className="header-main">
-      <img
-        src="/images/faisaliteb-logo.png"
-        alt="faisaliteb"
-        className="header_logo"
-      />
-      <div className="header-link">
-        {routes.map((route) =>
-          isLoggedIn &&
-          (route.name === "Login" || route.name === "Register") ? null : (
+    <Stack className="header-main" direction="row" sx={{ padding: "16px" }}>
+      <img src="/images/faisaliteb-logo.png" alt="faisaliteb" />
+      {!isLoggedIn && (
+        <div className="header-link">
+          {ROUTES.map((route) => (
             <NavLink
               to={route.path}
               key={route.name}
@@ -79,9 +38,9 @@ export const Header = () => {
             >
               <div className="link-style">{route.name}</div>
             </NavLink>
-          )
-        )}
-      </div>
+          ))}
+        </div>
+      )}
       {isLoggedIn ? (
         <div
           style={{
@@ -175,12 +134,15 @@ export const Header = () => {
           </div>
         </div>
       ) : (
-        <div className="button-div">
-          <Button variant="contained" className="custom-button">
-            Free Trial
-          </Button>
-        </div>
+        <Stack direction="row" sx={{ alignItems: "center" }} spacing={2}>
+          <AppButton variant="outlined" href="/signup">
+            Register
+          </AppButton>
+          <AppButton variant="contained" href="/login">
+            Login
+          </AppButton>
+        </Stack>
       )}
-    </div>
+    </Stack>
   );
 };
