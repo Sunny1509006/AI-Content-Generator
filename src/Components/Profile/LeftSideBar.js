@@ -1,9 +1,24 @@
 import React from "react";
 import { MdDashboard, MdHistory } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { VscSymbolKeyword } from "react-icons/vsc";
-import { Stack } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import LanguageRoundedIcon from "@mui/icons-material/LanguageRounded";
+import {
+  BLOG_CATEGORIES,
+  DEFAULT_PARENT_CATEGORY,
+  PARENT_BLOG_CATEGORIES,
+} from "../../utils/constants";
 
 const PRIVATE_ROUTES = [
   {
@@ -29,10 +44,13 @@ const PRIVATE_ROUTES = [
 ];
 
 export const LeftSideBar = () => {
+  const location = useLocation();
+  const { pathname, search } = location;
+
   return (
     <Stack
       sx={{
-        minWidth: "250px",
+        width: "300px",
         borderRight: "1px solid #FF4A17",
         padding: "8px 20px 8px 0",
         fontSize: "16px",
@@ -48,21 +66,100 @@ export const LeftSideBar = () => {
           fontSize: "24px",
         },
       }}
-      spacing={3}
+      spacing={1}
     >
       {PRIVATE_ROUTES.map((route) => (
-        <Link
-          to={route.href}
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            gap: "10px",
-            alignItems: "center",
-          }}
-        >
-          {route.menuIcon}
-          {route.title}
-        </Link>
+        <Stack spacing={1}>
+          <Link
+            to={route.href}
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{
+                alignItems: "center",
+                backgroundColor:
+                  route.href === pathname + search
+                    ? "rgba(0, 0, 0, 0.04)"
+                    : "transparent",
+                color:
+                  route.href === pathname + search ? "primary.main" : "inherit",
+                padding: "16px 8px",
+                ":hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                  color: "primary.main",
+                },
+              }}
+            >
+              {route.menuIcon}
+              <Typography>{route.title}</Typography>
+            </Stack>
+          </Link>
+          {route.href === "/dashboard" && (
+            <Box sx={{ marginLeft: "16px !important" }}>
+              {Object.entries(PARENT_BLOG_CATEGORIES).map(
+                ([parentCategoryKey, parentCategoryName]) => {
+                  return parentCategoryKey !== DEFAULT_PARENT_CATEGORY ? (
+                    <Accordion>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        sx={{
+                          borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+                          ".MuiAccordionSummary-content": {
+                            margin: "16px 0",
+                          },
+                        }}
+                      >
+                        {parentCategoryName}
+                      </AccordionSummary>
+                      <AccordionDetails sx={{ padding: "0 8px" }}>
+                        <List>
+                          {BLOG_CATEGORIES.filter(
+                            (category) =>
+                              category.parentCategory === parentCategoryName
+                          ).map((category) => (
+                            <ListItem disablePadding>
+                              <Link
+                                key={category.title}
+                                to={category.link}
+                                style={{
+                                  textDecoration: "none",
+                                  display: "flex",
+                                  fontWeight: 400,
+                                  alignItems: "center",
+                                  width: "100%",
+                                }}
+                              >
+                                <ListItemButton
+                                  sx={{
+                                    backgroundColor:
+                                      category.link === pathname + search
+                                        ? "rgba(0, 0, 0, 0.04)"
+                                        : "transparent",
+                                    color:
+                                      category.link === pathname + search
+                                        ? "primary.main"
+                                        : "inherit",
+                                  }}
+                                >
+                                  {category.menuIcon}
+                                  {category.title}
+                                </ListItemButton>
+                              </Link>
+                            </ListItem>
+                          ))}
+                        </List>
+                      </AccordionDetails>
+                    </Accordion>
+                  ) : null;
+                }
+              )}
+            </Box>
+          )}
+        </Stack>
       ))}
     </Stack>
   );

@@ -130,3 +130,116 @@ export const MANUAL_PAYMENT_METHODS = {
     number: "01311320246",
   },
 };
+
+export const DEFAULT_PARENT_CATEGORY = "ALL";
+
+export const PARENT_BLOG_CATEGORIES = {
+  [DEFAULT_PARENT_CATEGORY]: "All",
+  INFO_BLOG_CONTENT: "Information / Blog Content",
+  AFFILIATE_REVIEW_CONTENT: "Affiliate (Review) Content",
+  MORE_AI_TOOLS: "More AI tools",
+};
+
+export const BLOG_CATEGORIES = [
+  {
+    title: "Information Content Single / Bulk",
+    description:
+      "Our AI will help you write 100% unique seo friendly Information article in one click",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.information_content_single_and_bulk}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "AI info Manual Sub Heading",
+    description: "Provide your own subheadings to make 100% unique article",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.ai_info_manual_sub_heading}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Blog content Single / Bulk",
+    description:
+      "100% unique One click single or bulk blog content at your hand",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Product Content (600-1000 words)",
+    description:
+      "Any kind of product content starting from 600 to 1k words in one click (Ecommerce)",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.product_content_600_1000_words}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Amazon Review Content ",
+    description:
+      "Search, add products manually & write 100% unique Amazon reviews in just a click",
+    link: "",
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.AFFILIATE_REVIEW_CONTENT,
+  },
+  {
+    title: "Human Touch Content with AI",
+    description:
+      "Submit your keyword and get a unique outline. After that generate content with human touch",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.human_touch_content_with_ai}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Guest Post Content",
+    description:
+      "Our AI will help you write 100% unique seo friendly Guest Post Content in one click",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.guest_post_content}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "Content Rewrite",
+    description: "With our AI you can re-write given content",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.content_rewrite}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "Generate Backlinks Content",
+    description:
+      "Input your keyword and generate content for your backlinks easily",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_backlinks_content}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "Generate Conclusion",
+    description:
+      "Generate eye catching conclusion with one click with any topic",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_conclusion}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "Generate Introduction",
+    description: "Generate any topic intro to grab your audience attention",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.generate_introduction}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "Blog Article Outline Generator",
+    description:
+      "Submit your keyword and with one click you will get a content outline in minutes ",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_article_outline_generator}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "Blog Paragraph",
+    description:
+      "Write a portion of your blog's paragraph in seconds. Just add your topic and get the paragraph",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+];
