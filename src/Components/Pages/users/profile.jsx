@@ -5,6 +5,7 @@ import { AuthContext } from "../../../AuthProvider";
 import {
   Box,
   Chip,
+  Divider,
   Grid,
   IconButton,
   Paper,
@@ -37,7 +38,7 @@ const Profile = () => {
       </Helmet>
       <Grid
         container={true}
-        spacing={3}
+        spacing={5}
         sx={{
           padding: "0 32px 60px",
           maxWidth: "1240px",
@@ -193,6 +194,47 @@ const Profile = () => {
                 </Grid>
               </Grid>
             </Paper>
+          </Grid>
+        </Grid>
+        <Grid item={true} container={true} xs={12} spacing={3}>
+          <Grid xs={12} item={true}>
+            <Typography
+              component="h2"
+              sx={{ fontSize: "20px", fontWeight: "600" }}
+            >
+              Change Password
+            </Typography>
+            <Divider sx={{ marginTop: "16px" }} />
+          </Grid>
+          <Grid item={true} xs={12}>
+            <TextField
+              label="Current Password"
+              //   value={loggedInUser?.name}
+              fullWidth={true}
+              type="password"
+            />
+          </Grid>
+          <Grid item={true} xs={12} md={6}>
+            <TextField
+              label="New Password"
+              //   value={loggedInUser?.name}
+              fullWidth={true}
+              type="password"
+            />
+          </Grid>
+          <Grid item={true} xs={12} md={6}>
+            <TextField
+              label="Confirm Password"
+              //   value={loggedInUser?.name}
+              fullWidth={true}
+              type="password"
+            />
+          </Grid>
+          <Grid item={true} xs={12}>
+            <Stack direction="row" spacing={2}>
+              <AppButton variant="contained">Change Password</AppButton>
+              <AppButton variant="outlined">Cancel</AppButton>
+            </Stack>
           </Grid>
         </Grid>
       </Grid>
