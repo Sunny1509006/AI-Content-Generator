@@ -4,7 +4,10 @@ import ArticleGeneratorForm from "../ArticleGeneratorForm/ArticleGeneratorForm";
 import { Grid, Typography } from "@mui/material";
 import TextareaBlock from "../ArticleGeneratorForm/components/TextareaBlock";
 import SelectBlock from "../ArticleGeneratorForm/components/SelectBlock";
-import { ARTICLE_TYPES, FAQ_COUNT } from "../../utils/constants";
+import {
+  ARTICLE_TYPES,
+  BLOG_GENERATION_IMAGE_COUNT_OPTIONS,
+} from "../../utils/constants";
 import TextInputBlock from "../ArticleGeneratorForm/components/TextInputBlock";
 import AppButton from "../Common/AppButton";
 import useGenerateArticle from "../../hooks/useGenerateArticle";
@@ -60,19 +63,19 @@ const AIMenualSubheading = () => {
             </Grid>
             <Grid container={true} item={true} xs={12} spacing={4}>
               <Grid item={true} xs={12} sm={6}>
-                <SelectBlock
+                <TextInputBlock
                   name="faq_count"
                   label="Faq Count"
-                  placeholder="Provide how many faqs you like to have..."
-                  options={FAQ_COUNT}
+                  placeholder="Number of faqs you like to have..."
+                  type="number"
                 />
               </Grid>
               <Grid item={true} xs={12} sm={6}>
-                <TextInputBlock
+                <SelectBlock
                   name="image_count"
                   label="Image Count"
-                  placeholder="Provide how many images you like to have..."
-                  type="number"
+                  placeholder="Number of images you like to have..."
+                  options={BLOG_GENERATION_IMAGE_COUNT_OPTIONS}
                 />
               </Grid>
             </Grid>

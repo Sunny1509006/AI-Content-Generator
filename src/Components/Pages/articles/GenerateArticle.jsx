@@ -40,9 +40,7 @@ const GenerateArticle = () => {
     [ARTICLE_GENERATION_TYPES.blog_article_outline_generator]: (
       <BlogOutlineContent />
     ),
-    [ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk]: (
-      <BlogParagraphContent />
-    ),
+    [ARTICLE_GENERATION_TYPES.blog_paragraph]: <BlogParagraphContent />,
   };
 
   return (

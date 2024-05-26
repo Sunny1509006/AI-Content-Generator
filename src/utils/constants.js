@@ -107,6 +107,29 @@ export const FAQ_COUNT = [
   },
 ];
 
+export const BLOG_GENERATION_IMAGE_COUNT_OPTIONS = [
+  {
+    value: "1",
+    label: "1",
+  },
+  {
+    value: "2",
+    label: "2",
+  },
+  {
+    value: "3",
+    label: "3",
+  },
+  {
+    value: "4",
+    label: "4",
+  },
+  {
+    value: "5",
+    label: "5",
+  },
+];
+
 export const PUBLISHER_SITE_TYPES = {
   WORDPRESS: "wordpress",
 };
@@ -238,7 +261,7 @@ export const BLOG_CATEGORIES = [
     title: "Blog Paragraph",
     description:
       "Write a portion of your blog's paragraph in seconds. Just add your topic and get the paragraph",
-    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_paragraph}`,
     icon: "",
     parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
   },

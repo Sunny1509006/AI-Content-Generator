@@ -8,8 +8,7 @@ import AppButton from "../Common/AppButton";
 import useGenerateArticle from "../../hooks/useGenerateArticle";
 import {
   ARTICLE_TYPES,
-  FAQ_COUNT,
-  SUB_HEADING_COUNT,
+  BLOG_GENERATION_IMAGE_COUNT_OPTIONS,
 } from "../../utils/constants";
 import { Helmet } from "react-helmet";
 import SuggestionBlock from "../ArticleGeneratorForm/components/SuggestionBlock";
@@ -58,27 +57,27 @@ const InformationContent = () => {
             </Grid>
             <Grid container={true} item={true} xs={12} spacing={4}>
               <Grid item={true} xs={12} sm={6} md={4}>
-                <SelectBlock
+                <TextInputBlock
                   name="sub_heading_count"
                   label="Sub-heading Count"
-                  placeholder="Provide how many sub-headings you like to have..."
-                  options={SUB_HEADING_COUNT}
+                  placeholder="Number of sub-headings you like to have..."
+                  type="number"
                 />
               </Grid>
               <Grid item={true} xs={12} md={4}>
-                <SelectBlock
+                <TextInputBlock
                   name="faq_count"
                   label="Faq Count"
-                  placeholder="Provide how many faqs you like to have..."
-                  options={FAQ_COUNT}
+                  placeholder="Number of faqs you like to have..."
+                  type="number"
                 />
               </Grid>
               <Grid item={true} xs={12} sm={6} md={4}>
-                <TextInputBlock
+                <SelectBlock
                   name="image_count"
                   label="Image Count"
-                  placeholder="Provide how many images you like to have..."
-                  type="number"
+                  placeholder="Number of images you like to have..."
+                  options={BLOG_GENERATION_IMAGE_COUNT_OPTIONS}
                 />
               </Grid>
             </Grid>
