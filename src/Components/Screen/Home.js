@@ -23,6 +23,7 @@ import ArticleDetails from "../Pages/articles/ArticleDetails";
 import PublisherSites from "../Pages/PublisherSites";
 import KeywordGenerator from "../Pages/KeywordGenerator";
 import SubmitManualPayment from "../Pages/SubmitManualPayment";
+import Profile from "../Pages/users/profile";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -92,6 +93,7 @@ export const Home = () => {
               path="submit-manual-payment"
               element={<SubmitManualPayment />}
             />
+            <Route path="profile" element={<Profile />} />
           </Routes>
         </div>
         <Footer />
