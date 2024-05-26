@@ -1,21 +1,24 @@
 import React from "react";
 import {
-  CircularProgress,
-  IconButton,
-  Stack,
+  // CircularProgress,
+  // IconButton,
+  // Stack,
   TableCell,
   TableRow,
 } from "@mui/material";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import useDeletePost from "../../hooks/useDeletePost";
+// import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+// import useDeletePost from "../../hooks/useDeletePost";
 import { Link } from "react-router-dom";
 
 const PostListItem = (props) => {
-  const { item, fetchPosts } = props;
-  const { deleteSite, isDeleting } = useDeletePost({
-    articleID: item.id,
-    onSuccessfullDeletion: fetchPosts,
-  });
+  const {
+    item,
+    // fetchPosts
+  } = props;
+  // const { deleteSite, isDeleting } = useDeletePost({
+  //   articleID: item.id,
+  //   onSuccessfullDeletion: fetchPosts,
+  // });
 
   return (
     <>
@@ -26,7 +29,7 @@ const PostListItem = (props) => {
         <TableCell component="th" scope="row">
           <Link to={`/articles/${item.id}`}>{item.title}</Link>
         </TableCell>
-        <TableCell component="th" scope="row" align="right">
+        {/* <TableCell component="th" scope="row" align="right">
           <Stack
             direction="row"
             spacing={1}
@@ -46,7 +49,7 @@ const PostListItem = (props) => {
               </IconButton>
             )}
           </Stack>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
     </>
   );

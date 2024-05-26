@@ -22,7 +22,7 @@ const PostList = (props) => {
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: "70%" }}>Title</TableCell>
-            <TableCell align="right">Action</TableCell>
+            {/* <TableCell align="right">Action</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody sx={{ position: "relative", height: "200px" }}>
