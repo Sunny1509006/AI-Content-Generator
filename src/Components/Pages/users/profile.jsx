@@ -22,7 +22,16 @@ import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 const Profile = () => {
   const { loggedInUser } = useContext(AuthContext);
   const [isInEditMode, setIsInEditMode] = useState(false);
+  const [editedName, setEditedName] = useState("");
+  const [newImage, setNewImage] = useState(null);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const nameInputRef = useRef(null);
+
+  useEffect(() => {
+    setEditedName(loggedInUser?.name);
+  }, [loggedInUser?.name]);
 
   useEffect(() => {
     if (!!isInEditMode && !!nameInputRef.current) {
@@ -68,6 +77,7 @@ const Profile = () => {
                     <AppButton
                       variant="contained"
                       startIcon={<SaveRoundedIcon />}
+                      disabled={editedName === loggedInUser?.name && !newImage}
                     >
                       Save
                     </AppButton>
@@ -131,11 +141,14 @@ const Profile = () => {
                       <TextField
                         inputRef={nameInputRef}
                         variant="standard"
-                        value={loggedInUser?.name}
+                        value={editedName}
+                        onChange={(event) => {
+                          setEditedName(event?.target?.value);
+                        }}
                         fullWidth={true}
                       />
                     ) : (
-                      <Typography>{loggedInUser?.name}</Typography>
+                      <Typography>{editedName}</Typography>
                     )}
                   </Grid>
                   <Grid item={true} xs={12} md={6}>
@@ -209,7 +222,8 @@ const Profile = () => {
           <Grid item={true} xs={12}>
             <TextField
               label="Current Password"
-              //   value={loggedInUser?.name}
+              value={currentPassword}
+              onChange={(event) => setCurrentPassword(event?.target?.value)}
               fullWidth={true}
               type="password"
             />
@@ -217,7 +231,8 @@ const Profile = () => {
           <Grid item={true} xs={12} md={6}>
             <TextField
               label="New Password"
-              //   value={loggedInUser?.name}
+              value={newPassword}
+              onChange={(event) => setNewPassword(event?.target?.value)}
               fullWidth={true}
               type="password"
             />
@@ -225,15 +240,35 @@ const Profile = () => {
           <Grid item={true} xs={12} md={6}>
             <TextField
               label="Confirm Password"
-              //   value={loggedInUser?.name}
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event?.target?.value)}
               fullWidth={true}
               type="password"
             />
           </Grid>
           <Grid item={true} xs={12}>
             <Stack direction="row" spacing={2}>
-              <AppButton variant="contained">Change Password</AppButton>
-              <AppButton variant="outlined">Cancel</AppButton>
+              <AppButton
+                variant="contained"
+                disabled={
+                  !currentPassword ||
+                  !newPassword ||
+                  !confirmPassword ||
+                  newPassword !== confirmPassword
+                }
+              >
+                Change Password
+              </AppButton>
+              <AppButton
+                variant="outlined"
+                onClick={() => {
+                  setCurrentPassword("");
+                  setNewPassword("");
+                  setConfirmPassword("");
+                }}
+              >
+                Cancel
+              </AppButton>
             </Stack>
           </Grid>
         </Grid>
