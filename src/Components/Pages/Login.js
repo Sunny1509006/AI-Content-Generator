@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import TextField from "@mui/material/TextField";
@@ -173,12 +173,22 @@ const Login = (props) => {
               Login
             </AppButton>
             <Stack>
-              <Typography sx={{ fontSize: "14px" }}>
-                Don't have an account? Please{" "}
-                <AppButton href="/signup" size="small" sx={{ minWidth: 0 }}>
-                  Register
-                </AppButton>
-              </Typography>
+              <Stack>
+                <Typography sx={{ fontSize: "14px" }}>
+                  Forgot your password?
+                  <AppButton href="/signup" size="small" sx={{ minWidth: 0 }}>
+                    Click Here
+                  </AppButton>
+                </Typography>
+              </Stack>
+              <Stack>
+                <Typography sx={{ fontSize: "14px" }}>
+                  Don't have an account? Please{" "}
+                  <AppButton href="/signup" size="small" sx={{ minWidth: 0 }}>
+                    Register
+                  </AppButton>
+                </Typography>
+              </Stack>
             </Stack>
           </div>
         </form>

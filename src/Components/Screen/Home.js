@@ -24,6 +24,7 @@ import PublisherSites from "../Pages/PublisherSites";
 import KeywordGenerator from "../Pages/KeywordGenerator";
 import SubmitManualPayment from "../Pages/SubmitManualPayment";
 import Profile from "../Pages/users/profile";
+import ResetPassword from "../Pages/ResetPassword";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -94,6 +95,7 @@ export const Home = () => {
               element={<SubmitManualPayment />}
             />
             <Route path="profile" element={<Profile />} />
+            <Route path="reset-password" element={<ResetPassword />} />
           </Routes>
         </div>
         <Footer />
