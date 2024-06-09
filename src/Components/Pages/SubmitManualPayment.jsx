@@ -96,6 +96,9 @@ const SubmitManualPayment = () => {
     selectedSubscriptionPackageDetail,
     setSelectedSubscriptionPackageDetail,
   ] = useState({});
+  const [couponCode, setCouponCode] = useState("");
+  const [couponCodeWithTransaction, setCouponCodeWithTransaction] =
+    useState("");
   const { subscriptionPackages } = useFetchSubscriptionPackages();
   const { addPayment, isAddingPayment } = useAddPayment({
     onSuccess: () => setIsPaymentConfirmationDialogVisible(true),
@@ -200,6 +203,28 @@ const SubmitManualPayment = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+                <Grid item xs={12}>
+                  <Stack direction="row" spacing={2}>
+                    <TextField
+                      label="Coupon Code"
+                      placeholder="Provide coupon code"
+                      fullWidth={true}
+                      value={couponCode}
+                      onChange={(event) => {
+                        const code = event?.target?.value;
+
+                        setCouponCode(code);
+                      }}
+                    />
+                    <AppButton
+                      variant="contained"
+                      size="large"
+                      disabled={!couponCode}
+                    >
+                      Apply
+                    </AppButton>
+                  </Stack>
+                </Grid>
               </Grid>
             </Box>
           </Stack>
@@ -226,29 +251,61 @@ const SubmitManualPayment = () => {
               Submit {selectedPaymentMethodDetail.label} Transaction ID for (
               {selectedSubscriptionPackageDetail?.plan})
             </Typography>
-            <Stack spacing={2}>
-              <TextField
-                label="Transaction ID"
-                placeholder={`Provide your ${selectedPaymentMethodDetail.label} transaction ID (TxnID)`}
-                value={transactionID}
-                onChange={(event) => setTransactionID(event?.target?.value)}
-              />
-              <AppButton
-                variant="contained"
-                sx={{ alignSelf: "flex-start" }}
-                loading={isAddingPayment}
-                onClick={() => {
-                  addPayment({
-                    packageID: selectedPackage,
-                    userID: loggedInUser.id,
-                    transactionID,
-                    transactionMethod: selectedPaymentMethod,
-                  });
-                }}
-              >
-                Submit
-              </AppButton>
-            </Stack>
+            <Box>
+              <Grid container={true} spacing={2}>
+                <Grid item xs={12} md={8} lg={9}>
+                  <TextField
+                    label="Transaction ID"
+                    placeholder={`Provide your ${selectedPaymentMethodDetail.label} transaction ID (TxnID)`}
+                    fullWidth={true}
+                    value={transactionID}
+                    onChange={(event) => {
+                      setTransactionID(event?.target?.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={4} lg={3}>
+                  <TextField
+                    label="Coupon Code"
+                    placeholder="Provide coupon code"
+                    fullWidth={true}
+                    value={couponCodeWithTransaction}
+                    onChange={(event) =>
+                      setCouponCodeWithTransaction(event?.target?.value)
+                    }
+                  />
+                </Grid>
+                <Grid item={true} xs={12} sx={{ paddingTop: "4px !important" }}>
+                  <AppButton
+                    variant="text"
+                    sx={{ alignSelf: "flex-start" }}
+                    disabled={!couponCode}
+                    onClick={() => {
+                      setCouponCodeWithTransaction(couponCode);
+                    }}
+                  >
+                    Use coupon code given at the top?
+                  </AppButton>
+                </Grid>
+                <Grid item={true} xs={12}>
+                  <AppButton
+                    variant="contained"
+                    sx={{ alignSelf: "flex-start" }}
+                    loading={isAddingPayment}
+                    onClick={() => {
+                      addPayment({
+                        packageID: selectedPackage,
+                        userID: loggedInUser.id,
+                        transactionID,
+                        transactionMethod: selectedPaymentMethod,
+                      });
+                    }}
+                  >
+                    Submit
+                  </AppButton>
+                </Grid>
+              </Grid>
+            </Box>
           </Stack>
         </Stack>
         <Dialog
