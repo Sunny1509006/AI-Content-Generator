@@ -18,6 +18,7 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import ActivePackageChip from "../../Common/ActivePackageChip";
 import RemainingToken from "../../Common/RemainingToken";
+import useChangePassword from "../../../hooks/useChangePassword";
 
 const Profile = () => {
   const { loggedInUser } = useContext(AuthContext);
@@ -28,6 +29,13 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const nameInputRef = useRef(null);
+  const { changePassword, isChangingPassword } = useChangePassword({
+    onSuccess: () => {
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    },
+  });
 
   useEffect(() => {
     setEditedName(loggedInUser?.name);
@@ -227,12 +235,21 @@ const Profile = () => {
             <Stack direction="row" spacing={2}>
               <AppButton
                 variant="contained"
+                loading={isChangingPassword}
                 disabled={
                   !currentPassword ||
                   !newPassword ||
                   !confirmPassword ||
                   newPassword !== confirmPassword
                 }
+                onClick={() => {
+                  changePassword({
+                    userID: loggedInUser?.id,
+                    password: currentPassword,
+                    newPassword,
+                    confirmPassword,
+                  });
+                }}
               >
                 Change Password
               </AppButton>
