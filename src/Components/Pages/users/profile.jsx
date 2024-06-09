@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 import { AuthContext } from "../../../AuthProvider";
 import {
   Box,
-  Chip,
   Divider,
   Grid,
   IconButton,
@@ -14,10 +13,11 @@ import {
   Typography,
 } from "@mui/material";
 import AppButton from "../../Common/AppButton";
-import LoyaltyRoundedIcon from "@mui/icons-material/LoyaltyRounded";
 import BackupRoundedIcon from "@mui/icons-material/BackupRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
+import ActivePackageChip from "../../Common/ActivePackageChip";
+import RemainingToken from "../../Common/RemainingToken";
 
 const Profile = () => {
   const { loggedInUser } = useContext(AuthContext);
@@ -173,36 +173,13 @@ const Profile = () => {
                     <Typography sx={{ fontWeight: 600, marginBottom: "4px" }}>
                       Remaining Credit
                     </Typography>
-                    <Typography
-                      sx={{
-                        color: !!loggedInUser?.remainingCredit
-                          ? "success.main"
-                          : "error.main",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {loggedInUser?.remainingCredit || 0}
-                    </Typography>
+                    <RemainingToken />
                   </Grid>
                   <Grid item={true} xs={12} md={6}>
                     <Typography sx={{ fontWeight: 600, marginBottom: "4px" }}>
                       Subscription
                     </Typography>
-                    <Chip
-                      color="primary"
-                      label={loggedInUser?.activePackage || "Free"}
-                      icon={<LoyaltyRoundedIcon />}
-                      variant="outlined"
-                      sx={{
-                        borderRadius: "4px",
-                        padding: "8px",
-                        fontWeight: 600,
-                        fontSize: "16px",
-                        svg: {
-                          fontSize: "20px",
-                        },
-                      }}
-                    />
+                    <ActivePackageChip />
                   </Grid>
                 </Grid>
               </Grid>

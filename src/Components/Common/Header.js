@@ -1,22 +1,40 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { NavLink } from "react-router-dom";
-import Button from "@mui/material/Button";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/authHooks";
-import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
-import { Stack } from "@mui/material";
+import {
+  Avatar,
+  Divider,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
 import AppButton from "./AppButton";
 import { ROUTES } from "../../utils/constants";
+import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
+import ActivePackageChip from "./ActivePackageChip";
+import RemainingToken from "./RemainingToken";
 
 export const Header = () => {
   const { loggedInUser } = useAuth();
   const isLoggedIn = loggedInUser && !!loggedInUser?.id;
   const [showMenu, setShowMenu] = useState(false);
+  const [appSettingsMenuAnchorEl, setAppSettingsMenuAnchorEl] = useState(null);
   const { logoutUser } = useLogout();
+  const navigate = useNavigate();
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (event) => {
     setShowMenu(!showMenu);
+    setAppSettingsMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleAppSettingsMenuClose = () => {
+    setAppSettingsMenuAnchorEl(null);
   };
 
   const logoutHandler = () => {
@@ -42,97 +60,88 @@ export const Header = () => {
         </div>
       )}
       {isLoggedIn ? (
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: "30px",
-              gap: "10px",
+        <>
+          <Avatar
+            src="/images/profile.png"
+            sx={{
+              cursor: "pointer",
             }}
             onClick={handleMenuClick}
+          />
+          <Menu
+            anchorEl={appSettingsMenuAnchorEl}
+            open={!!appSettingsMenuAnchorEl}
+            slotProps={{
+              paper: {
+                sx: { width: "240px", marginTop: "8px" },
+              },
+            }}
+            onClose={handleAppSettingsMenuClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
           >
-            <img
-              src={"/images/profile.png"}
-              alt={loggedInUser?.name}
-              style={{
-                height: "40px",
-                width: "40px",
+            <Stack
+              sx={{
+                padding: "6px 16px",
               }}
-            />
-            <p
-              style={{
-                fontSize: "12px",
-                margin: "0px 0px 0px",
+              spacing={1}
+            >
+              <ActivePackageChip />
+              <Stack direction="row" sx={{ alignItems: "center" }}>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: "14px",
+                  }}
+                >
+                  Remaining Token:
+                </Typography>
+                <RemainingToken />
+              </Stack>
+            </Stack>
+            <Divider sx={{ margin: "8px 0" }} />
+            <MenuItem
+              onClick={() => {
+                navigate("/dashboard");
+                handleAppSettingsMenuClose();
               }}
             >
-              {loggedInUser?.name}
-            </p>
-          </div>
-          <div>
-            {/* <Button
-              onClick={handleMenuClick}
-              style={{
-                padding: "0px",
-                backgroundColor: "var(--secondary-bg)",
+              <ListItemIcon>
+                <DashboardRoundedIcon />
+              </ListItemIcon>
+              Dashboard
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/profile");
+                handleAppSettingsMenuClose();
               }}
             >
-              <BsThreeDotsVertical fontSize={24} className="dotColor" />
-            </Button> */}
-            {showMenu && (
-              <div
-                style={{
-                  position: "fixed",
-                  right: "1px",
-                  marginTop: "100px",
-                  background: "white",
-                  alignItems: "center",
-                  textAlign: "center",
-                  boxShadow: "1px 1px 1px 1px black",
-                }}
-              >
-                <Link
-                  to="/profile"
-                  onClick={() => {
-                    setShowMenu(!showMenu);
-                  }}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <div>Profile</div>
-                </Link>
-                <Link
-                  to="/dashboard"
-                  onClick={() => {
-                    setShowMenu(!showMenu);
-                  }}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <div>Dashboard</div>
-                </Link>
-                <div>
-                  <Button
-                    variant="outline-info"
-                    style={{
-                      marginTop: "calc(50% - 25px)",
-                      margin: "0px 10px",
-                      marginBottom: "5px",
-                    }}
-                    onClick={logoutHandler}
-                    type="submit"
-                  >
-                    Logout
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+              <ListItemIcon>
+                <AccountBoxRoundedIcon />
+              </ListItemIcon>
+              My account
+            </MenuItem>
+            <Divider />
+            <MenuItem
+              onClick={() => {
+                logoutHandler();
+                handleAppSettingsMenuClose();
+              }}
+            >
+              <ListItemIcon>
+                <ExitToAppRoundedIcon />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+        </>
       ) : (
         <Stack direction="row" sx={{ alignItems: "center" }} spacing={2}>
           <AppButton variant="outlined" href="/signup">

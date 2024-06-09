@@ -27,6 +27,9 @@ const useAuth = () => {
               mobile: user?.mobile,
               name: user?.name,
               username: user?.username,
+              image: user?.image,
+              package: user?.package,
+              token: user?.token,
             });
           }
         })
