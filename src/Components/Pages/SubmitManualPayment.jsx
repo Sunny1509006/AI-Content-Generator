@@ -23,14 +23,26 @@ import AppButton from "../Common/AppButton";
 import useAddPayment from "../../hooks/useAddPayment";
 import { AuthContext } from "../../AuthProvider";
 import useQuery from "../../hooks/useQuery";
+import useFetchDiscountedPrice from "../../hooks/useFetchDiscountedPrice";
 
-const getBkashPaymentProcedure = (moneyAmount) => {
+const getBkashPaymentProcedure = (moneyAmount, discountedAmount = 0) => {
+  console.log(discountedAmount, moneyAmount);
   return [
     "Open the bKash app and log in with your credentials.",
     'Look for the "Send Money" option.',
     "Choose the send money option for sending money to another bKash account.",
     `Enter ${MANUAL_PAYMENT_METHODS.BKASH.number} in the recipient's mobile number field.`,
-    `Input ${moneyAmount} BDT as the amount of money.`,
+    <>
+      Input{" "}
+      {!!discountedAmount ? (
+        <strong>
+          <del>{moneyAmount}</del> {discountedAmount}
+        </strong>
+      ) : (
+        moneyAmount
+      )}{" "}
+      BDT as the amount of money.
+    </>,
     "Add a reference (optional) to specify the purpose of the transfer.",
     "Confirm the transaction with your bKash PIN.",
     "After a successfull bkash payment you will get a Transaction ID (TxnID) in the app.",
@@ -38,12 +50,22 @@ const getBkashPaymentProcedure = (moneyAmount) => {
   ];
 };
 
-const getNagadPaymentProcedure = (moneyAmount) => {
+const getNagadPaymentProcedure = (moneyAmount, discountedAmount = 0) => {
   return [
     "Open the Nagad app on your smartphone and log in with your credentials.",
     'Look for the option labeled "Send Money".',
     `Enter ${MANUAL_PAYMENT_METHODS.BKASH.number} in the recipient's mobile number field.`,
-    `Input ${moneyAmount} BDT as the amount of money.`,
+    <>
+      Input{" "}
+      {!!discountedAmount ? (
+        <strong>
+          <del>{moneyAmount}</del> {discountedAmount}
+        </strong>
+      ) : (
+        moneyAmount
+      )}{" "}
+      BDT as the amount of money.
+    </>,
     "Add a reference (optional) to specify the purpose of the transfer.",
     "Double-check the recipient's number, amount, and reference.",
     "Enter your Nagad Mobile Menu PIN (MM PIN) to confirm the transaction.",
@@ -53,7 +75,11 @@ const getNagadPaymentProcedure = (moneyAmount) => {
   ];
 };
 
-const getPaymentProcedure = (moneyAmount, paymentMethod) => {
+const getPaymentProcedure = (
+  moneyAmount,
+  paymentMethod,
+  discountedPrice = 0
+) => {
   let paymentInstructions = null;
 
   if (!paymentMethod) {
@@ -61,9 +87,15 @@ const getPaymentProcedure = (moneyAmount, paymentMethod) => {
   }
 
   if (paymentMethod.value === MANUAL_PAYMENT_METHODS.BKASH.value) {
-    paymentInstructions = getBkashPaymentProcedure(moneyAmount);
+    paymentInstructions = getBkashPaymentProcedure(
+      moneyAmount,
+      discountedPrice
+    );
   } else if (paymentMethod.value === MANUAL_PAYMENT_METHODS.NAGAD.value) {
-    paymentInstructions = getNagadPaymentProcedure(moneyAmount);
+    paymentInstructions = getNagadPaymentProcedure(
+      moneyAmount,
+      discountedPrice
+    );
   }
 
   return (
@@ -107,6 +139,13 @@ const SubmitManualPayment = () => {
     MANUAL_PAYMENT_METHODS
   ).find((method) => method.value === selectedPaymentMethod);
   const { loggedInUser } = useContext(AuthContext);
+  const {
+    fetchDiscountedPrice,
+    discountedPrice,
+    errorMessage: couponErrorMessage,
+    setErrorMessage: setCouponErrorMessage,
+    isFetching: isFetchingDiscountedPrice,
+  } = useFetchDiscountedPrice();
 
   const closePaymentConfirmationDialog = () => {
     setIsPaymentConfirmationDialogVisible(false);
@@ -125,6 +164,10 @@ const SubmitManualPayment = () => {
       )
     );
   }, [subscriptionPackages, selectedPackage]);
+
+  useEffect(() => {
+    setCouponErrorMessage(null);
+  }, [couponCode]);
 
   return (
     <PrivatePageLayout>
@@ -210,6 +253,8 @@ const SubmitManualPayment = () => {
                       placeholder="Provide coupon code"
                       fullWidth={true}
                       value={couponCode}
+                      helperText={couponErrorMessage}
+                      error={!!couponErrorMessage}
                       onChange={(event) => {
                         const code = event?.target?.value;
 
@@ -219,7 +264,14 @@ const SubmitManualPayment = () => {
                     <AppButton
                       variant="contained"
                       size="large"
+                      loading={isFetchingDiscountedPrice}
                       disabled={!couponCode}
+                      onClick={() => {
+                        fetchDiscountedPrice({
+                          couponCode,
+                          packageID: selectedPackage,
+                        });
+                      }}
                     >
                       Apply
                     </AppButton>
@@ -239,7 +291,8 @@ const SubmitManualPayment = () => {
             <Box>
               {getPaymentProcedure(
                 selectedSubscriptionPackageDetail?.price,
-                selectedPaymentMethodDetail
+                selectedPaymentMethodDetail,
+                discountedPrice
               )}
             </Box>
           </Stack>
@@ -298,6 +351,7 @@ const SubmitManualPayment = () => {
                         userID: loggedInUser.id,
                         transactionID,
                         transactionMethod: selectedPaymentMethod,
+                        couponCode: couponCodeWithTransaction,
                       });
                     }}
                   >

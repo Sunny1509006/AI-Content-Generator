@@ -11,6 +11,7 @@ const useAddPayment = ({ onSuccess, onEnd }) => {
     userID,
     transactionID,
     transactionMethod,
+    couponCode,
   }) => {
     setIsAddingPayment(true);
 
@@ -20,6 +21,7 @@ const useAddPayment = ({ onSuccess, onEnd }) => {
         user_id: userID,
         transaction_id: transactionID,
         transaction_method: transactionMethod,
+        couponCode,
       })
       .then((response) => {
         if (response?.status === 201) {
