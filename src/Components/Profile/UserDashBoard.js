@@ -87,12 +87,14 @@ export const UserDashBoard = () => {
                 color: "black",
                 display: "inline-block",
                 width: "100%",
+                height: "100%",
               }}
             >
               <Paper
                 sx={{
                   padding: "20px",
                   minHeight: "150px",
+                  height: "100%",
                   lineHeight: 1.5,
                   border: "1px solid rgba(255, 74, 23, 0.4)",
                   backgroundColor: "rgba(255, 74, 23, 0.02)",
