@@ -65,6 +65,7 @@ export const Header = () => {
             src="/images/profile.png"
             sx={{
               cursor: "pointer",
+              alignSelf: "center",
             }}
             onClick={handleMenuClick}
           />
