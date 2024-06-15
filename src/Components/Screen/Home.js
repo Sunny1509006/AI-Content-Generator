@@ -25,6 +25,7 @@ import KeywordGenerator from "../Pages/KeywordGenerator";
 import SubmitManualPayment from "../Pages/SubmitManualPayment";
 import Profile from "../Pages/users/profile";
 import ResetPassword from "../Pages/ResetPassword";
+import OfferCarousel from "../Common/OfferCarousel";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -61,6 +62,7 @@ export const Home = () => {
         <Header />
       </div>
       <div className="body-position">
+        <OfferCarousel />
         <div className="body-padding">
           <Routes>
             <Route exact path="/" element={<Homepage />} />

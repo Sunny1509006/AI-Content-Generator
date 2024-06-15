@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "../Components/Axios";
 import useLogout from "./useLogout";
 
-const useFetchWordpressSiteCategories = (articleID) => {
+const useFetchWordpressSiteCategories = () => {
   const [categories, setCategories] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const { logoutUser } = useLogout();
