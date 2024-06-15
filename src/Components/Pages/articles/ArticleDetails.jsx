@@ -141,8 +141,7 @@ const ArticleDetails = () => {
             <PublishArticleToSiteModal
               open={openArticlePublishModal}
               onClose={() => setOpenArticlePublishModal(false)}
-              articleTitle={title}
-              articleContent={updatedContent}
+              articleID={articleID}
             />
           </Stack>
           <Box>

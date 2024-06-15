@@ -8,23 +8,18 @@ const usePublishToSite = ({ onEnd }) => {
   const { logoutUser } = useLogout();
 
   const publisheArticleToSite = ({
-    site,
-    type,
-    username,
+    siteID,
     password,
-    title,
-    content,
+    articleID,
+    categoryIDs,
   }) => {
     setIsPublishing(true);
 
     axios
-      .post("/api/sites/publish", {
-        site,
-        type,
-        username,
+      .post(`/api/sites/${siteID}/publish`, {
         password,
-        title,
-        content,
+        article_id: articleID,
+        category: categoryIDs,
       })
       .then((response) => {
         if (response.status === 200) {
