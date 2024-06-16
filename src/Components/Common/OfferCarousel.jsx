@@ -18,18 +18,19 @@ const OfferCarousel = () => {
         bgcolor: appTheme.palette.primary.main,
         color: "white",
         padding: "0 8px",
+        width: "100%",
       }}
     >
       <Box
         sx={{
           display: "inline-block",
-          animation: "marquee 20s linear infinite",
+          animation: `marquee ${offers?.length * 7}s linear infinite`,
           whiteSpace: "nowrap",
           ":hover": {
             animationPlayState: "paused",
           },
           "@keyframes marquee": {
-            "0%": { transform: "translateX(100%)" },
+            "0%": { transform: "translateX(100vw)" },
             "100%": { transform: "translateX(-100%)" },
           },
         }}
