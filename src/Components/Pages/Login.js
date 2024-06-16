@@ -10,6 +10,7 @@ import { BEARER_TOKEN_COOKIE_NAME } from "../../utils/constants";
 import useAuth from "../../hooks/authHooks";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../Common/AppButton";
+import useFetchProfilePicture from "../../hooks/useFetchProfilePicture";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -20,6 +21,7 @@ const Login = (props) => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isMatchingCaptcha, setIsMatchingCaptcha] = useState(false);
   const { loggedInUser, fetchAuthUser } = useAuth();
+  // const { fetchProfilePicture } = useFetchProfilePicture();
   const navigate = useNavigate();
   const cookies = new Cookies(null, { path: "/" });
 
@@ -99,6 +101,8 @@ const Login = (props) => {
         setIsMatchingCaptcha(false);
       });
   };
+
+  useFetchProfilePicture();
 
   useEffect(() => {
     if (!!loggedInUser && loggedInUser?.id) {

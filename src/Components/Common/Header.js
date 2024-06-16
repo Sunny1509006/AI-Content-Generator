@@ -62,7 +62,7 @@ export const Header = () => {
       {isLoggedIn ? (
         <>
           <Avatar
-            src="/images/profile.png"
+            src={loggedInUser?.profilePicture || "/images/profile.png"}
             sx={{
               cursor: "pointer",
               alignSelf: "center",

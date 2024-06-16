@@ -4,10 +4,12 @@ import { Helmet } from "react-helmet";
 import { AuthContext } from "../../../AuthProvider";
 import {
   Box,
+  CircularProgress,
   Divider,
   Grid,
   IconButton,
   Paper,
+  Skeleton,
   Stack,
   TextField,
   Typography,
@@ -19,12 +21,19 @@ import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import ActivePackageChip from "../../Common/ActivePackageChip";
 import RemainingToken from "../../Common/RemainingToken";
 import useChangePassword from "../../../hooks/useChangePassword";
+import useFetchProfilePicture from "../../../hooks/useFetchProfilePicture";
+import useUploadProfilePicture from "../../../hooks/useUploadProfilePicture";
+import useUpdateProfile from "../../../hooks/useUpdateProfile";
 
 const Profile = () => {
   const { loggedInUser } = useContext(AuthContext);
   const [isInEditMode, setIsInEditMode] = useState(false);
   const [editedName, setEditedName] = useState("");
-  const [newImage, setNewImage] = useState(null);
+  const { uploadProfilePicture, isUploading: isUploadingProfilePicture } =
+    useUploadProfilePicture({ userID: loggedInUser?.id });
+  const { isFetching: isFetchingProfilePicture, fetchProfilePicture } =
+    useFetchProfilePicture();
+  const { isUpdating, updateProfile } = useUpdateProfile();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -78,14 +87,23 @@ const Profile = () => {
                   <>
                     <AppButton
                       variant="outlined"
-                      onClick={() => setIsInEditMode(false)}
+                      onClick={() => {
+                        setEditedName(loggedInUser?.name);
+                        setIsInEditMode(false);
+                      }}
                     >
                       Cancel
                     </AppButton>
                     <AppButton
                       variant="contained"
                       startIcon={<SaveRoundedIcon />}
-                      disabled={editedName === loggedInUser?.name && !newImage}
+                      loading={isUpdating}
+                      disabled={editedName === loggedInUser?.name}
+                      onClick={() => {
+                        updateProfile({ name: editedName }, () => {
+                          setIsInEditMode(false);
+                        });
+                      }}
                     >
                       Save
                     </AppButton>
@@ -108,30 +126,60 @@ const Profile = () => {
             <Paper sx={{ padding: "16px", width: "100%" }}>
               <Grid item={true} container={true} xs={12} spacing={3}>
                 <Grid item={true} sx={{ position: "relative" }}>
-                  <Box
-                    component="img"
-                    src="https://izsam.com.tr/uploads/staffs/big/9.jpg"
-                    alt={loggedInUser?.name}
-                    sx={{
-                      width: "250px",
-                      height: "250px",
-                      objectFit: "cover",
-                      borderRadius: "4px",
-                      display: "block",
-                    }}
-                  />
-                  {isInEditMode && (
-                    <IconButton
-                      color="primary"
-                      sx={{
-                        position: "absolute",
-                        bottom: "8px",
-                        right: "8px",
-                        backgroundColor: "white !important",
-                      }}
-                    >
-                      <BackupRoundedIcon />
-                    </IconButton>
+                  {isFetchingProfilePicture ? (
+                    <Skeleton
+                      animation="wave"
+                      variant="rectangular"
+                      width={250}
+                      height={250}
+                    />
+                  ) : (
+                    <>
+                      <Box
+                        component="img"
+                        src={loggedInUser?.profilePicture}
+                        alt={loggedInUser?.name}
+                        sx={{
+                          width: "250px",
+                          height: "250px",
+                          objectFit: "cover",
+                          borderRadius: "4px",
+                          display: "block",
+                        }}
+                      />
+                      <IconButton
+                        component="label"
+                        htmlFor="profile-picture-input"
+                        color="primary"
+                        sx={{
+                          position: "absolute",
+                          bottom: "8px",
+                          right: "8px",
+                          backgroundColor: "white !important",
+                        }}
+                      >
+                        {isUploadingProfilePicture ? (
+                          <CircularProgress size={20} />
+                        ) : (
+                          <BackupRoundedIcon />
+                        )}
+                        <Box
+                          component="input"
+                          id="profile-picture-input"
+                          type="file"
+                          hidden={true}
+                          onChange={(event) => {
+                            if (event.target.files.length > 0) {
+                              console.log(event.target.files[0]);
+                              uploadProfilePicture(
+                                event.target.files[0],
+                                fetchProfilePicture
+                              );
+                            }
+                          }}
+                        />
+                      </IconButton>
+                    </>
                   )}
                 </Grid>
                 <Grid

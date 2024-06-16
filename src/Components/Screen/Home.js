@@ -26,9 +26,13 @@ import SubmitManualPayment from "../Pages/SubmitManualPayment";
 import Profile from "../Pages/users/profile";
 import ResetPassword from "../Pages/ResetPassword";
 import OfferCarousel from "../Common/OfferCarousel";
+import useFetchProfilePicture from "../../hooks/useFetchProfilePicture";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
+  // const { fetchProfilePicture } = useFetchProfilePicture();
+
+  useFetchProfilePicture();
 
   useEffect(() => {
     fetchAuthUser();

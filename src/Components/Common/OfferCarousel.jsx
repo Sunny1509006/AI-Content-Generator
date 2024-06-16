@@ -19,6 +19,7 @@ const OfferCarousel = () => {
         color: "white",
         padding: "0 8px",
         width: "100%",
+        overflow: "hidden",
       }}
     >
       <Box

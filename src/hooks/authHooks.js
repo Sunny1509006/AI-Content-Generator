@@ -8,7 +8,7 @@ const useAuth = () => {
   const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
-  const fetchAuthUser = () => {
+  const fetchAuthUser = (onSuccess = () => {}) => {
     const cookies = new Cookies(null, { path: "/" });
     const authToken = cookies.get(BEARER_TOKEN_COOKIE_NAME);
 
@@ -30,7 +30,10 @@ const useAuth = () => {
               image: user?.image,
               package: user?.package,
               token: user?.token,
+              profilePicture: null,
             });
+
+            onSuccess(user);
           }
         })
         .catch((error) => {
