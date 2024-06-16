@@ -93,6 +93,14 @@ export const Header = () => {
               }}
               spacing={1}
             >
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  fontSize: "14px",
+                }}
+              >
+                {loggedInUser?.name}
+              </Typography>
               <ActivePackageChip />
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Typography
