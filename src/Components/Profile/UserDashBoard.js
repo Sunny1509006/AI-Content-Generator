@@ -28,6 +28,36 @@ export const UserDashBoard = () => {
     }
   };
 
+  const getBgColorForCategoryCard = (parentCategory) => {
+    const defaultColors = {
+      backgroundColor: "rgba(255, 74, 23, 0.02)",
+      borderColor: "rgba(255, 74, 23, 0.4)",
+      ":hover": {
+        boxShadow: `0 0 0 2px ${muiTheme.palette.primary.main}`,
+      },
+    };
+
+    const colors = {
+      [PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT]: defaultColors,
+      [PARENT_BLOG_CATEGORIES.AFFILIATE_REVIEW_CONTENT]: {
+        backgroundColor: "rgba(255, 152, 0, 0.08)",
+        borderColor: "rgba(255, 152, 0, 0.4)",
+        ":hover": {
+          boxShadow: `0 0 0 2px ${muiTheme.palette.warning.main}`,
+        },
+      },
+      [PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS]: {
+        backgroundColor: "rgba(3, 169, 244, 0.08)",
+        borderColor: "rgba(3, 169, 244, 0.4)",
+        ":hover": {
+          boxShadow: `0 0 0 2px ${muiTheme.palette.info.main}`,
+        },
+      },
+    };
+
+    return colors[parentCategory] || defaultColors;
+  };
+
   return (
     <PrivatePageLayout>
       <Helmet>
@@ -97,10 +127,7 @@ export const UserDashBoard = () => {
                   height: "100%",
                   lineHeight: 1.5,
                   border: "1px solid rgba(255, 74, 23, 0.4)",
-                  backgroundColor: "rgba(255, 74, 23, 0.02)",
-                  ":hover": {
-                    boxShadow: `0 0 0 2px ${muiTheme.palette.primary.main}`,
-                  },
+                  ...getBgColorForCategoryCard(category.parentCategory),
                 }}
               >
                 <Box component="h3" sx={{ marginBottom: "8px" }}>

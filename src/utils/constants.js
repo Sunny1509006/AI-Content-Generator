@@ -196,20 +196,20 @@ export const BLOG_CATEGORIES = [
     parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
   },
   {
-    title: "Amazon Review Content ",
-    description:
-      "Search, add products manually & write 100% unique Amazon reviews in just a click",
-    link: "",
-    icon: "",
-    parentCategory: PARENT_BLOG_CATEGORIES.AFFILIATE_REVIEW_CONTENT,
-  },
-  {
     title: "Human Touch Content with AI",
     description:
       "Submit your keyword and get a unique outline. After that generate content with human touch",
     link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.human_touch_content_with_ai}`,
     icon: "",
     parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Amazon Review Content ",
+    description:
+      "Search, add products manually & write 100% unique Amazon reviews in just a click",
+    link: "",
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.AFFILIATE_REVIEW_CONTENT,
   },
   {
     title: "Guest Post Content",
