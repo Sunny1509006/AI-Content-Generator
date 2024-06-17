@@ -101,7 +101,7 @@ export const Home = () => {
               element={<SubmitManualPayment />}
             />
             <Route path="profile" element={<Profile />} />
-            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="reset-password/:hash" element={<ResetPassword />} />
           </Routes>
         </div>
         <Footer />

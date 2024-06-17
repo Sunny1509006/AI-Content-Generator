@@ -9,10 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import AppButton from "../Common/AppButton";
+import { useParams } from "react-router-dom";
+import useResetPasssword from "../../hooks/useResetPasssword";
 
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { resetPassword, isSettingPassword } = useResetPasssword();
+  const param = useParams();
+  const hash = param?.hash;
 
   return (
     <>
@@ -64,6 +69,10 @@ const ResetPassword = () => {
                   !confirmPassword ||
                   newPassword !== confirmPassword
                 }
+                loading={isSettingPassword}
+                onClick={() => {
+                  resetPassword({ hash, newPassword, confirmPassword });
+                }}
               >
                 Change Password
               </AppButton>

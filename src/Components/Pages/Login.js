@@ -11,6 +11,7 @@ import useAuth from "../../hooks/authHooks";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../Common/AppButton";
 import useFetchProfilePicture from "../../hooks/useFetchProfilePicture";
+import ForgotPasswordDialog from "../ForgotPassword/ForgotPasswordDialog";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -20,6 +21,7 @@ const Login = (props) => {
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isMatchingCaptcha, setIsMatchingCaptcha] = useState(false);
+  const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
   const { loggedInUser, fetchAuthUser } = useAuth();
   // const { fetchProfilePicture } = useFetchProfilePicture();
   const navigate = useNavigate();
@@ -39,6 +41,10 @@ const Login = (props) => {
 
   const handleFetchCaptcha = ({ captchaHash: hash }) => {
     setCaptchaHash(hash);
+  };
+
+  const handleCloseEmailDialog = () => {
+    setIsEmailDialogOpen(false);
   };
 
   const handleApi = () => {
@@ -180,7 +186,13 @@ const Login = (props) => {
               <Stack>
                 <Typography sx={{ fontSize: "14px" }}>
                   Forgot your password?
-                  <AppButton href="/signup" size="small" sx={{ minWidth: 0 }}>
+                  <AppButton
+                    size="small"
+                    onClick={() => {
+                      setIsEmailDialogOpen(true);
+                    }}
+                    sx={{ minWidth: 0 }}
+                  >
                     Click Here
                   </AppButton>
                 </Typography>
@@ -197,6 +209,10 @@ const Login = (props) => {
           </div>
         </form>
       </Paper>
+      <ForgotPasswordDialog
+        open={isEmailDialogOpen}
+        onClose={handleCloseEmailDialog}
+      />
     </Grid>
   );
 };
