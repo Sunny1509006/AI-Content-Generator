@@ -127,7 +127,7 @@ export const LeftSideBar = () => {
                             (category) =>
                               category.parentCategory === parentCategoryName
                           ).map((category) => (
-                            <ListItem disablePadding>
+                            <ListItem key={category?.title} disablePadding>
                               <Link
                                 key={category.title}
                                 to={category.link}

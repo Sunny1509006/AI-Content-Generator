@@ -266,3 +266,14 @@ export const BLOG_CATEGORIES = [
     parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
   },
 ];
+
+export const GPT_MODELS = {
+  GPT_4_TURBO: {
+    name: "GPT 4 - Turbo",
+    value: "gpt-4-turbo",
+  },
+  GPT_4_O: {
+    name: "GPT 4 - O",
+    value: "gpt-4o",
+  },
+};
