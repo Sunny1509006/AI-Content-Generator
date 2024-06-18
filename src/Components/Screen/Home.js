@@ -27,6 +27,7 @@ import Profile from "../Pages/users/profile";
 import ResetPassword from "../Pages/ResetPassword";
 import OfferCarousel from "../Common/OfferCarousel";
 import useFetchProfilePicture from "../../hooks/useFetchProfilePicture";
+import ChatGptConversation from "../Pages/chatgpt/ChatGptConversation";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -102,6 +103,7 @@ export const Home = () => {
             />
             <Route path="profile" element={<Profile />} />
             <Route path="reset-password/:hash" element={<ResetPassword />} />
+            <Route path="chatgpt" element={<ChatGptConversation />} />
           </Routes>
         </div>
         <Footer />

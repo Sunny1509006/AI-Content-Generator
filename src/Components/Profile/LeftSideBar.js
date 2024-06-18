@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import LanguageRoundedIcon from "@mui/icons-material/LanguageRounded";
+import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
 import {
   BLOG_CATEGORIES,
   DEFAULT_PARENT_CATEGORY,
@@ -40,6 +41,11 @@ const PRIVATE_ROUTES = [
     href: "/publisher-sites",
     menuIcon: <LanguageRoundedIcon />,
     title: "Publisher Sites",
+  },
+  {
+    href: "/chatgpt",
+    menuIcon: <QuestionAnswerRoundedIcon />,
+    title: "ChatGPT",
   },
 ];
 
