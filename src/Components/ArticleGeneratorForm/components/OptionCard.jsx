@@ -36,9 +36,11 @@ const OptionCard = (props) => {
         <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
           {title}
         </Typography>
-        <AppButton variant="outlined" href={srcLink} target="_blank">
-          Check Referrence
-        </AppButton>
+        {srcLink && (
+          <AppButton variant="outlined" href={srcLink} target="_blank">
+            Check Referrence
+          </AppButton>
+        )}
       </Stack>
     </Stack>
   );

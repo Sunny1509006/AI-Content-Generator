@@ -29,7 +29,7 @@ const SuggestionBlock = (props) => {
 
   useEffect(() => {
     if (suggestions.length > 0) {
-      setValues(name, suggestions[0][0]);
+      setValues(name, suggestions[0]);
     }
   }, [suggestions, name]);
 
@@ -76,10 +76,8 @@ const SuggestionBlock = (props) => {
               <Grid item={true} xs={12} sm={6}>
                 <FormControlLabel
                   key={index}
-                  value={suggestion[0]}
-                  control={
-                    <OptionCard title={suggestion[0]} srcLink={suggestion[1]} />
-                  }
+                  value={suggestion}
+                  control={<OptionCard title={suggestion} />}
                   sx={{ margin: 0, width: "100%", height: "100%" }}
                 />
               </Grid>
