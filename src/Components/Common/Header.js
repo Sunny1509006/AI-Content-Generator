@@ -45,7 +45,7 @@ export const Header = () => {
 
   return (
     <Stack className="header-main" direction="row" sx={{ padding: "16px" }}>
-      <img src="/images/faisaliteb-logo.png" alt="faisaliteb" />
+      <img src="/images/faisalitb-ai-logo.png" alt="faisaliteb"/>
       {!isLoggedIn && (
         <div className="header-link">
           {ROUTES.map((route) => (
