@@ -14,12 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 import LanguageRoundedIcon from "@mui/icons-material/LanguageRounded";
-import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
 import {
   BLOG_CATEGORIES,
   DEFAULT_PARENT_CATEGORY,
   PARENT_BLOG_CATEGORIES,
 } from "../../utils/constants";
+import ChatGPTIcon from "../Icons/ChatGPTIcon";
 
 const PRIVATE_ROUTES = [
   {
@@ -44,7 +44,7 @@ const PRIVATE_ROUTES = [
   },
   {
     href: "/chatgpt",
-    menuIcon: <QuestionAnswerRoundedIcon />,
+    menuIcon: <ChatGPTIcon />,
     title: "ChatGPT",
   },
 ];
