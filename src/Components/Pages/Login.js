@@ -1,4 +1,15 @@
-import { Avatar, Grid, Paper, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import TextField from "@mui/material/TextField";
@@ -12,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 import AppButton from "../Common/AppButton";
 import useFetchProfilePicture from "../../hooks/useFetchProfilePicture";
 import ForgotPasswordDialog from "../ForgotPassword/ForgotPasswordDialog";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -22,10 +35,13 @@ const Login = (props) => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isMatchingCaptcha, setIsMatchingCaptcha] = useState(false);
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   const { loggedInUser, fetchAuthUser } = useAuth();
   // const { fetchProfilePicture } = useFetchProfilePicture();
   const navigate = useNavigate();
   const cookies = new Cookies(null, { path: "/" });
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -140,23 +156,34 @@ const Login = (props) => {
               required={true}
               fullWidth
               label="Username"
-              variant="outlined"
-              className="text_field"
               value={userName}
               onChange={handleUserName}
               inputProps={{ style: { height: "15px" } }}
             />
-            <TextField
-              required={true}
-              fullWidth
-              type="password"
-              label="Password"
-              variant="outlined"
-              className="text_field"
-              value={password}
-              onChange={handlePassword}
-              inputProps={{ style: { height: "15px" } }}
-            />
+            <FormControl>
+              <InputLabel htmlFor="login-password">Password</InputLabel>
+              <OutlinedInput
+                id="login-password"
+                required={true}
+                fullWidth
+                label="Password"
+                value={password}
+                onChange={handlePassword}
+                inputProps={{ style: { height: "15px" } }}
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             {/* <Button variant='contained' className='text_field_login' */}
             {/* // onClick={handleApi} */}
             {/* >লগইন</Button> */}
