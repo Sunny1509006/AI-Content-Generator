@@ -9,7 +9,6 @@ import {
   InputBase,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   Skeleton,
   Stack,

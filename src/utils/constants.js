@@ -41,6 +41,7 @@ export const ROUTES = [
 
 export const ARTICLE_TYPES = {
   info_article: "info article",
+  bulk_article: "bulk article",
   manual_sub_heading_artilce: "manual subheading article",
   blog_article: "blog article",
   product_content: "product category",
@@ -55,6 +56,7 @@ export const ARTICLE_TYPES = {
 
 export const ARTICLE_GENERATION_TYPES = {
   information_content_single_and_bulk: "information_content_single_and_bulk",
+  information_content_bulk: "information_content_bulk",
   ai_info_manual_sub_heading: "ai_info_manual_sub-heading",
   blog_content_single_and_bulk: "blog_content_single_and_bulk",
   product_content_600_1000_words: "product_content_600_1000_words",
@@ -165,10 +167,18 @@ export const PARENT_BLOG_CATEGORIES = {
 
 export const BLOG_CATEGORIES = [
   {
-    title: "Information Content Single / Bulk",
+    title: "Information Content Single",
     description:
       "Our AI will help you write 100% unique seo friendly Information article in one click",
     link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.information_content_single_and_bulk}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Information Content Bulk",
+    description:
+      "Our AI will help you write 100% unique seo friendly Information article in one click",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.information_content_bulk}`,
     icon: "",
     parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
   },

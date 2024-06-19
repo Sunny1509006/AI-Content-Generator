@@ -14,6 +14,7 @@ import ConclusionContent from "../../ArticalForms/ConclusionContent";
 import IntorductionContent from "../../ArticalForms/IntorductionContent";
 import BlogOutlineContent from "../../ArticalForms/BlogOutlineContent";
 import BlogParagraphContent from "../../ArticalForms/BlogParagraphContent";
+import InformationBulkContent from "../../ArticalForms/InformationBulkContent";
 
 const GenerateArticle = () => {
   const query = useQuery();
@@ -21,6 +22,9 @@ const GenerateArticle = () => {
   const articleFormComponentMap = {
     [ARTICLE_GENERATION_TYPES.information_content_single_and_bulk]: (
       <InformationContent />
+    ),
+    [ARTICLE_GENERATION_TYPES.information_content_bulk]: (
+      <InformationBulkContent />
     ),
     [ARTICLE_GENERATION_TYPES.ai_info_manual_sub_heading]: (
       <AIMenualSubheading />
