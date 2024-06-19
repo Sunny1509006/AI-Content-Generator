@@ -14,7 +14,7 @@ export const Footer = () => {
     <div className="footer-main">
       <div className="footer-top">
         <div className="footer-top-div1">
-          <img src="/images/faisaliteb-logo.png" />
+          <img src="/images/faisalitb-ai-logo.jpg" />
           <p>faisaliteb.com@gmail.com</p>
           <div className="footer-div1-socialmedia">
             <a
