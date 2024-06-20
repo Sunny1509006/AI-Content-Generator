@@ -13,14 +13,14 @@ import { Helmet } from "react-helmet";
 import useGenerateBulkArticle from "../../hooks/useGenerateBulkArticle";
 import ArticleList from "../ArticleGeneratorForm/components/ArticleList";
 
-const InformationBulkContent = () => {
+const BlogBulkContent = () => {
   const { isGenerating, generateBulkArticle, articles } =
     useGenerateBulkArticle();
 
   return (
     <>
       <Helmet>
-        <title>Information Bulk Content</title>
+        <title>Blog content Bulk</title>
       </Helmet>
       <ArticleGeneratorForm
         renderChildren={({ values }) => (
@@ -30,14 +30,13 @@ const InformationBulkContent = () => {
                 component="h1"
                 sx={{ fontSize: "24px", fontWeight: "600" }}
               >
-                Information Bulk Content
+                Blog content Bulk
               </Typography>
               <Typography
                 component="h2"
                 sx={{ color: "var(--primary-grey)", marginTop: "4px" }}
               >
-                Our AI will help you write 100% unique seo friendly Information
-                article in one click.
+                100% unique One click bulk blog content at your hand.
               </Typography>
             </Grid>
             {articles.length > 0 ? (
@@ -48,7 +47,7 @@ const InformationBulkContent = () => {
                   <TextareaBlock
                     name="keywords"
                     label="Keywords"
-                    placeholder="football, fifa worldcup, ..."
+                    placeholder="Write your keywords..."
                     helpText="You can write multiple keywords using comma(,)."
                   />
                 </Grid>
@@ -111,4 +110,4 @@ const InformationBulkContent = () => {
   );
 };
 
-export default InformationBulkContent;
+export default BlogBulkContent;

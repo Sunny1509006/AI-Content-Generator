@@ -19,7 +19,7 @@ const BlogContent = () => {
   return (
     <>
       <Helmet>
-        <title>Blog content Single / Bulk</title>
+        <title>Blog content Single</title>
       </Helmet>
       <ArticleGeneratorForm
         renderChildren={({ values }) => (
@@ -29,13 +29,13 @@ const BlogContent = () => {
                 component="h1"
                 sx={{ fontSize: "24px", fontWeight: "600" }}
               >
-                Blog content Single / Bulk
+                Blog content Single
               </Typography>
               <Typography
                 component="h2"
                 sx={{ color: "var(--primary-grey)", marginTop: "4px" }}
               >
-                100% unique One click single or bulk blog content at your hand.
+                100% unique One click single blog content at your hand.
               </Typography>
             </Grid>
             <Grid item={true} xs={12}>

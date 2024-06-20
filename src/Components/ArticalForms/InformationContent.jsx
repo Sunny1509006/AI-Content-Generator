@@ -19,7 +19,7 @@ const InformationContent = () => {
   return (
     <>
       <Helmet>
-        <title>Information Content Single / Bulk</title>
+        <title>Information Content Single</title>
       </Helmet>
       <ArticleGeneratorForm
         renderChildren={({ values }) => (
@@ -29,7 +29,7 @@ const InformationContent = () => {
                 component="h1"
                 sx={{ fontSize: "24px", fontWeight: "600" }}
               >
-                Information Content Single / Bulk
+                Information Content Single
               </Typography>
               <Typography
                 component="h2"

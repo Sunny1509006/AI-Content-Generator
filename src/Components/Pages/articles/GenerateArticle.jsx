@@ -15,6 +15,7 @@ import IntorductionContent from "../../ArticalForms/IntorductionContent";
 import BlogOutlineContent from "../../ArticalForms/BlogOutlineContent";
 import BlogParagraphContent from "../../ArticalForms/BlogParagraphContent";
 import InformationBulkContent from "../../ArticalForms/InformationBulkContent";
+import BlogBulkContent from "../../ArticalForms/BlogBulkContent";
 
 const GenerateArticle = () => {
   const query = useQuery();
@@ -30,6 +31,7 @@ const GenerateArticle = () => {
       <AIMenualSubheading />
     ),
     [ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk]: <BlogContent />,
+    [ARTICLE_GENERATION_TYPES.blog_content_bulk]: <BlogBulkContent />,
     [ARTICLE_GENERATION_TYPES.product_content_600_1000_words]: (
       <ProductContent />
     ),

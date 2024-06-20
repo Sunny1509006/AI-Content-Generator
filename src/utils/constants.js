@@ -55,10 +55,11 @@ export const ARTICLE_TYPES = {
 };
 
 export const ARTICLE_GENERATION_TYPES = {
-  information_content_single_and_bulk: "information_content_single_and_bulk",
+  information_content_single_and_bulk: "information_content_single",
   information_content_bulk: "information_content_bulk",
   ai_info_manual_sub_heading: "ai_info_manual_sub-heading",
-  blog_content_single_and_bulk: "blog_content_single_and_bulk",
+  blog_content_single_and_bulk: "blog_content_single",
+  blog_content_bulk: "blog_content_bulk",
   product_content_600_1000_words: "product_content_600_1000_words",
   amazon_review_content: "amazon_review_content",
   human_touch_content_with_ai: "human_touch_content_with_ai",
@@ -190,10 +191,16 @@ export const BLOG_CATEGORIES = [
     parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
   },
   {
-    title: "Blog content Single / Bulk",
-    description:
-      "100% unique One click single or bulk blog content at your hand",
+    title: "Blog content Single",
+    description: "100% unique One click single blog content at your hand",
     link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_single_and_bulk}`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
+  },
+  {
+    title: "Blog content Bulk",
+    description: "100% unique One click bulk blog content at your hand",
+    link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_content_bulk}`,
     icon: "",
     parentCategory: PARENT_BLOG_CATEGORIES.INFO_BLOG_CONTENT,
   },
