@@ -53,6 +53,13 @@ export const UserDashBoard = () => {
           boxShadow: `0 0 0 2px ${muiTheme.palette.info.main}`,
         },
       },
+      [PARENT_BLOG_CATEGORIES.GPT_TOOLS]: {
+        backgroundColor: "rgba(46, 125, 50, 0.08)",
+        borderColor: "rgba(46, 125, 50, 0.4)",
+        ":hover": {
+          boxShadow: `0 0 0 2px ${muiTheme.palette.success.main}`,
+        },
+      },
     };
 
     return colors[parentCategory] || defaultColors;

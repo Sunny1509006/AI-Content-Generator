@@ -164,6 +164,7 @@ export const PARENT_BLOG_CATEGORIES = {
   INFO_BLOG_CONTENT: "Information / Blog Content",
   AFFILIATE_REVIEW_CONTENT: "Affiliate (Review) Content",
   MORE_AI_TOOLS: "More AI tools",
+  GPT_TOOLS: "GPTs",
 };
 
 export const BLOG_CATEGORIES = [
@@ -281,6 +282,13 @@ export const BLOG_CATEGORIES = [
     link: `/articles/generate?generation_type=${ARTICLE_GENERATION_TYPES.blog_paragraph}`,
     icon: "",
     parentCategory: PARENT_BLOG_CATEGORIES.MORE_AI_TOOLS,
+  },
+  {
+    title: "ChatGPT",
+    description: "Use chatGPT to get help in your content building.",
+    link: `/chatgpt`,
+    icon: "",
+    parentCategory: PARENT_BLOG_CATEGORIES.GPT_TOOLS,
   },
 ];
 
