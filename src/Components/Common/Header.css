@@ -8,9 +8,9 @@
 }
 
 .header_logo {
-    height: 80px;
-    width: 140px;
-    margin: 10px 20px;
+    height: 100%;
+    width: 100%;
+    /* margin: 10px 20px; */
 }
 
 .header-link {

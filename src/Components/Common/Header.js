@@ -3,6 +3,7 @@ import "./Header.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/authHooks";
 import useLogout from "../../hooks/useLogout";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   Divider,
@@ -45,7 +46,9 @@ export const Header = () => {
 
   return (
     <Stack className="header-main" direction="row" sx={{ padding: "16px" }}>
-      <img src="/images/faisalitb-ai-logo.png" alt="faisaliteb"/>
+      <Link to="/" >
+      <img src="/images/faisalitb-ai-logo.png" alt="faisaliteb" className="header_logo"/>
+      </Link>
       {!isLoggedIn && (
         <div className="header-link">
           {ROUTES.map((route) => (
