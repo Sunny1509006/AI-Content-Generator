@@ -29,7 +29,7 @@ export const Pricing = () => {
       }}
     >
       <Helmet>
-        <title>Login</title>
+        <title>Pricing</title>
       </Helmet>
       {pricing.map((eachPricing, index) => (
         <Paper

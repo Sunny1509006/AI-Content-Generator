@@ -28,6 +28,7 @@ import ResetPassword from "../Pages/ResetPassword";
 import OfferCarousel from "../Common/OfferCarousel";
 import useFetchProfilePicture from "../../hooks/useFetchProfilePicture";
 import ChatGptConversation from "../Pages/chatgpt/ChatGptConversation";
+import FaqPage from "../Pages/FaqPage";
 
 export const Home = () => {
   const { fetchAuthUser, isAuthenticating } = useAuth();
@@ -79,7 +80,7 @@ export const Home = () => {
               element={<ConfirmEmail />}
             />
             <Route exact path="/contactus" element={<Contactus />} />
-            <Route exact path="/faqs" element={<FAQ />} />
+            <Route exact path="/faqs" element={<FaqPage />} />
             <Route exact path="/pricing" element={<Pricing />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/service" element={<Service />} />

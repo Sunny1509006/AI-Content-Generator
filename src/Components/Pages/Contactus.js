@@ -4,10 +4,16 @@ import { BsWhatsapp } from "react-icons/bs";
 // import { SiGmail } from "react-icons/si";
 import { CgMail } from "react-icons/cg";
 import { IoLocation } from "react-icons/io5";
+import { Helmet } from "react-helmet";
 
 export const Contactus = () => {
   return (
     <div className="contact-main">
+      <Helmet>
+        <title>
+          Contact Us
+        </title>
+      </Helmet>
       <h1>Get us In Touch</h1>
       <div className="contact-info-div">
       <div className="contact-info">

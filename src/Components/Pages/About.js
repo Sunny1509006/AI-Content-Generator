@@ -1,9 +1,15 @@
 import React from "react";
 import "./About.css";
+import { Helmet } from "react-helmet";
 
 export const About = () => {
   return (
     <div className="about-us-main">
+      <Helmet>
+        <title>
+          About Us
+        </title>
+      </Helmet>
       <h1>About Us</h1>
       <div className="about-us-body">
         <p>

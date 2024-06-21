@@ -4,6 +4,7 @@ import axios from "../../Axios";
 import { Link } from "react-router-dom";
 import { TbShieldCheck } from "react-icons/tb";
 import { CircularProgress, Stack, Typography } from "@mui/material";
+import { Helmet } from "react-helmet";
 
 const ConfirmEmail = () => {
   const [isConfirming, setIsConfirming] = useState(false);
@@ -37,6 +38,11 @@ const ConfirmEmail = () => {
         justifyContent: "center",
       }}
     >
+      <Helmet>
+        <title>
+          Confirm Your Mail 
+        </title>
+      </Helmet>
       {isConfirming && (
         <>
           <CircularProgress sx={{ color: "var(--primary-orange)" }} size={60} />

@@ -120,7 +120,7 @@ const SignUp = () => {
   return (
     <Grid className="sign_up_dummy_div">
       <Helmet>
-        <title>SignUp</title>
+        <title>Sign Up</title>
       </Helmet>
       <Paper elevation={20} className="sign_up_content">
         <Grid align="center" className="login-icon-div">

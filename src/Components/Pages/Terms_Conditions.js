@@ -1,9 +1,15 @@
 import React from "react";
 import "./Terms_Conditions.css";
+import { Helmet } from "react-helmet";
 
 export const Terms_Conditions = () => {
   return (
     <div className="terms-conditions-main">
+      <Helmet>
+        <title>
+          Terms & Conditions
+        </title>
+      </Helmet>
       <h1>Terms and Conditions</h1>
       <div className="terms-conditions-body">
         <p>

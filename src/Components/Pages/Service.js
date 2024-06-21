@@ -1,9 +1,15 @@
 import React from 'react'
 import "./Service.css"
+import { Helmet } from 'react-helmet'
 
 export const Service = () => {
   return (
     <div className='service-card-body'>
+        <Helmet>
+            <title>
+                Our Services
+            </title>
+        </Helmet>
         <h1>Always we offer the best services for success</h1>
         <div className='service-card-body-inner'>
             <div className='service-card'>

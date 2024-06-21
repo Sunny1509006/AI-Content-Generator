@@ -172,7 +172,7 @@ const SubmitManualPayment = () => {
   return (
     <PrivatePageLayout>
       <Helmet>
-        <title>Keyword Generator</title>
+        <title>Manual Payment Submit</title>
       </Helmet>
       <Box
         sx={{

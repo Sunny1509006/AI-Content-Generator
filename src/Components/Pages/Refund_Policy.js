@@ -1,9 +1,15 @@
 import React from "react";
 import "./Refund_Policy.css";
+import { Helmet } from "react-helmet";
 
 export const Refund_Policy = () => {
   return (
     <div className="refund-policy-main">
+      <Helmet>
+        <title>
+          Refund Policy
+        </title>
+      </Helmet>
       <h1>Refund Policy</h1>
       <div className="refund-policy-body">
       <p>
