@@ -1,15 +1,5 @@
-// import React from "react";
 import "./Title_Info.css";
 import { motion } from "framer-motion";
-
-// export const Title_Info = () => {
-//   return (
-//     <div className="title-info-main">
-//       <h1>Discover the Power of Affordable AI with Faisaliteb AI</h1>
-//       <p>Welcome to faisaliteb.ai, your go-to destination for harnessing the power of affordable AI solutions. Our cutting-edge technology combines the prowess of advanced algorithms and machine learning to empower businesses with top-notch content generation and copyright generation tools. From our versatile 123-ai content writer to our magical text generators, we have everything you need to streamline your content creation process.</p>
-//     </div>
-//   );
-// };
 
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
@@ -31,13 +21,34 @@ const bull = (
 
 export const Title_Info = () => {
   const texts = [
+    // {
+    //   line1: "Compose a 1000-Word Article",
+    //   line2: "With a Single Click!",
+    // },
+    // {
+    //   line1: "Control Article Length By",
+    //   line2: "Short, Medium & Long Format",
+    // },
     {
-      line1: "Compose a 1000-Word Article",
-      line2: "With a Single Click!",
+      line1: "Info",
     },
     {
-      line1: "Control Article Length By",
-      line2: "Short, Medium & Long Format",
+      line1: "Product Review",
+    },
+    {
+      line1: "Blog",
+    },
+    {
+      line1: "Amazon Review",
+    },
+    {
+      line1: "Bulk",
+    },
+    {
+      line1: "Backlinks",
+    },
+    {
+      line1: "Content Rewrite",
     },
   ];
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -52,20 +63,6 @@ export const Title_Info = () => {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography> */}
-        {/* <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
-        </Typography> */}
-        {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography> */}
-        {/* <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography> */}
         <motion.div
           variants={{
             hidden: { opacity: 0, y: 75 },
@@ -74,36 +71,9 @@ export const Title_Info = () => {
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.5, delay: 0.25 }}
-          
+
         >
           <div className="title-info-main">
-            {/* <h1>Discover the Power of Affordable AI with Faisaliteb AI</h1> */}
-            {/* <h1 style={{ fontSize: "60px" }}>
-              WELCOME TO <span style={{ color: "#FF4A17" }}>FAISALITEB.AI</span>
-            </h1> */}
-            {/* <div className="title-info-body">
-            <div className="title-info-p-button">
-              <p>
-                Welcome to <span className="blue-color">faisaliteb.ai</span>,
-                your go-to destination for harnessing the power of affordable AI
-                solutions.<br /><br /> Our cutting-edge technology combines the prowess of
-                advanced algorithms and machine learning to empower businesses
-                with top-notch content generation and copyright generation
-                tools.<br /><br /> From our versatile 123-ai content writer to our <span className="blue-color">magical
-                text generators</span>, we have everything you need to streamline your
-                content creation process.
-              </p>
-              <div className="button-div" style={{
-                    padding: '0 40px',
-                    marginTop: '20px',     
-                }}>
-                <Button variant="contained" className="custom-button" >
-                  Start Free Trial
-                </Button>
-              </div>
-            </div>
-            <img src="/images/power_of_ai.jpg" />
-          </div> */}
             <div
               style={{
                 display: "flex",
@@ -111,7 +81,7 @@ export const Title_Info = () => {
                 fontSize: "24px",
               }}
             >
-              <motion.span
+              {/* <motion.span
                 key={currentTextIndex}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -134,7 +104,7 @@ export const Title_Info = () => {
                       color: "#445658",
                     }}
                   >
-                    {texts[currentTextIndex].line1}
+                    Compose a 1000-Word <span style={{color: '#ff4a17'}}>{texts[currentTextIndex].line1}</span> Article
                   </p>
                   <p
                     style={{
@@ -143,17 +113,41 @@ export const Title_Info = () => {
                       color: "#445658",
                     }}
                   >
-                    {texts[currentTextIndex].line2}
+                    {/* {texts[currentTextIndex].line2} */}
+              {/* With a Single Click!
+
+                  </p>
+                  <p>
+                  Control Article Length By Short, Medium & Long Format
                   </p>
                 </div>
-              </motion.span>
+              </motion.span> */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <p style={{ fontSize: "70px", fontWeight: "bold", color: "#445658" }}>
+                  Compose a 1000-Word <motion.span
+                    key={currentTextIndex}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span style={{ color: '#ff4a17' }}>{texts[currentTextIndex].line1}</span>
+                  </motion.span> Article
+                </p>
+                <p style={{ fontSize: "50px", fontStyle: "italic", color: "#445658" }}>
+                  With a Single Click!
+                </p>
+                <p style={{marginTop: '30px', fontStyle: 'italic', fontSize: "30px"}}>
+                  Control Article Length By Short, Medium & Long Format
+                </p>
+              </div>
             </div>
             <div
               className="button-div"
               style={{
                 padding: "0 40px",
                 marginTop: "20px",
-                
+
               }}
             >
               <Link to="/info-article"><Button variant="contained" className="custom-button" >
@@ -164,9 +158,6 @@ export const Title_Info = () => {
           </div>
         </motion.div>
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
     </Card>
   );
 };

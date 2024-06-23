@@ -49,7 +49,7 @@ const InformationBulkContent = () => {
                     name="keywords"
                     label="Keywords"
                     placeholder="football, fifa worldcup, ..."
-                    helpText="You can write multiple keywords using comma(,)."
+                    helpText="You can write multiple keywords using Newline."
                   />
                 </Grid>
                 <Grid container={true} item={true} xs={12} spacing={4}>

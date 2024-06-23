@@ -295,7 +295,7 @@ export const BLOG_CATEGORIES = [
 export const GPT_MODELS = {
   GPT_4_TURBO: {
     name: "GPT 4 - Turbo",
-    value: "gpt-4-turbo",
+    value: "gpt-4",
   },
   GPT_4_O: {
     name: "GPT 4 - O",

@@ -5,6 +5,7 @@ import { Details } from "../Common/Details";
 import Faq from "./Faqs";
 import { Tool_Description } from "../Common/Tool_Description";
 import { Helmet } from "react-helmet";
+import { TempGenerate } from "../Common/TempGenerate";
 
 export const Homepage = () => {
   return (
@@ -15,6 +16,7 @@ export const Homepage = () => {
         </title>
       </Helmet>
       <Title_Info />
+      <TempGenerate />
       <Tool_Description />
       {/* <YouTubePlayer /> */}
       <Details />

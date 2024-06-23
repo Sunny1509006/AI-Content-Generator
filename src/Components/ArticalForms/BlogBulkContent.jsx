@@ -48,7 +48,7 @@ const BlogBulkContent = () => {
                     name="keywords"
                     label="Keywords"
                     placeholder="Write your keywords..."
-                    helpText="You can write multiple keywords using comma(,)."
+                    helpText="You can write multiple keywords using Newline."
                   />
                 </Grid>
                 <Grid container={true} item={true} xs={12} spacing={4}>
