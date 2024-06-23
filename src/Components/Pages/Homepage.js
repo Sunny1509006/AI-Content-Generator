@@ -9,7 +9,7 @@ import { TempGenerate } from "../Common/TempGenerate";
 
 export const Homepage = () => {
   return (
-    <>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '30px'}}>
       <Helmet>
         <title>
           Homepage
@@ -22,6 +22,6 @@ export const Homepage = () => {
       <Details />
 
       <Faq />
-    </>
+    </div>
   );
 };

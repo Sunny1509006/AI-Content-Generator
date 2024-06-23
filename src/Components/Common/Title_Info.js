@@ -123,7 +123,7 @@ export const Title_Info = () => {
                 </div>
               </motion.span> */}
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <p style={{ fontSize: "70px", fontWeight: "bold", color: "#445658" }}>
+                <p style={{ fontSize: "50px", fontWeight: "bold", color: "#445658" }}>
                   Compose a 1000-Word <motion.span
                     key={currentTextIndex}
                     initial={{ opacity: 0, x: -10 }}
@@ -150,7 +150,7 @@ export const Title_Info = () => {
 
               }}
             >
-              <Link to="/info-article"><Button variant="contained" className="custom-button" >
+              <Link to="/login"><Button variant="contained" className="custom-button" >
                 Start Free Trial
               </Button>
               </Link>
