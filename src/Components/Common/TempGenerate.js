@@ -21,7 +21,7 @@ export const TempGenerate = () => {
             </Grid>
             <div style={{width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between'}}>
                 <p style={{fontSize: '30px'}}>
-                    Write Your Keywords or Title  for Generating Article with <span style={{color: '#ff4a17', fontWeight: 'bold'}}>Free</span> of Cost by a single click! 
+                    Write Your Keywords or Title here for Generating Article with <span style={{color: '#ff4a17', fontWeight: 'bold'}}>Free</span> of Cost by a single click! 
                 </p>
                 <div
               className="button-div"

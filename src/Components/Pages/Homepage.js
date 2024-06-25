@@ -6,6 +6,7 @@ import Faq from "./Faqs";
 import { Tool_Description } from "../Common/Tool_Description";
 import { Helmet } from "react-helmet";
 import { TempGenerate } from "../Common/TempGenerate";
+import { HomeCard } from "../Common/HomeCard";
 
 export const Homepage = () => {
   return (
@@ -17,9 +18,10 @@ export const Homepage = () => {
       </Helmet>
       <Title_Info />
       <TempGenerate />
-      <Tool_Description />
+      <HomeCard />
+      {/* <Tool_Description /> */}
       {/* <YouTubePlayer /> */}
-      <Details />
+      {/* <Details /> */}
 
       <Faq />
     </div>
