@@ -7,7 +7,7 @@ export const Details = () => {
       <div>
         <h1>Experience Affordable AI Solutions</h1>
         <p>
-          At faisaliteb.ai, we believe in providing accessible AI solutions that
+          At Faisaliteb AI, we believe in providing accessible AI solutions that
           won't break the bank. We understand the importance of affordability
           without compromising on quality. Our affordable AI services are
           designed to offer exceptional value for businesses of all sizes, from
@@ -15,7 +15,7 @@ export const Details = () => {
         </p>
         <br />
         <p>
-          By choosing faisaliteb.ai, you can enjoy the benefits of advanced AI
+          By choosing Faisaliteb AI, you can enjoy the benefits of advanced AI
           technology at a fraction of the cost. We believe that everyone should
           have access to cutting-edge tools that can transform their content
           creation process. Our pricing options are flexible and tailored to
@@ -38,7 +38,7 @@ export const Details = () => {
         <h1>Give Faisaliteb AI a Try today</h1>
         <p>
           Ready to revolutionize your content creation process with affordable
-          AI? Unlock the power of faisaliteb.ai today and take your writing to
+          AI? Unlock the power of Faisaliteb AI today and take your writing to
           new heights. Whether you're a blogger, marketer, or business owner,
           our AI tools are here to simplify your workload and enhance your
           content's quality.
@@ -46,7 +46,7 @@ export const Details = () => {
         <br />
         <p>
           Don't miss out on the opportunity to save time, effort, and resources.
-          Visit faisaliteb.ai now and explore our range of affordable AI
+          Visit Faisaliteb AI now and explore our range of affordable AI
           solutions. Experience the magic of our content writers, expand text
           generators, comment generators, ask writers, and magic writers.
           Elevate your content and maximize your productivity with the click of
@@ -55,9 +55,9 @@ export const Details = () => {
         <br />
         <p>
           Invest in your success with the power of affordable AI. Join the
-          faisaliteb.ai community today and witness the transformative impact it
+          Faisaliteb AI community today and witness the transformative impact it
           can have on your content creation process. Click here to get started
-          and unlock the potential of your writing with faisaliteb.ai.
+          and unlock the potential of your writing with Faisaliteb AI
         </p>
       </div>
     </div>

@@ -7,10 +7,11 @@ import { Tool_Description } from "../Common/Tool_Description";
 import { Helmet } from "react-helmet";
 import { TempGenerate } from "../Common/TempGenerate";
 import { HomeCard } from "../Common/HomeCard";
+import { FeatureCard } from "../Common/FeatureCard";
 
 export const Homepage = () => {
   return (
-    <div style={{display: 'flex', flexDirection: 'column', gap: '30px'}}>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '50px'}}>
       <Helmet>
         <title>
           Homepage
@@ -21,7 +22,8 @@ export const Homepage = () => {
       <HomeCard />
       {/* <Tool_Description /> */}
       {/* <YouTubePlayer /> */}
-      {/* <Details /> */}
+      <Details />
+      <FeatureCard />
 
       <Faq />
     </div>

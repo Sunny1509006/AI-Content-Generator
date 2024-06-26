@@ -3,6 +3,7 @@
     flex-direction: column;
     padding: 40px 80px;
     gap: 40px;
+    background-color: rgb(249, 243, 243);
 }
 
 .details-main h1 {
