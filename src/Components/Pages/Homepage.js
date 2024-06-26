@@ -9,6 +9,7 @@ import { TempGenerate } from "../Common/TempGenerate";
 import { HomeCard } from "../Common/HomeCard";
 import { FeatureCard } from "../Common/FeatureCard";
 import { ServicePage } from "./ServicePage";
+import { BeginnerCard } from "../Common/BeginnerCard";
 
 export const Homepage = () => {
   return (
@@ -25,6 +26,7 @@ export const Homepage = () => {
       {/* <YouTubePlayer /> */}
       <Details />
       <FeatureCard />
+      <BeginnerCard />
       <ServicePage />
       <Faq />
       
