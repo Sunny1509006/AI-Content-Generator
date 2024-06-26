@@ -6,27 +6,27 @@ export const FeatureCard = () => {
         {
             title: "Simplified Content Creation",
             description: "Easily handle your content generation with just a few clicks using our AI-powered article editor.",
-            image: "/images/seo.png"
+            image: "/images/Content-creation.png"
         },
         {
             title: "Secure Payment Options",
             description: "Pay securely through any payment gateway method with our AI article editor.",
-            image: "/images/seo.png"
+            image: "/images/secure-payment.jpg"
         },
         {
             title: "Automated Blog Publishing",
             description: "Write and publish bulk blog articles directly to your WordPress site effortlessly.",
-            image: "/images/seo.png"
+            image: "/images/automated-blog.png"
         },
         {
             title: "Affiliate Earnings",
             description: "Refer friends and earn commissions from their first purchase through our affiliate system.",
-            image: "/images/seo.png"
+            image: "/images/affiliate.png"
         },
         {
             title: "Amazon Review Content Assistance",
             description: "Seeking content for your niche site? We're just a ticket away to help with Amazon review articles.",
-            image: "/images/seo.png"
+            image: "/images/amazon.jpg"
         },
     ]
     return (

@@ -11,7 +11,7 @@ export default function ActionAreaCard({ imglocation, title, description }) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="240"
+          height="300"
           image={imglocation}
           alt="green iguana"
           style={{padding: '30px'}}

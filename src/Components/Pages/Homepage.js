@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet";
 import { TempGenerate } from "../Common/TempGenerate";
 import { HomeCard } from "../Common/HomeCard";
 import { FeatureCard } from "../Common/FeatureCard";
+import { ServicePage } from "./ServicePage";
 
 export const Homepage = () => {
   return (
@@ -24,8 +25,9 @@ export const Homepage = () => {
       {/* <YouTubePlayer /> */}
       <Details />
       <FeatureCard />
-
+      <ServicePage />
       <Faq />
+      
     </div>
   );
 };
