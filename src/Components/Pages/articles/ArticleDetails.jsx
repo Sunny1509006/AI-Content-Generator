@@ -79,71 +79,82 @@ const ArticleDetails = () => {
         </Stack>
       ) : (
         <Box sx={{ maxWidth: "768px", margin: "auto" }}>
-          {isInEditMode ? (
-            <TextField
-              fullWidth
-              value={updatedTitle}
-              onChange={(event) => setUpdatedTitle(event?.target?.value)}
-              sx={{
-                marginBottom: "20px",
-              }}
-            />
-          ) : (
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: "32px",
-                fontWeight: "600",
-                marginBottom: "20px",
-                outline: "none",
-                lineHeight: 1.5,
-              }}
-            >
-              {updatedTitle}
-            </Typography>
-          )}
-          <Stack direction="row" spacing={2} sx={{ marginBottom: "52px" }}>
-            {!isInEditMode ? (
-              <>
-                <AppButton
-                  variant="contained"
-                  startIcon={<PublishRoundedIcon />}
-                  onClick={() => setOpenArticlePublishModal(true)}
-                >
-                  Publish
-                </AppButton>
-                <AppButton
-                  variant="outlined"
-                  startIcon={<EditRoundedIcon />}
-                  onClick={() => setIsInEditMode(true)}
-                >
-                  Edit
-                </AppButton>
-              </>
+          <Box
+            sx={{
+              position: isInEditMode ? "static" : "sticky",
+              top: "100px",
+              backgroundColor: "white",
+              zIndex: 1,
+              paddingTop: "16px",
+              paddingBottom: "52px",
+            }}
+          >
+            {isInEditMode ? (
+              <TextField
+                fullWidth
+                value={updatedTitle}
+                onChange={(event) => setUpdatedTitle(event?.target?.value)}
+                sx={{
+                  marginBottom: "20px",
+                }}
+              />
             ) : (
-              <>
-                <AppButton
-                  variant="contained"
-                  startIcon={<SaveRoundedIcon />}
-                  loading={isSaving}
-                  onClick={onSaveClick}
-                >
-                  Save
-                </AppButton>
-                <AppButton
-                  variant="outlined"
-                  onClick={() => setIsInEditMode(false)}
-                >
-                  Cancel
-                </AppButton>
-              </>
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: "32px",
+                  fontWeight: "600",
+                  marginBottom: "20px",
+                  outline: "none",
+                  lineHeight: 1.5,
+                }}
+              >
+                {updatedTitle}
+              </Typography>
             )}
-            <PublishArticleToSiteModal
-              open={openArticlePublishModal}
-              onClose={() => setOpenArticlePublishModal(false)}
-              articleID={articleID}
-            />
-          </Stack>
+            <Stack direction="row" spacing={2}>
+              {!isInEditMode ? (
+                <>
+                  <AppButton
+                    variant="contained"
+                    startIcon={<PublishRoundedIcon />}
+                    onClick={() => setOpenArticlePublishModal(true)}
+                  >
+                    Publish
+                  </AppButton>
+                  <AppButton
+                    variant="outlined"
+                    startIcon={<EditRoundedIcon />}
+                    onClick={() => setIsInEditMode(true)}
+                  >
+                    Edit
+                  </AppButton>
+                </>
+              ) : (
+                <>
+                  <AppButton
+                    variant="contained"
+                    startIcon={<SaveRoundedIcon />}
+                    loading={isSaving}
+                    onClick={onSaveClick}
+                  >
+                    Save
+                  </AppButton>
+                  <AppButton
+                    variant="outlined"
+                    onClick={() => setIsInEditMode(false)}
+                  >
+                    Cancel
+                  </AppButton>
+                </>
+              )}
+              <PublishArticleToSiteModal
+                open={openArticlePublishModal}
+                onClose={() => setOpenArticlePublishModal(false)}
+                articleID={articleID}
+              />
+            </Stack>
+          </Box>
           <Box>
             <ArticleEditor
               content={content}

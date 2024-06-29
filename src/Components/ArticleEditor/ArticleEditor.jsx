@@ -114,7 +114,14 @@ const ArticleEditor = (props) => {
       }}
     >
       <ArticleEditorToolbar editor={editor} editable={editable} />
-      <EditorContent editor={editor} />
+      <Box
+        sx={{
+          height: editable ? "calc(100vh - 440px)" : "auto",
+          overflow: "auto",
+        }}
+      >
+        <EditorContent editor={editor} />
+      </Box>
     </Box>
   );
 };
