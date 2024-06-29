@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./SignUp.css";
 import TextField from "@mui/material/TextField";
@@ -8,6 +8,7 @@ import axios from "../Axios";
 import { Captcha } from "../Common/Captcha";
 import useAuth from "../../hooks/authHooks";
 import AppButton from "../Common/AppButton";
+import SignUpConfirmationDialog from "../SignUp/SignUpConfirmationDialog";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const SignUp = () => {
   const [captchaHash, setCaptchaHash] = useState(null);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [captchaMatchError, setCaptchaMatchError] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [showSignupSuccessDialog, setShowSignupSuccessDialog] = useState(false);
   const { loggedInUser } = useAuth();
 
   const handleFullName = (event) => {
@@ -67,8 +70,10 @@ const SignUp = () => {
           text: inputCaptchaValue,
           hash: captchaHash,
         })
-        .then((result) => {
-          navigate("/login");
+        .then((response) => {
+          if (response.status === 201) {
+            setShowSignupSuccessDialog(true);
+          }
         })
         .catch((error) => {
           if (error.response && error.response.status === 403) {
@@ -82,11 +87,16 @@ const SignUp = () => {
             // Something happened in setting up the request that triggered an Error
             alert("Error", error.detail);
           }
+        })
+        .finally(() => {
+          setIsSigningUp(false);
         });
     }
   };
 
   const captchaMatch = () => {
+    setIsSigningUp(true);
+
     axios
       .post("/api/captcha/match", {
         hash: captchaHash,
@@ -100,6 +110,7 @@ const SignUp = () => {
       })
       .catch((error) => {
         setCaptchaMatchError(true);
+        setIsSigningUp(false);
       });
   };
 
@@ -216,13 +227,14 @@ const SignUp = () => {
               onChange={handleCaptchaValue}
               inputProps={{ style: { height: "15px" } }}
             />
-            <Button
-              className="text_field_sign custom-button"
+            <AppButton
+              variant="contained"
               onClick={captchaMatch}
+              loading={isSigningUp}
               disabled={captchaMatchError || passwordMatchError}
             >
               Submit
-            </Button>
+            </AppButton>
             <Stack>
               <Typography sx={{ fontSize: "14px" }}>
                 Already have an account? Please{" "}
@@ -234,6 +246,10 @@ const SignUp = () => {
           </div>
         </form>
       </Paper>
+      <SignUpConfirmationDialog
+        open={showSignupSuccessDialog}
+        onClose={() => setShowSignupSuccessDialog(false)}
+      />
     </Grid>
   );
 };
