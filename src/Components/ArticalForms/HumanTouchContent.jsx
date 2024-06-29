@@ -4,9 +4,13 @@ import TextInputBlock from "../ArticleGeneratorForm/components/TextInputBlock";
 import { Grid, Typography } from "@mui/material";
 import AppButton from "../Common/AppButton";
 import useGenerateArticle from "../../hooks/useGenerateArticle";
-import { ARTICLE_TYPES } from "../../utils/constants";
+import {
+  ARTICLE_TYPES,
+  BLOG_GENERATION_IMAGE_COUNT_OPTIONS,
+} from "../../utils/constants";
 import { Helmet } from "react-helmet";
-import SuggestionBlock from "../ArticleGeneratorForm/components/SuggestionBlock";
+import TextareaBlock from "../ArticleGeneratorForm/components/TextareaBlock";
+import SelectBlock from "../ArticleGeneratorForm/components/SelectBlock";
 
 const HumanTouchContent = () => {
   const { isGenerating, generateArticle } = useGenerateArticle();
@@ -42,30 +46,35 @@ const HumanTouchContent = () => {
               />
             </Grid>
             <Grid item={true} xs={12}>
-              <SuggestionBlock
+              <TextInputBlock
                 name="title"
-                label="Input Title"
-                placeholder="Choose your title or write your own..."
-                keywords={values?.keywords}
+                label="Title"
+                placeholder="Write your Title..."
               />
             </Grid>
-            <Grid container={true} item={true} xs={12} spacing={4}>
-              <Grid item={true} xs={12} sm={6} md={6}>
-                <TextInputBlock
-                  name="sub_heading_count"
-                  label="Sub-heading Count"
-                  placeholder="Number of sub-headings you like to have..."
-                  type="number"
-                />
-              </Grid>
-              <Grid item={true} xs={12} md={6}>
-                <TextInputBlock
-                  name="faq_count"
-                  label="Faq Count"
-                  placeholder="Number of faqs you like to have..."
-                  type="number"
-                />
-              </Grid>
+            <Grid item={true} xs={12}>
+              <TextareaBlock
+                name="subheadings"
+                label="Subheadings"
+                placeholder="Write your subheadings..."
+                helpText="You can write multiple subheading using separate lines."
+              />
+            </Grid>
+            <Grid item={true} xs={12}>
+              <TextareaBlock
+                name="faqs"
+                label="FAQs"
+                placeholder="Write your faqs..."
+                helpText="You can write multiple FAQ using separate lines."
+              />
+            </Grid>
+            <Grid item={true} xs={12}>
+              <SelectBlock
+                name="image_count"
+                label="Image Count"
+                placeholder="Number of images you like to have..."
+                options={BLOG_GENERATION_IMAGE_COUNT_OPTIONS}
+              />
             </Grid>
             <Grid item={true} xs={12}>
               <AppButton
@@ -81,8 +90,9 @@ const HumanTouchContent = () => {
                       keywords: values?.keywords || "",
                       title: values?.title?.trim() || "",
                       type: ARTICLE_TYPES.human_touch_content,
-                      numSubheading: values?.sub_heading_count || "",
-                      numFaq: values?.faq_count || "",
+                      subHeadings: values?.subheadings || "",
+                      faqs: values?.faqs || "",
+                      numImage: values?.image_count || "",
                     },
                   });
                 }}
